@@ -1,0 +1,139 @@
+/* int getSize() -> This function will return the number of elements in the linked-list. This function should work in O(1). For this keep track of a size variable and update it when we insert a new value in the linked-list.
+int getValue(index) -> This function will return the value present in the input index. If the index is greater or equal to the size of the linked-list return -1.
+void printReverse() -> This function will print the linked list in reverse order. You don’t need to reverse the linked list. Just need to print it in reverse order. You need to do this recursively. You cannot just take the elements in an array or vector and then print them in reverse order.
+void swapFirst() -> This function will swap the first two nodes in the linked list. If the linked-list contains less than 2 elements then just do nothing and return.
+
+        To check your code add the following code in your main function
+*/
+#include<bits/stdc++.h>
+using namespace std;
+class node 
+{
+    public:
+    int data;
+    node *nxt;
+};
+class LinkedList
+{
+    public:
+    node *head;
+    int size=0;
+    LinkedList ()
+    {
+        head = NULL;
+    }
+    node *create_new_node(int value){
+        node *newnode = new node;
+        newnode->data = value;
+        newnode-> nxt = NULL;
+        return newnode;
+    }
+    void InsertAtHead(int value)
+    {
+        node *a = create_new_node(value);
+        if(head==NULL)
+        {
+            head = a;
+            size++;
+            return;
+        }
+        a->nxt=head;
+        head = a;
+        size++;
+    }
+    int getSize()
+    {
+        return size;
+    }
+    int getValue(int index)
+    {
+        node* a = head;
+        int i = 0;
+        while(a!= NULL)
+        {
+            if(i==index)
+            {
+                return a->data;
+            }
+            a = a->nxt;
+            i++;
+        }
+        return -1;
+    }
+    void printReverse() {
+
+        printReverseRecursive(head);
+        cout<<endl;
+    }
+    void printReverseRecursive(node *n)
+    {
+        if(n) {
+            printReverseRecursive(n->nxt);
+            cout << n->data << " ";
+        }
+    }
+    void Traverse()
+    {
+        node* a = head;
+        while(a!= NULL)
+        {
+            cout<<a->data<<" ";
+            a = a->nxt;
+        }
+        cout<<"\n";
+    }
+    void swapFirst( ){
+        if (size>=2){
+            node *a = head;
+
+            node *b = a->nxt;
+
+            swap(a->data, b->data);
+
+        }
+
+
+       
+
+    }
+
+};
+
+int main( ){
+
+    LinkedList l;
+
+    cout<<l.getSize()<<"\n";
+
+    l.InsertAtHead(5);
+
+    cout<<l.getSize()<<"\n";
+
+    l.InsertAtHead(6);
+
+    l.InsertAtHead(30);
+
+    cout<<l.getSize()<<"\n";
+
+    l.InsertAtHead(20);
+
+    l.InsertAtHead(30);
+
+
+    cout<<l.getValue(2)<<"\n";
+
+
+    cout<<l.getValue(6)<<"\n";
+
+
+    l.printReverse();
+
+    l.Traverse();
+
+    l.swapFirst();
+
+    l.Traverse();
+
+    l.printReverse();
+
+}
