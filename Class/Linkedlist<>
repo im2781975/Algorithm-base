@@ -1,0 +1,231 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* nxt;
+    node* prv;
+};
+class doubly_linkedlist
+{
+    public:
+    int sz;
+    node* head;
+    doubly_linkedlist()
+    {
+        head=NULL;
+        sz=0;
+    }
+    node* create_new_node(int value)
+    {
+        node* newnode=new node;
+        newnode->data=value;
+        newnode->nxt=NULL;
+        newnode->prv=NULL;
+        return newnode;
+    }
+    void insert_head(int value)
+    {
+        sz++;
+        node* newnode=create_new_node(value);
+        if(head==NULL)
+        {
+            head=newnode;
+            return;
+        }
+        node* a=head;
+        newnode->nxt=a;
+        a->prv=newnode;
+        head=newnode;
+    }
+    void traverse()
+    {
+        node* a=head;
+        while(a!=NULL)
+        {
+            cout<<a->data<<" ";
+            a=a->nxt;
+        }
+        cout<<"\n";
+    }
+    /*int search_distinct(int value)
+    {
+        node* a=head;
+        int idx=0;
+        while(a!=NULL)
+        {
+            if(a->data==value)
+            {
+                return idx;
+            }
+            a=a->nxt;
+            idx++;
+        }
+        return -1;
+    }
+    void search_all_value(int value)
+    {
+        node* a=head;
+        int idx=0;
+        while(a!=NULL)
+        {
+            if(a->data==value)
+            {
+                cout<<value<<" "<<idx<<"\n";
+            }
+            a=a->nxt;
+            idx++;
+        }
+    }*/
+    void insert_any_idx(int value,int idx)
+    {
+        if(idx<0||idx>sz)
+        {
+            return;
+        }
+        if(idx==0)
+        {
+            insert_head(value);
+            return;
+        }
+        sz++;
+        node* a=head;
+        int cur_node=0;
+        while(cur_node!=idx-1)
+        {
+            a=a->nxt;
+            cur_node++;
+        }
+        node* newnode=create_new_node(value);
+        newnode->nxt=a->nxt;
+        newnode->prv=a;
+        a->nxt=newnode;
+        node* b=a->nxt;
+        b->prv=newnode;
+        a->nxt=newnode;
+        sz++;
+    }
+    void delete_head()
+    {
+        if(head==NULL)
+        {
+            return;
+        }
+        sz--;
+        node* a=head;
+        head=a->nxt;
+        delete a;
+    }
+    void delete_any_idx(int idx)
+    {
+        if(idx<0 || idx>sz-1)
+        {
+            return ;
+        }
+        node* a=head;
+        int cur_node=0;
+        while(cur_node!=idx)
+        {
+            a=a->nxt;
+            cur_node++;
+        }
+        node*b=a->prv;
+        node*c=a->nxt;
+        if(b!=NULL)
+        {
+            b->nxt=c;
+        }
+        if(c!=NULL)
+        {
+            c->prv=b;
+        }
+        delete a;
+        if(idx==0)
+        {
+            head=c;
+        }
+        sz--;
+    }
+    void get_size()
+    {
+        /*int sz=0;
+        node* a=head;
+        while(a!=NULL)
+        {
+            sz++;
+            a=a->nxt;
+        } */
+        cout<<sz;
+    }
+    /*void insert_after_value(int value,int data)
+    {
+        node* a=head;
+        while(a!=NULL)
+        {
+            if(a->data==value)
+            {
+                break;
+            }
+            a=a->nxt;
+        }
+        if(a==NULL)
+        {
+            cout<<value<<" doesn't exit.";
+            return ;
+        }
+        sz++;
+        node* newnode=create_new_node(data);
+        newnode->nxt=a->nxt;
+        a->nxt=newnode;
+    }
+    void reverse_print2(node* a)
+    {
+        if(a==NULL)
+        {
+            return;
+        }
+        reverse_print2(a->nxt);
+        cout<<a->data<<" ";
+    }*/
+    void reverse_print()
+    {
+        if(head==NULL)
+        {
+            return;
+        }
+        node *a=head;
+        int cur_idx=0;
+        while(cur_idx!=sz-1)
+        {
+            a=a->nxt;
+            cur_idx++;
+        }
+        node* b=head;
+        while(b!=NULL)
+        {
+            swap(b->nxt,b->prv);
+            b=b->prv;
+        }
+        head=a;
+    }
+};
+int main()
+{
+    doubly_linkedlist dl;
+    dl.insert_head(10);
+    dl.traverse();
+    //dl.insert_any_idx(12,2);
+    //l.traverse();
+    dl.insert_head(20);
+    dl.traverse();
+    dl.insert_head(24);
+    dl.traverse();
+    //l.insert_after_value(20,100);
+    //l.traverse();
+    dl.delete_head();
+    dl.traverse();
+    dl.get_size();
+    dl.reverse_print();
+    dl.traverse();
+}
