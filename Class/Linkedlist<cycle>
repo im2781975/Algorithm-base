@@ -1,0 +1,21 @@
+class solution
+{
+    public:
+    bool has_cycle(listnode*head)
+    {
+        listnode* slow=head;
+        listnode* fast=head;
+    while(slow!=NULL && fast->nxt!=NULL)
+    {
+        slow=slow->nxt;
+        fast=fast->nxt->nxt;
+        if(slow==NULL || fast==NULL)
+        {
+            return false;
+        }
+        if(slow->nxt==fast->nxt)
+        {
+            return true;
+        }
+    }return false;
+};
