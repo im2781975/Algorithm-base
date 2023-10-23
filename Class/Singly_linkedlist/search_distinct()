@@ -1,0 +1,15 @@
+int search_distinct(int value)
+    {
+        node* a=head;
+        int idx=0;
+        while(a!=NULL)
+        {
+            if(a->data==value)
+            {
+                return idx;
+            }
+            a=a->nxt;
+            idx++;
+        }
+        return -1;
+    }
