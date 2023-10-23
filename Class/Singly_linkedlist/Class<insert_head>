@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int sz;
+    int data;
+    node* nxt;
+};
+class linkedlist
+{
+    public:
+    int sz;
+    node* head;
+    linkedlist()
+    {
+        head=NULL;
+        sz=0;
+    }
+    node* create_new_node(int value)
+    {
+        node* newnode=new node;
+        newnode->data=value;
+        newnode->nxt=NULL;
+        return newnode;
+    }
+    void insert_head(int value)
+    {
+        sz++;
+        node* a=create_new_node(value);
+        if(head=NULL)
+        {
+            head=a;
+            return;
+        }
+        
+        a->nxt=head;
+        head=a;
+    }
+    void traverse()
+    {
+        node* a=head;
+        while(a!=NULL)
+        {
+            cout<<a->data<<" ";
+            a=a->nxt;
+        }
+        //cout<<"\n";
+    }
+};
