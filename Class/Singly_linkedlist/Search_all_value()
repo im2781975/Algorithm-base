@@ -1,0 +1,14 @@
+void search_all_value(int value)
+    {
+        node* a=head;
+        int idx=0;
+        while(a!=NULL)
+        {
+            if(a->data==value)
+            {
+                cout<<value<<" "<<idx<<"\n";
+            }
+            a=a->nxt;
+            idx++;
+        }
+    }
