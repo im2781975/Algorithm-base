@@ -1,0 +1,117 @@
+#include <iostream>
+
+template <typename T>
+class Node {
+public:
+    T data;
+    Node* prev;
+    Node* next;
+
+    Node(T val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+template <typename T>
+class Deque {
+private:
+    Node<T>* frontNode;
+    Node<T>* backNode;
+    int size;
+
+public:
+    Deque() : frontNode(nullptr), backNode(nullptr), size(0) {}
+
+    bool empty() const {
+        return size == 0;
+    }
+
+    int getSize() const {
+        return size;
+    }
+
+    void push_front(const T& value) {
+        Node<T>* newNode = new Node<T>(value);
+        if (empty()) {
+            frontNode = backNode = newNode;
+        } else {
+            newNode->next = frontNode;
+            frontNode->prev = newNode;
+            frontNode = newNode;
+        }
+        size++;
+    }
+
+    void push_back(const T& value) {
+        Node<T>* newNode = new Node<T>(value);
+        if (empty()) {
+            frontNode = backNode = newNode;
+        } else {
+            newNode->prev = backNode;
+            backNode->next = newNode;
+            backNode = newNode;
+        }
+        size++;
+    }
+
+    void pop_front() {
+        if (!empty()) {
+            Node<T>* temp = frontNode;
+            frontNode = frontNode->next;
+            if (frontNode) {
+                frontNode->prev = nullptr;
+            } else {
+                backNode = nullptr;
+            }
+            delete temp;
+            size--;
+        }
+    }
+
+    void pop_back() {
+        if (!empty()) {
+            Node<T>* temp = backNode;
+            backNode = backNode->prev;
+            if (backNode) {
+                backNode->next = nullptr;
+            } else {
+                frontNode = nullptr;
+            }
+            delete temp;
+            size--;
+        }
+    }
+
+    T front() const {
+        if (!empty()) {
+            return frontNode->data;
+        }
+        throw std::runtime_error("Deque is empty.");
+    }
+
+    T back() const {
+        if (!empty()) {
+            return backNode->data;
+        }
+        throw std::runtime_error("Deque is empty.");
+    }
+};
+
+int main() {
+    Deque<int> myDeque;
+
+    myDeque.push_front(1);
+    myDeque.push_back(2);
+    myDeque.push_front(3);
+    myDeque.push_back(4);
+
+    std::cout << "Front: " << myDeque.front() << std::endl; // Output: Front: 3
+    std::cout << "Back: " << myDeque.back() << std::endl;   // Output: Back: 4
+
+    myDeque.pop_front();
+    myDeque.pop_back();
+
+    std::cout << "Front after pop_front: " << myDeque.front() << std::endl; // Output: Front after pop_front: 1
+    std::cout << "Back after pop_back: " << myDeque.back() << std::endl;     // Output: Back after pop_back: 2
+
+    return 0;
+}
+
