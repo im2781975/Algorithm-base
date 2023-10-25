@@ -1,0 +1,28 @@
+#include <iostream>
+#include <deque>
+#include <algorithm>
+
+void reverseDeque(std::deque<int>& dq) {
+    std::reverse(dq.begin(), dq.end());
+}
+
+int main() {
+    std::deque<int> myDeque = {1, 2, 3, 4, 5};
+
+    std::cout << "Original Deque: ";
+    for (const auto& elem : myDeque) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    reverseDeque(myDeque);
+
+    std::cout << "Reversed Deque: ";
+    for (const auto& elem : myDeque) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
