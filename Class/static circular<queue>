@@ -1,0 +1,74 @@
+#include <iostream>
+#include <stdexcept>
+
+template <typename T>
+class CircularQueue {
+private:
+    T array[10];  // Static circular array with a size of 10
+    int front, rear, itemCount;
+
+public:
+    CircularQueue() : front(-1), rear(-1), itemCount(0) {}
+
+    // Function to check if the queue is empty
+    bool isEmpty() const {
+        return itemCount == 0;
+    }
+
+    // Function to check if the queue is full
+    bool isFull() const {
+        return itemCount == 10;
+    }
+
+    // Function to get the current size of the queue
+    int size() const {
+        return itemCount;
+    }
+
+    // Function to enqueue an element
+    void enqueue(const T& item) {
+        if (isFull()) {
+            throw std::overflow_error("Queue is full");
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % 10;  // Circular increment
+        }
+
+        array[rear] = item;
+        itemCount++;
+    }
+
+    // Function to dequeue an element
+    T dequeue() {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue is empty");
+        }
+
+        T item = array[front];
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % 10;  // Circular increment
+        }
+
+        itemCount--;
+        return item;
+    }
+};
+
+int main() {
+    CircularQueue<int> queue;
+
+    for (int i = 1; i <= 10; i++) {
+        queue.enqueue(i * 10);
+    }
+
+    while (!queue.isEmpty()) {
+        std::cout << "Dequeued: " << queue.dequeue() << std::endl;
+    }
+
+    return 0;
+}
