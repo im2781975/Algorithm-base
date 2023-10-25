@@ -1,0 +1,192 @@
+#include <iostream>
+
+class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+    Node(int value) : data(value), prev(nullptr), next(nullptr) {}
+};
+
+class DoublyLinkedList {
+private:
+    Node* head;
+    Node* tail;
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+
+    // Function to add a new element to the front of the list
+    void addToFront(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+
+    // Function to remove the last element from the list
+    void removeLast() {
+        if (tail != nullptr) {
+            if (tail->prev != nullptr) {
+                Node* newTail = tail->prev;
+                newTail->next = nullptr;
+                delete tail;
+                tail = newTail;
+            } else {
+                delete tail;
+                head = tail = nullptr;
+            }
+        }
+    }
+
+    // Function to find the i-th index of the list
+    int findAtIndex(int index) {
+        Node* current = head;
+        int i = 0;
+        while (current != nullptr && i < index) {
+            current = current->next;
+            i++;
+        }
+        if (current != nullptr) {
+            return current->data;
+        }
+        return -1; // Element not found
+    }
+
+    // Function to check if a given element exists in the list
+    bool contains(int element) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == element) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    // Function to reverse the list
+    void reverse() {
+        Node* current = head;
+        Node* temp = nullptr;
+        while (current != nullptr) {
+            temp = current->prev;
+            current->prev = current->next;
+            current->next = temp;
+            current = current->prev;
+        }
+        if (temp != nullptr) {
+            head = temp->prev;
+        }
+    }
+
+    // Function to insert an element at a specific index
+    void insertAtIndex(int index, int element) {
+        if (index == 0) {
+            addToFront(element);
+            return;
+        }
+        Node* newNode = new Node(element);
+        Node* current = head;
+        int i = 0;
+        while (current != nullptr && i < index) {
+            current = current->next;
+            i++;
+        }
+        if (current != nullptr) {
+            newNode->prev = current->prev;
+            newNode->next = current;
+            current->prev->next = newNode;
+            current->prev = newNode;
+        }
+    }
+
+    // Function to delete a specific element from the list
+    void deleteElement(int element) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == element) {
+                if (current == head) {
+                    head = current->next;
+                    if (head != nullptr) {
+                        head->prev = nullptr;
+                    }
+                } else if (current == tail) {
+                    tail = current->prev;
+                    tail->next = nullptr;
+                } else {
+                    current->prev->next = current->next;
+                    current->next->prev = current->prev;
+                }
+                delete current;
+                return;
+            }
+            current = current->next;
+        }
+    }
+
+    // Function to check if the list is a palindrome
+    bool isPalindrome() {
+        Node* front = head;
+        Node* back = tail;
+        while (front != nullptr && back != nullptr) {
+            if (front->data != back->data) {
+                return false;
+            }
+            front = front->next;
+            back = back->prev;
+        }
+        return true;
+    }
+
+    // Function to print all the elements of the list
+    void print() {
+        Node* current = head;
+        std::cout << "Doubly linked list containing the elements [";
+        while (current != nullptr) {
+            std::cout << current->data;
+            if (current->next != nullptr) {
+                std::cout << ", ";
+            }
+            current = current->next;
+        }
+        std::cout << "]\n";
+    }
+};
+
+int main() {
+    DoublyLinkedList dll;
+    dll.addToFront(5);
+    dll.addToFront(4);
+    dll.addToFront(3);
+    dll.addToFront(2);
+    dll.addToFront(1);
+    dll.print(); // Output: Doubly linked list containing the elements [1, 2, 3, 4, 5]
+
+    dll.removeLast();
+    dll.print(); // Output: Doubly linked list containing the elements [1, 2, 3, 4]
+
+    int atIndex = dll.findAtIndex(2);
+    std::cout << atIndex << std::endl; // Output: 3
+
+    bool containsElement = dll.contains(3);
+    std::cout << containsElement << std::endl; // Output: 1 (true)
+
+    dll.reverse();
+    dll.print(); // Output: Doubly linked list containing the elements [4, 3, 2, 1]
+
+    dll.insertAtIndex(1, 0);
+    dll.print(); // Output: Doubly linked list containing the elements [4, 0, 3, 2, 1]
+
+    dll.deleteElement(3);
+    dll.print(); // Output: Doubly linked list containing the elements [4, 0, 2, 1]
+
+    bool isPalin = dll.isPalindrome();
+    std::cout << isPalin << std::endl; // Output: 0 (false)
+
+    return 0;
+}
+
