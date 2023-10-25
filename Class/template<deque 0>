@@ -1,0 +1,119 @@
+#include <iostream>
+
+template <typename T>
+class Node {
+public:
+    T data;
+    Node* next;
+    Node* prev;
+    Node(T val) : data(val), next(nullptr), prev(nullptr) {}
+};
+
+template <typename T>
+class Deque {
+private:
+    Node<T>* frontNode;
+    Node<T>* backNode;
+    size_t size;
+
+public:
+    Deque() : frontNode(nullptr), backNode(nullptr), size(0) {}
+
+    void push_front(T val) {
+        Node<T>* newNode = new Node<T>(val);
+        if (size == 0) {
+            frontNode = backNode = newNode;
+        } else {
+            newNode->next = frontNode;
+            frontNode->prev = newNode;
+            frontNode = newNode;
+        }
+        size++;
+    }
+
+    void push_back(T val) {
+        Node<T>* newNode = new Node<T>(val);
+        if (size == 0) {
+            frontNode = backNode = newNode;
+        } else {
+            newNode->prev = backNode;
+            backNode->next = newNode;
+            backNode = newNode;
+        }
+        size++;
+    }
+
+    void pop_front() {
+        if (size == 0) {
+            std::cerr << "Deque is empty, cannot pop_front." << std::endl;
+            return;
+        }
+        if (size == 1) {
+            delete frontNode;
+            frontNode = backNode = nullptr;
+        } else {
+            Node<T>* temp = frontNode;
+            frontNode = frontNode->next;
+            frontNode->prev = nullptr;
+            delete temp;
+        }
+        size--;
+    }
+
+    void pop_back() {
+        if (size == 0) {
+            std::cerr << "Deque is empty, cannot pop_back." << std::endl;
+            return;
+        }
+        if (size == 1) {
+            delete backNode;
+            frontNode = backNode = nullptr;
+        } else {
+            Node<T>* temp = backNode;
+            backNode = backNode->prev;
+            backNode->next = nullptr;
+            delete temp;
+        }
+        size--;
+    }
+
+    T front() {
+        if (size == 0) {
+            std::cerr << "Deque is empty, front() not available." << std::endl;
+            return T();
+        }
+        return frontNode->data;
+    }
+
+    T back() {
+        if (size == 0) {
+            std::cerr << "Deque is empty, back() not available." << std::endl;
+            return T();
+        }
+        return backNode->data;
+    }
+
+    size_t getSize() {
+        return size;
+    }
+};
+
+int main() {
+    Deque<int> deque;
+    
+    deque.push_back(1);
+    deque.push_front(2);
+    deque.push_back(3);
+
+    std::cout << "Front: " << deque.front() << std::endl;
+    std::cout << "Back: " << deque.back() << std::endl;
+
+    deque.pop_front();
+    deque.pop_back();
+
+    std::cout << "Front after pop_front: " << deque.front() << std::endl;
+    std::cout << "Back after pop_back: " << deque.back() << std::endl;
+
+    return 0;
+}
+
