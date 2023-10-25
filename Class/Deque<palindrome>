@@ -1,0 +1,39 @@
+#include <iostream>
+#include <deque>
+#include <string>
+#include <cctype>
+
+bool isPalindrome(const std::string& str) {
+    std::deque<char> charDeque;
+    
+    for (char c : str) {
+        if (isalnum(c)) {  // Ignore non-alphanumeric characters
+            charDeque.push_back(tolower(c));
+        }
+    }
+
+    while (charDeque.size() > 1) {
+        if (charDeque.front() != charDeque.back()) {
+            return false;
+        }
+        charDeque.pop_front();
+        charDeque.pop_back();
+    }
+
+    return true;
+}
+
+int main() {
+    std::string input;
+    
+    while (std::cin >> input) {
+        if (isPalindrome(input)) {
+            std::cout << "Yes" << std::endl;
+        } else {
+            std::cout << "No" << std::endl;
+        }
+    }
+    
+    return 0;
+}
+
