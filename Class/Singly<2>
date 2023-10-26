@@ -1,0 +1,80 @@
+#include <iostream>
+
+class Node {
+public:
+    int data;
+    Node* next;
+    
+    Node(int value) : data(value), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() : head(nullptr) {}
+
+    // Add a node to the end of the linked list
+    void append(int value) {
+        Node* newNode = new Node(value);
+        if (!head) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    // Get the last element of the linked list
+    int getLast() {
+        if (!head) {
+            return -1; // Return -1 for an empty list
+        }
+
+        Node* current = head;
+        while (current->next) {
+            current = current->next;
+        }
+
+        return current->data;
+    }
+
+    // Calculate the average of all elements in the linked list
+    double getAverage() {
+        if (!head) {
+            return 0.0; // Return 0 for an empty list
+        }
+
+        int sum = 0;
+        int count = 0;
+        Node* current = head;
+
+        while (current) {
+            sum += current->data;
+            count++;
+            current = current->next;
+        }
+
+        return static_cast<double>(sum) / count;
+    }
+};
+
+int main() {
+    LinkedList list;
+    list.append(3);
+    list.append(2);
+    list.append(6);
+    list.append(4);
+    list.append(7);
+
+    int last = list.getLast();
+    double average = list.getAverage();
+
+    std::cout << "Last: " << last << std::endl;
+    std::cout << "Average: " << average << std::endl;
+
+    return 0;
+}
