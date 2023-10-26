@@ -1,0 +1,81 @@
+#include <iostream>
+
+class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+class DoublyLinkedList {
+private:
+    Node* head;
+
+public:
+    DoublyLinkedList() : head(nullptr) {}
+
+    // Implement your other functions here...
+
+    void swap(int i, int j) {
+        Node* nodeI = getNodeAt(i);
+        Node* nodeJ = getNodeAt(j);
+
+        if (nodeI && nodeJ) {
+            int temp = nodeI->data;
+            nodeI->data = nodeJ->data;
+            nodeJ->data = temp;
+        }
+    }
+
+    void deleteZero() {
+        Node* current = head;
+        while (current) {
+            Node* nextNode = current->next;
+            if (current->data == 0) {
+                if (current == head) {
+                    head = nextNode;
+                    if (nextNode) {
+                        nextNode->prev = nullptr;
+                    }
+                } else {
+                    current->prev->next = nextNode;
+                    if (nextNode) {
+                        nextNode->prev = current->prev;
+                    }
+                }
+                delete current;
+            }
+            current = nextNode;
+        }
+    }
+
+    // Implement other helper functions like getNodeAt, display, etc.
+
+    // Display the list
+    void display() {
+        Node* current = head;
+        while (current) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+
+    // Add more functions as needed
+};
+
+int main() {
+    DoublyLinkedList myList;
+    // Populate the list and perform operations
+    // For example: myList.pushBack(3); myList.pushBack(2); ...
+
+    myList.display(); // Display the original list
+    myList.swap(1, 4);
+    myList.display(); // Display the list after swap
+    myList.deleteZero();
+    myList.display(); // Display the list after deleting zeros
+
+    return 0;
+}
+
