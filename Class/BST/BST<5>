@@ -1,0 +1,46 @@
+#include <iostream>
+#include <queue>
+
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+};
+
+bool isCompleteBinaryTree(TreeNode* root) {
+    if (root == nullptr)
+        return true;
+
+    std::queue<TreeNode*> q;
+    q.push(root);
+
+    bool nonFullNodeEncountered = false;
+
+    while (!q.empty()) {
+        TreeNode* current = q.front();
+        q.pop();
+
+        if (current == nullptr) {
+            nonFullNodeEncountered = true;
+        } else {
+            if (nonFullNodeEncountered)
+                return false;
+
+            q.push(current->left);
+            q.push(current->right);
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    TreeNode* root = new TreeNode{1, new TreeNode{2, nullptr, nullptr}, new TreeNode{3, nullptr, nullptr}};
+
+    if (isCompleteBinaryTree(root))
+        std::cout << "It's a Complete Binary Tree." << std::endl;
+    else
+        std::cout << "It's not a Complete Binary Tree." << std::endl;
+
+    return 0;
+}
