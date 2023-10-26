@@ -1,0 +1,38 @@
+#include <iostream>
+
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
+};
+
+int findMin(TreeNode* root) {
+    if (root == nullptr) {
+        // The tree is empty, return an appropriate value (e.g., -1 or throw an exception).
+        return -1;
+    }
+    
+    while (root->left != nullptr) {
+        root = root->left;
+    }
+    
+    return root->data;
+}
+
+int main() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(8);
+    root->left->left = new TreeNode(2);
+    root->left->right = new TreeNode(4);
+    
+    int minVal = findMin(root);
+    std::cout << "The minimum value in the BST is: " << minVal << std::endl;
+    
+    // Remember to free memory and delete the tree to avoid memory leaks.
+    // You can use a similar approach to delete the tree.
+    
+    return 0;
+}
