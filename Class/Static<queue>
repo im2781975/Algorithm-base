@@ -1,0 +1,70 @@
+#include <iostream>
+
+class StaticArrayQueue {
+private:
+    int arr[100]; // Static array with a maximum size of 100
+    int frontIdx;
+    int rearIdx;
+
+public:
+    StaticArrayQueue() {
+        frontIdx = -1;
+        rearIdx = -1;
+    }
+
+    bool isEmpty() {
+        return frontIdx == -1;
+    }
+
+    bool isFull() {
+        return rearIdx == 99;
+    }
+
+    void enqueue(int item) {
+        if (isFull()) {
+            std::cout << "Queue is full. Cannot enqueue." << std::endl;
+        } else {
+            if (isEmpty()) {
+                frontIdx = 0;
+            }
+            arr[++rearIdx] = item;
+        }
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            std::cout << "Queue is empty. Cannot dequeue." << std::endl;
+        } else {
+            if (frontIdx == rearIdx) {
+                // Last element in the queue
+                frontIdx = rearIdx = -1;
+            } else {
+                frontIdx++;
+            }
+        }
+    }
+
+    int front() {
+        if (isEmpty()) {
+            std::cout << "Queue is empty. No front element." << std::endl;
+            return -1; // You can choose to return a specific value for an empty queue
+        } else {
+            return arr[frontIdx];
+        }
+    }
+};
+
+int main() {
+    StaticArrayQueue queue;
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    std::cout << "Front element: " << queue.front() << std::endl;
+
+    queue.dequeue();
+    std::cout << "Front element after dequeue: " << queue.front() << std::endl;
+
+    return 0;
+}
+
