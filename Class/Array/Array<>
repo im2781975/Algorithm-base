@@ -1,8 +1,13 @@
-.#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+void push_back(int x);
+void insert(int pos,int x);
+void Print();
+int getSize();
+int getElement(int idx);
+void Pop_back();
+void Erase(int pos);
 
-//Memory Complexity O(n)
-// v.insert(v.begin()+i)
 class Array{
 private:
     int *arr;
@@ -20,14 +25,25 @@ private:
         delete [] arr;
         arr = tmp;
     }
-public:
+    void decrease_size()
+    {
+        cap=cap/2;
+        int *tmp=new int[cap];
+        for(int i=0;i<sz;i++)
+        {
+            tmp[i]=arr[i];
+        }
+        delete [] arr;
+        arr=tmp;
+    }
+    public:
     Array()
     {
         arr = new int[1];
         cap = 1;
         sz = 0;
     }
-    //Time Complexity O(1)
+
     void Push_back(int x)
     {
         if(cap==sz)
@@ -37,7 +53,7 @@ public:
         arr[sz] = x;
         sz++;
     }
-    //O(sz-pos) O(sz)
+
     void Insert(int pos, int x)
     {
         if(cap==sz)
@@ -51,47 +67,58 @@ public:
         arr[pos] = x;
         sz++;
     }
-    // O(sz)
+    
     void Print()
     {
+        cout<<"\nElements are: ";
         for(int i=0;i<sz;i++)
         {
             cout<<arr[i]<<" ";
         }
-        cout<<"\n";
     }
-    // O(1)
+    
     int getSize()
     {
         return sz;
     }
-    // O(1)
+    
     int getElement(int idx)
     {
         if(idx>=sz)
         {
-            cout<<"Error "<<idx<<" is out of bound!\n";
+            cout<<"\nError "<<idx<<" is out of bound! ";
             return -1;
         }
         return arr[idx];
     }
-    // sz = cap/2 , then cap = cap/2
-    // O(1)
+    void  getElements(Array a)
+    {   cout<<"\nElements are: ";
+        for(int i=0;i<a.getSize();i++)
+            cout<<a.getElement(i)<<" ";
+    }
     void Pop_back()
     {
+        if(sz<=cap/2)
+        {
+            decrease_size();
+        }
         if(sz==0)
         {
-            cout<<"Current size is 0\n";
+            cout<<"\nCurrent size is 0";
             return;
         }
         sz--;
     }
-    // O(sz)
+    
     void Erase(int pos)
     {
+        if(sz<=cap/2)
+        {
+            decrease_size();
+        }
         if(pos>=sz)
         {
-            cout<<"Position doesn't exist.\n";
+            cout<<"\nPosition doesn't exist.";
             return;
         }
         for(int i=pos+1;i<sz;i++)
@@ -100,7 +127,6 @@ public:
         }
         sz--;
     }
-
 };
 
 int main()
@@ -114,17 +140,12 @@ int main()
     a.Insert(1,5);
     a.Print();
 
-//    cout<<a.getSize()<<"\n";
-//
-//    for(int i=0;i<a.getSize();i++)
-//    {
-//        cout<<a.getElement(i)<<"\n";
-//    }
-    a.Pop_back();
-    a.Print();
-    a.Pop_back();
-    a.Print();
+    cout<<"\nSize is: "<<a.getSize()<<" ";
 
+    a.Pop_back();
+    a.Print();
+    a.Pop_back();
+    a.Print();
     a.Erase(1);
     a.Print();
     return 0;
