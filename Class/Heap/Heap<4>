@@ -1,0 +1,68 @@
+#include <vector>
+
+class MinHeap {
+public:
+    std::vector<int> heap;
+
+    // Constructor to initialize an empty heap
+    MinHeap() {
+        // The first element (index 0) is not used to simplify the indexing
+        heap.push_back(0);
+    }
+
+    // Insert an element into the min-heap
+    void insert(int x) {
+        heap.push_back(x);
+        int current = heap.size() - 1;
+
+        // Move the newly inserted element up the tree to maintain the heap property
+        while (current > 1 && heap[current] < heap[current / 2]) {
+            std::swap(heap[current], heap[current / 2]);
+            current = current / 2;
+        }
+    }
+
+    // Delete an element at a given index
+    void Delete(int idx) {
+        if (idx < 1 || idx >= heap.size()) {
+            return; // Invalid index
+        }
+
+        // Replace the element at the specified index with the last element
+        heap[idx] = heap.back();
+        heap.pop_back();
+
+        // Adjust the heap to maintain the min-heap property
+        int current = idx;
+        while (current < heap.size()) {
+            int left = current * 2;
+            int right = current * 2 + 1;
+            int smallest = current;
+
+            if (left < heap.size() && heap[left] < heap[current]) {
+                smallest = left;
+            }
+            if (right < heap.size() && heap[right] < heap[smallest]) {
+                smallest = right;
+            }
+
+            if (smallest != current) {
+                std::swap(heap[current], heap[smallest]);
+                current = smallest;
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Get the minimum element (the root) of the min-heap
+    int getMin() {
+        if (heap.size() > 1) {
+            return heap[1];
+        } else {
+            // The heap is empty
+            return -1; // You can choose a different value to indicate an empty heap
+        }
+    }
+};
+
