@@ -1,0 +1,126 @@
+#include <iostream>
+
+class Node {
+public:
+    int value;
+    Node* nxt;
+    Node* prv;
+    Node(int val) : value(val), nxt(nullptr), prv(nullptr) {}
+};
+
+class LinkedList {
+private:
+    Node* head;
+    Node* tail;
+
+public:
+    LinkedList() : head(nullptr), tail(nullptr) {}
+
+    void insertHead(int value) {
+        Node* newNode = new Node(value);
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            newNode->nxt = head;
+            head->prv = newNode;
+            head = newNode;
+        }
+    }
+
+    void insertTail(int value) {
+        Node* newNode = new Node(value);
+        if (!tail) {
+            head = tail = newNode;
+        } else {
+            newNode->prv = tail;
+            tail->nxt = newNode;
+            tail = newNode;
+        }
+    }
+
+    void insertMid(int value) {
+        Node* newNode = new Node(value);
+        if (!head) {
+            head = tail = newNode;
+        } else if (head == tail) {
+            tail = newNode;
+            head->nxt = newNode;
+            newNode->prv = head;
+        } else {
+            Node* middle = head;
+            int count = 0;
+            while (middle != tail && count < 2) {
+                middle = middle->nxt;
+                count++;
+            }
+            newNode->nxt = middle;
+            newNode->prv = middle->prv;
+            middle->prv->nxt = newNode;
+            middle->prv = newNode;
+        }
+    }
+
+    void print() {
+        Node* current = head;
+        while (current != nullptr) {
+            std::cout << current->value << " ";
+            current = current->nxt;
+        }
+        std::cout << std::endl;
+    }
+
+    void Merge(LinkedList other) {
+        if (!other.head) {
+            return;
+        }
+        if (!head) {
+            head = other.head;
+            tail = other.tail;
+        } else {
+            tail->nxt = other.head;
+            other.head->prv = tail;
+            tail = other.tail;
+        }
+        other.head = nullptr;
+        other.tail = nullptr;
+    }
+
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->nxt;
+            delete temp;
+        }
+    }
+};
+
+int main() {
+    LinkedList a;
+    LinkedList b;
+
+    a.insertHead(1);
+    a.insertTail(5);
+    a.insertMid(3);
+    a.insertHead(0);
+    a.insertTail(10);
+    std::cout << "a: ";
+    a.print(); // prints 0 1 3 5 10
+
+    b.insertHead(10);
+    b.insertTail(50);
+    b.insertMid(30);
+    b.insertHead(9);
+    b.insertTail(100);
+    std::cout << "b: ";
+    b.print(); // prints 9 10 30 50 100
+
+    a.Merge(b);
+    std::cout << "a after merging with b: ";
+    a.print(); // prints 0 1 3 5 10 9 10 30 50 100
+    std::cout << "b after merging with a: ";
+    b.print(); // prints nothing
+
+    return 0;
+}
+
