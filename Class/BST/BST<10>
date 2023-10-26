@@ -1,0 +1,48 @@
+#include <iostream>
+
+// Define the TreeNode structure for a BST
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+bool isValidBST(TreeNode* root) {
+    return isValidBST(root, nullptr, nullptr);
+}
+
+bool isValidBST(TreeNode* node, TreeNode* minNode, TreeNode* maxNode) {
+    if (node == nullptr) {
+        return true;
+    }
+
+    // Check if the current node's value is within the valid range
+    if ((minNode && node->val <= minNode->val) || (maxNode && node->val >= maxNode->val)) {
+        return false;
+    }
+
+    // Recursively check the left and right subtrees
+    return isValidBST(node->left, minNode, node) && isValidBST(node->right, node, maxNode);
+}
+
+int main() {
+    // Example usage:
+    TreeNode* root = new TreeNode(2);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(3);
+
+    if (isValidBST(root)) {
+        std::cout << "The binary search tree is valid." << std::endl;
+    } else {
+        std::cout << "The binary search tree is not valid." << std::endl;
+    }
+
+    // Remember to free the allocated memory in a real application
+    delete root->left;
+    delete root->right;
+    delete root;
+
+    return 0;
+}
+
