@@ -1,5 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
+void insert_head(int value);
+void traverse();
+int search_distinct(int value);
+void search_all_value(int value);
+void insert_any_idx(int value,int idx);
+void delete_head();
+void delete_any_idx(int idx);
+void get_size();
+void insert_after_value(int value,int data);
+void reverse_print2();
+void reverse_print();
 class node
 {
     public:
