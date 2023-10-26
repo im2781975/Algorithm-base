@@ -1,0 +1,88 @@
+#include <iostream>
+#include <vector>
+
+class MinHeap {
+private:
+    std::vector<int> heap;
+
+    // Helper functions to maintain the heap property
+    void heapifyUp(int index) {
+        while (index > 0) {
+            int parentIndex = (index - 1) / 2;
+            if (heap[index] < heap[parentIndex]) {
+                std::swap(heap[index], heap[parentIndex]);
+                index = parentIndex;
+            } else {
+                break;
+            }
+        }
+    }
+
+    void heapifyDown(int index) {
+        int leftChildIndex = 2 * index + 1;
+        int rightChildIndex = 2 * index + 2;
+        int smallest = index;
+
+        if (leftChildIndex < heap.size() && heap[leftChildIndex] < heap[smallest]) {
+            smallest = leftChildIndex;
+        }
+        if (rightChildIndex < heap.size() && heap[rightChildIndex] < heap[smallest]) {
+            smallest = rightChildIndex;
+        }
+
+        if (smallest != index) {
+            std::swap(heap[index], heap[smallest]);
+            heapifyDown(smallest);
+        }
+    }
+
+public:
+    // Add a value to the priority queue
+    void push(int value) {
+        heap.push_back(value);
+        heapifyUp(heap.size() - 1);
+    }
+
+    // Remove and return the top (minimum) element
+    int pop() {
+        if (heap.empty()) {
+            throw std::runtime_error("Priority Queue is empty");
+        }
+        int top = heap[0];
+        heap[0] = heap.back();
+        heap.pop_back();
+        heapifyDown(0);
+        return top;
+    }
+
+    // Return the top (minimum) element without removing it
+    int top() {
+        if (heap.empty()) {
+            throw std::runtime_error("Priority Queue is empty");
+        }
+        return heap[0];
+    }
+
+    // Check if the priority queue is empty
+    bool empty() {
+        return heap.empty();
+    }
+};
+
+int main() {
+    MinHeap minHeap;
+
+    minHeap.push(5);
+    minHeap.push(2);
+    minHeap.push(8);
+    minHeap.push(1);
+
+    std::cout << "Top element: " << minHeap.top() << std::endl;
+
+    while (!minHeap.empty()) {
+        std::cout << "Popped: " << minHeap.pop() << std::endl;
+    }
+
+    return 0;
+}
+
