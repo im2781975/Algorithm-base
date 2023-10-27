@@ -15,6 +15,17 @@ class singly
     public:
     singly():head(nullptr),sz(0){}
     
+    void insert_head(int val)
+    {
+        node *newnode=new node(val);
+        node *a=head;
+        if(head=nullptr)
+        {
+            head=newnode;
+        }
+        newnode->nxt=head;
+        head=newnode;
+    }
     void insert_tail(int val)
     {
         node *newnode=new node(val);
@@ -91,17 +102,77 @@ class singly
         }
         return sum;
     }
-bool hasDuplicate() {
-        node* current = head;
+    void removeFirst() {
+        if (head != nullptr) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    void removeLast() {
+        if (head != nullptr) {
+            if (head->next == nullptr) {
+                delete head;
+                head = nullptr;
+            } else {
+                Node* current = head;
+                while (current->next->next != nullptr) {
+                    current = current->next;
+                }
+                delete current->next;
+                current->next = nullptr;
+            }
+        }
+    }
+
+    int findAtIndex(int index) {
+        Node* current = head;
+        int currentIndex = 0;
         while (current != nullptr) {
-            node* checker = current->nxt;
-            while (checker != nullptr) {
-                if (current->data == checker->data) {
+            if (currentIndex == index) {
+                return current->data;
+            }
+            current = current->next;
+            currentIndex++;
+        }
+        return -1;  // Element not found
+    }
+
+    void addToBack(int val) {
+        Node* newNode = new Node(val);
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    bool contains(int element) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == element) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+bool hasDuplicate() {
+        node* a = head;
+        while (a!= nullptr) {
+            node* b = a->nxt;
+            while (b != nullptr) {
+                if (b->data == a->data) {
                     return true;
                 }
-                checker = checker->nxt;
+                b = b->nxt;
             }
-            current = current->nxt;
+            a = a->nxt;
         }
         return false;
     }
@@ -135,4 +206,3 @@ int main()
 
     return 0;
 }
-
