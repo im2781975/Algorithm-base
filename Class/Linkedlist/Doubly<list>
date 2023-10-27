@@ -105,15 +105,26 @@ class doubly_linkedlist
         int cur_node=0;
         while(cur_node!=idx-1)
         {
+            if(a==NULL)
+            {
+                break;
+            }
             a=a->nxt;
             cur_node++;
+        }
+        if(a==NULL)
+        {
+            cout<<"Can't insert";
         }
         node* newnode=create_new_node(value);
         newnode->nxt=a->nxt;
         newnode->prv=a;
         a->nxt=newnode;
         node* b=a->nxt;
-        b->prv=newnode;
+        if(b!=NULL)
+        {
+            b->prv=newnode;
+        }
         a->nxt=newnode;
         sz++;
     }
