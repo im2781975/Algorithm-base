@@ -10,7 +10,7 @@ public:
 };
 
 class DoublyLinkedList {
-private:
+private
     Node* head;
     Node* tail;
     int size;
@@ -72,7 +72,27 @@ public:
         }
         size++;
     }
-
+    void insert_Mid(int value) {
+        Node* newNode = new Node(value);
+        if (!head) {
+            head = tail = newNode;
+        } else if (head == tail) {
+            tail = newNode;
+            head->nxt = newNode;
+            newNode->prv = head;
+        } else {
+            Node* a = head;
+            int count = 0;
+            while (a != tail && count < 2) {
+                a = a->nxt;
+                count++;
+            }
+            newNode->nxt = a;
+            newNode->prv = a->prv;
+            a->prv->nxt = newNode;
+            a->prv = newNode;
+        }
+    } 
     void display() {
         Node* current = head;
         while (current != nullptr) {
@@ -81,6 +101,29 @@ public:
         }
         std::cout << std::endl;
     }
+    void Merge(LinkedList other) {
+        if (!other.head) {
+            return;
+        }
+        if (!head) {
+            head = other.head;
+            tail = other.tail;
+        } else {
+            tail->nxt = other.head;
+            other.head->prv = tail;
+            tail = other.tail;
+        }
+        other.head = nullptr;
+        other.tail = nullptr;
+    }
+
+    ~DoublyLinkedlist() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->nxt;
+            delete temp;
+        }
 };
 
 int main() {
