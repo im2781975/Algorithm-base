@@ -58,7 +58,7 @@ class linkedlist
             cout<<a->data<<" ";
             a=a->nxt;
         }
-        //cout<<"\n";
+        cout<<"\n";
     }
     int search_distinct(int value)
     {
@@ -111,6 +111,7 @@ class linkedlist
         node* newnode=create_new_node(value);
         newnode->nxt=a->nxt;
         a->nxt=newnode;
+        
     }
     void delete_head()
     {
@@ -216,13 +217,36 @@ class linkedlist
             swap(a->data,b->data);
         }
     }
+    int get_last()
+    {
+        if(head==NULL) return -1;
+        node *a=head;
+        while(a->nxt!=NULL)
+        {
+            a=a->nxt;
+        }
+        return a->data;
+    }
+    double get_avarage()
+    {
+        node *a=head;
+        int cnt=0;
+        double sum=0;
+        while(a!=NULL)
+        {
+            sum+=a->data;
+            cnt++;
+            a=a->nxt;
+        }
+        return sum/cnt;
+    }
 };
 int main()
 {
     linkedlist l;
     l.insert_head(10);
     l.traverse();
-    l.insert_any_idx(12,2);
+    l.insert_any_idx(1,1);
     l.traverse();
     l.insert_head(20);
     l.traverse();
@@ -230,9 +254,9 @@ int main()
     l.traverse();
     l.insert_after_value(20,100);
     l.traverse();
-    l.delete_head();
+    /*l.delete_head();
     l.traverse();
     l.get_size();
     l.reverse_print();
-    l.traverse();
+    l.traverse();*/
 }
