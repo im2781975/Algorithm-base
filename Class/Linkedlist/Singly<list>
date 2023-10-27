@@ -11,6 +11,7 @@ void get_size();
 void insert_after_value(int value,int data);
 void reverse_print2();
 void reverse_print();
+void swapfirst();
 
 class node
 {
@@ -190,6 +191,30 @@ class linkedlist
     {
         reverse_print2(head);
         cout<<"\n";
+    }
+    int get_value(int idx)
+    {
+        node *a=head;
+        int i=0;
+        while(a!=NULL)
+        {
+            if(i==idx)
+            {
+                return a->data;
+            }
+            a=a->nxt;
+            i++;
+        }
+        return -1;
+    }
+    void swapfirst()
+    {
+        if(sz>=2)
+        {
+            node *a=head;
+            node *b=a->nxt;
+            swap(a->data,b->data);
+        }
     }
 };
 int main()
