@@ -1,0 +1,161 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *nxt;
+    node(int val):data(val),nxt(nullptr){}
+};
+class singly
+{
+    private:
+    node *head;
+    node *tail;
+    public:
+    singly():head(nullptr),tail(nullptr){}
+    
+    void insert_head(int val)
+    {
+        node *newnode=new node(val);
+        if(!head)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            newnode->nxt=head;
+            head=newnode;
+        }
+    
+    }
+    void insert_tail(int val)
+    {
+        node *newnode=new node(val);
+        if(!head)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            tail->nxt=newnode;
+            tail=newnode;
+        }
+    }
+    void delete_tail()
+    {
+        if(!head)
+        {
+            cout<<"list is empty";
+            return ;
+        }
+        else if(head==tail)
+        {
+            delete head;
+            head=tail=nullptr;
+        }
+        else
+        {
+            node *a=head;
+            while(a->nxt!=tail)
+            {
+                a=a->nxt;
+            }
+            delete tail;
+            tail=a;
+            tail->nxt=nullptr;
+            
+        }
+    }
+    int get_length()
+    {
+        int len=0;
+        node *a=head;
+        while(a)
+        {
+            a=a->nxt;
+            len++;
+        }
+        return len;
+    }
+    void insert_mid(int value)
+    {
+        int len=get_length();
+        if(len<2)
+        {
+            cout<<"should be exceed length ";
+        }
+        node *newnode=new node(value);
+        node *a=head;
+        int mid=len/2;
+        for(int i=1;i<mid;i++)
+        {
+            a=a->nxt;
+        }
+        newnode->nxt=a->nxt;
+        a->nxt=newnode;
+    }
+    void delete_mid()
+    {
+        int len=get_length();
+        if(len<3)
+        {
+            cout<<"should be exceed length";
+            return;
+        }
+        node* a=head;
+        int mid=len/2;
+        for(int i=1;i<mid-1;i++)
+        {
+            a=a->nxt;
+        }
+        node *tmp=a->nxt;
+        a->nxt=tmp->nxt;
+        delete tmp;
+    }
+    void display()
+    {
+        node *a=head;
+        while(a)
+        {
+            cout<<a->data<<" ";
+            a=a->nxt;
+        }
+        cout<<"\n";
+    }
+};
+int main() {
+    singly list;
+
+    list.insert_tail(1);
+    list.insert_tail(2);
+    list.insert_tail(3);
+    list.insert_tail(4);
+    list.insert_tail(5);
+
+    cout << "Original List: ";
+    list.display();
+
+    list.insert_head(0);
+    cout << "After inserting at the beginning: ";
+    list.display();
+
+    list.insert_tail(6);
+    cout << "After inserting at the end: ";
+    list.display();
+
+    list.display();
+
+    list.delete_tail();
+    cout << "After deleting from the end: ";
+    list.display();
+
+    list.insert_mid(10);
+    cout << "After inserting at the middle: ";
+    list.display();
+
+    list.delete_mid();
+    cout << "After deleting from the middle: ";
+    list.display();
+
+    return 0;
+}
