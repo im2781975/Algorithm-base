@@ -100,7 +100,6 @@ public:
         return nodes.size();
     }
 };
-
 class PriorityQueue{
 public:
     MaxHeap h;
@@ -126,6 +125,18 @@ public:
         return h.size();
     }
 };
+    vector<int>heap_sort(vector<int>a)
+{
+    MaxHeap h;
+    h.build_from_array(a);
+    vector<int>ans;
+    for(int i=0;i<a.size();i++)
+    {
+        ans.push_back(h.ExtractMax());
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
 int main()
 {
     PriorityQueue pq;
@@ -140,6 +151,17 @@ int main()
         cout<<pq.top()<<" ";
         pq.pop();
     }
+    MaxHeap h;
+    vector<int>a = {1,2,3,4,10,9,8,7};
+    h.build_from_array(a);
+    h.PrintHeap();
+
+    vector<int>b = {1,2,3,4,10,9,5,7};
+    vector<int>sorted_a = heap_sort(a);
+    for(int i=0;i<sorted_a.size();i++)
+    {
+        cout<<sorted_a[i]<<" ";
+    }
+    cout<<"\n";
     return 0;
 }
-
