@@ -3,37 +3,38 @@
 #include <string>
 #include <cctype>
 
-bool isPalindrome(const std::string& str) {
-    std::deque<char> charDeque;
-    
-    for (char c : str) {
-        if (isalnum(c)) {  // Ignore non-alphanumeric characters
-            charDeque.push_back(tolower(c));
+using namespace std;
+bool is_palindrome(const string &str)
+{
+    deque<char>dq;
+    for(char c:str)
+    {
+        if(isalnum(c))
+        {
+            dq.push_back(tolower(c));
         }
     }
-
-    while (charDeque.size() > 1) {
-        if (charDeque.front() != charDeque.back()) {
+    while(dq.size()>1)
+    {
+        if(dq.front()!=dq.back())
+        {
             return false;
         }
-        charDeque.pop_front();
-        charDeque.pop_back();
+        dq.pop_back();
+        dq.pop_front();
     }
-
     return true;
 }
-
-int main() {
-    std::string input;
-    
-    while (std::cin >> input) {
-        if (isPalindrome(input)) {
-            std::cout << "Yes" << std::endl;
-        } else {
-            std::cout << "No" << std::endl;
+int main()
+{
+    string str;
+    while(cin>>str)
+    {
+        if(is_palindrome(str))
+        {
+            cout<<"Yes";
         }
+        else
+        cout<<"No";
     }
-    
-    return 0;
 }
-
