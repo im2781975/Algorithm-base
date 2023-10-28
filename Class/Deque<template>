@@ -1,44 +1,45 @@
 #include <iostream>
+using namespace std;
 
 template <typename T>
-class Node {
+class node {
 public:
     T data;
-    Node* next;
-    Node* prev;
-    Node(T val) : data(val), next(nullptr), prev(nullptr) {}
+    node* next;
+    node* prev;
+    node(T val) : data(val), next(nullptr), prev(nullptr) {}
 };
 
 template <typename T>
 class Deque {
 private:
-    Node<T>* frontNode;
-    Node<T>* backNode;
+    node<T>* frontNode; // Change from head to frontNode
+    node<T>* backNode;  // Change from tail to backNode
     size_t size;
 
 public:
     Deque() : frontNode(nullptr), backNode(nullptr), size(0) {}
-
+    
     void push_front(T val) {
-        Node<T>* newNode = new Node<T>(val);
+        node<T>* newnode = new node<T>(val);
         if (size == 0) {
-            frontNode = backNode = newNode;
+            frontNode = backNode = newnode;
         } else {
-            newNode->next = frontNode;
-            frontNode->prev = newNode;
-            frontNode = newNode;
+            newnode->next = frontNode;
+            frontNode->prev = newnode;
+            frontNode = newnode;
         }
         size++;
     }
 
     void push_back(T val) {
-        Node<T>* newNode = new Node<T>(val);
+        node<T>* newnode = new node<T>(val);
         if (size == 0) {
-            frontNode = backNode = newNode;
+            frontNode = backNode = newnode;
         } else {
-            newNode->prev = backNode;
-            backNode->next = newNode;
-            backNode = newNode;
+            newnode->prev = backNode;
+            backNode->next = newnode;
+            backNode = newnode;
         }
         size++;
     }
@@ -52,7 +53,7 @@ public:
             delete frontNode;
             frontNode = backNode = nullptr;
         } else {
-            Node<T>* temp = frontNode;
+            node<T>* temp = frontNode;
             frontNode = frontNode->next;
             frontNode->prev = nullptr;
             delete temp;
@@ -69,7 +70,7 @@ public:
             delete backNode;
             frontNode = backNode = nullptr;
         } else {
-            Node<T>* temp = backNode;
+            node<T>* temp = backNode;
             backNode = backNode->prev;
             backNode->next = nullptr;
             delete temp;
@@ -116,4 +117,3 @@ int main() {
 
     return 0;
 }
-
