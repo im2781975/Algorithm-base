@@ -1,31 +1,24 @@
-#include <vector>
-
+#include <bits/stdc++.h>
+using namespace std;
 class MinHeap {
-public:
-    std::vector<int> heap;
+    public:
+    vector<int> heap;
+    
+    MinHeap() {}
 
-    // Constructor to initialize an empty heap
-    MinHeap() {
-        // The first element (index 0) is not used to simplify the indexing
-        heap.push_back(0);
-    }
-
-    // Insert an element into the min-heap
     void insert(int x) {
         heap.push_back(x);
         int current = heap.size() - 1;
 
-        // Move the newly inserted element up the tree to maintain the heap property
         while (current > 1 && heap[current] < heap[current / 2]) {
-            std::swap(heap[current], heap[current / 2]);
+            swap(heap[current], heap[current / 2]);
             current = current / 2;
         }
     }
-
-    // Delete an element at a given index
+    
     void Delete(int idx) {
         if (idx < 1 || idx >= heap.size()) {
-            return; // Invalid index
+            return; 
         }
 
         // Replace the element at the specified index with the last element
@@ -65,4 +58,31 @@ public:
         }
     }
 };
+int main() {
+    MinHeap minHeap;
 
+    minHeap.insert(5);
+    minHeap.insert(3);
+    minHeap.insert(8);
+    minHeap.insert(1);
+    minHeap.insert(10);
+
+    int minElement = minHeap.getMin();
+    if (minElement != -1) {
+        cout << "Minimum element in the heap: " << minElement << endl;
+    } else {
+        cout << "Heap is empty." << endl;
+    }
+
+    int indexToDelete = 3;
+    minHeap.Delete(indexToDelete);
+
+    minElement = minHeap.getMin();
+    if (minElement != -1) {
+        cout << "Minimum element in the heap after deletion: " << minElement << endl;
+    } else {
+        cout << "Heap is empty." << endl;
+    }
+
+    return 0;
+}
