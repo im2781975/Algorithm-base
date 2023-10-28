@@ -1,42 +1,40 @@
 #include <iostream>
 #include <vector>
-
+using namespace std;
 class MinHeap {
-private:
-    std::vector<int> heap;
+    private:
+    vector<int> heap;
 
-    // Helper functions to maintain the heap property
-    void heapifyUp(int index) {
-        while (index > 0) {
-            int parentIndex = (index - 1) / 2;
-            if (heap[index] < heap[parentIndex]) {
-                std::swap(heap[index], heap[parentIndex]);
-                index = parentIndex;
+    void heapifyUp(int idx) {
+        while (idx > 0) {
+            int parent= (idx - 1) / 2;
+            if (heap[idx] < heap[parent]) {
+                swap(heap[idx], heap[parent]);
+                idx = parent;
             } else {
                 break;
             }
         }
     }
+    void heapifyDown(int idx) {
+        int left= 2 * idx + 1;
+        int right = 2 * idx + 2;
+        int smallest = idx;
 
-    void heapifyDown(int index) {
-        int leftChildIndex = 2 * index + 1;
-        int rightChildIndex = 2 * index + 2;
-        int smallest = index;
-
-        if (leftChildIndex < heap.size() && heap[leftChildIndex] < heap[smallest]) {
-            smallest = leftChildIndex;
+        if (left < heap.size() && heap[left] < heap[smallest]) {
+            smallest = left;
         }
-        if (rightChildIndex < heap.size() && heap[rightChildIndex] < heap[smallest]) {
-            smallest = rightChildIndex;
+        if (right < heap.size() && heap[right] < heap[smallest]) {
+            smallest = right;
         }
 
-        if (smallest != index) {
-            std::swap(heap[index], heap[smallest]);
+        if (smallest != idx) {
+            swap(heap[idx], heap[smallest]);
             heapifyDown(smallest);
         }
     }
 
-public:
+    public:
     // Add a value to the priority queue
     void push(int value) {
         heap.push_back(value);
@@ -62,8 +60,6 @@ public:
         }
         return heap[0];
     }
-
-    // Check if the priority queue is empty
     bool empty() {
         return heap.empty();
     }
