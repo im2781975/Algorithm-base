@@ -5,12 +5,7 @@ class MaxHeap{
 public:
     vector<int>nodes;
 
-    MaxHeap()
-    {
-
-    }
-
-    //O(logn)
+    MaxHeap() {}
     void up_heapify(int idx)
     {
         while(idx > 0 && nodes[idx] > nodes[(idx-1)/2])
@@ -19,14 +14,13 @@ public:
             idx = (idx-1)/2;
         }
     }
-    //O(logn)
+
     void insert(int x)
     {
         nodes.push_back(x);
         up_heapify(nodes.size()-1);
     }
 
-    //O(n)
     void PrintHeap()
     {
         for(int i=0;i<nodes.size();i++)
@@ -36,7 +30,6 @@ public:
         cout<<"\n";
     }
 
-    //O(logn)
     void down_heapify(int idx)
     {
         while(1)
@@ -60,7 +53,6 @@ public:
 
     }
 
-    //O(logn)
     void Delete(int idx)
     {
         if(idx >= nodes.size())
@@ -70,7 +62,6 @@ public:
         down_heapify(idx);
     }
 
-    //O(1)
     int getMax()
     {
         if(nodes.empty())
@@ -81,7 +72,6 @@ public:
         return nodes[0];
     }
 
-    //O(logn)
     int ExtractMax()
     {
         if(nodes.empty())
@@ -94,7 +84,6 @@ public:
         return ret;
     }
 
-    //O(n)
     void build_from_array(vector<int>&a)
     {
         nodes = a;
@@ -115,10 +104,7 @@ public:
 class PriorityQueue{
 public:
     MaxHeap h;
-    PriorityQueue()
-    {
-
-    }
+    PriorityQueue(){}
 
     void push(int x)
     {
