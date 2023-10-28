@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    int data;
+    node *nxt;
+    node *prv;
+    node(int val):data(val),nxt(nullptr),prv(nullptr){}
+};
+class doubly
+{
+    private:
+    node *head;
+    node *tail;
+    public:
+    doubly():head(nullptr),tail(nullptr){}
+    
+void addToFront(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+    void remove_last()
+    {
+        if(tail!=nullptr)
+        {
+            if(tail->prv!=nullptr)
+            {
+                node *b=tail->prv;
+                b->nxt=nullptr;
+                delete tail;
+                tail=b;
+            }
+            else
+            {
+                delete tail;
+                head=tail=nullptr;
+            }
+        }
+    }
+    void reverse()
+    {
+        node *a=head;
+        node *b=nullptr;
+        while(a!=nullptr)
+        {
+            b=a->prv;
+            a->prv=a->nxt;
+            a->nxt=b;
+            a=a->prv;
+        }
+        if(b!=nullptr)
+        {
+            head=b->prv;
+        }
+    }
+    void deleteElement(int element) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == element) {
+                if (current == head) {
+                    head = current->next;
+                    if (head != nullptr) {
+                        head->prev = nullptr;
+                    }
+                } else if (current == tail) {
+                    tail = current->prev;
+                    tail->next = nullptr;
+                } else {
+                    current->prev->next = current->next;
+                    current->next->prev = current->prev;
+                }
+                delete current;
+                return;
+            }
+            current = current->next;
+        }
+    }
+void swap(int i, int j) {
+        Node* nodeI = getNodeAt(i);
+        Node* nodeJ = getNodeAt(j);
+
+        if (nodeI && nodeJ) {
+            int temp = nodeI->data;
+            nodeI->data = nodeJ->data;
+            nodeJ->data = temp;
+        }
+    }
+
+    void deleteZero() {
+        Node* current = head;
+        while (current) {
+            Node* nextNode = current->next;
+            if (current->data == 0) {
+                if (current == head) {
+                    head = nextNode;
+                    if (nextNode) {
+                        nextNode->prev = nullptr;
+                    }
+                } else {
+                    current->prev->next = nextNode;
+                    if (nextNode) {
+                        nextNode->prev = current->prev;
+                    }
+                }
+                delete current;
+            }
+            current = nextNode;
+        }
+    }
+    
+};
