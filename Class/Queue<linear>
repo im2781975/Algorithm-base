@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Queue
+{
+    int *arr;
+    int front;
+    int rear;
+    int size;
+    int cur_sz;
+    
+    public:
+    Queue(int sz):arr(new int [size]), front(0), rear(-1),size(sz), cur_sz(0){}
+    
+    void Enque(int value)
+    {
+        if(cur_sz=size)
+        {
+            cout <<"Full";
+        }
+        rear++;
+        rear=rear % size;
+        arr[rear]=value;
+        cur_sz++;
+    }
+    
+    void deque()
+    {
+        if(cur_sz==0)
+        {
+            cout<<"Empty";
+        }
+        front++;
+        front=front % size;
+        cur_sz--;
+    }
+    int get_size()
+    {
+        return cur_sz;
+    }
+    int Front()
+    {
+        if(cur_sz==0)
+            return -1;
+        
+        return arr[rear];
+        
+    }
+};
+#include <iostream>
+
+int main() {
+    int queueSize = 5; // You can change the size according to your needs
+    Queue myQueue(queueSize);
+
+    // Enqueue some elements
+    myQueue.Enque(1);
+    myQueue.Enque(2);
+    myQueue.Enque(3);
+    myQueue.Enque(4);
+
+    std::cout << "Queue size: " << myQueue.get_size() << std::endl;
+
+    // Dequeue elements
+    myQueue.deque();
+    myQueue.deque();
+
+    std::cout << "Queue size after dequeue: " << myQueue.get_size() << std::endl;
+
+    // Get the front element
+    int frontValue = myQueue.Front();
+    if (frontValue != -1) {
+        std::cout << "Front element: " << frontValue << std::endl;
+    } else {
+        std::cout << "Queue is empty." << std::endl;
+    }
+
+    return 0;
+}
+
+
