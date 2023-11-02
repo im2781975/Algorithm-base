@@ -42,7 +42,7 @@ int main()
                     if(i==node)
                     {
                         negetive_cycle=true;
-                last_updated=v;
+                last_updated_node=v;
                     }
                 }
             }
