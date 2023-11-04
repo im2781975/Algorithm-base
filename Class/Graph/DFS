@@ -1,0 +1,86 @@
+//Write c++ code to print path in a DFS traversal. You can choose the source and destination node of your choice.
+#include <iostream>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+class Graph {
+public:
+    int V;
+    vector<vector<int>> adj;
+
+    Graph(int vertices) {
+        V = vertices;
+        adj.resize(V);
+    }
+
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+    }
+
+    bool DFS(int src, int dest) {
+        vector<bool> visited(V, false);
+        vector<int> parent(V, -1);
+
+        stack<int> s;
+        s.push(src);
+        visited[src] = true;
+
+        while (!s.empty()) {
+            int u = s.top();
+            s.pop();
+
+            for (int v : adj[u]) {
+                if (!visited[v]) {
+                    parent[v] = u;
+                    visited[v] = true;
+                    s.push(v);
+                }
+            }
+        }
+
+        if (!visited[dest]) {
+            cout << "Path from " << src << " to " << dest << " does not exist." << endl;
+            return false;
+        }
+
+        // Print the path from src to dest
+        vector<int> path;
+        int current = dest;
+        while (current != -1) {
+            path.push_back(current);
+            current = parent[current];
+        }
+
+        cout << "Path from " << src << " to " << dest << ": ";
+        for (int i = path.size() - 1; i >= 0; i--) {
+            cout << path[i];
+            if (i != 0) {
+                cout << " -> ";
+            }
+        }
+        cout << endl;
+
+        return true;
+    }
+};
+
+int main() {
+    Graph graph(7);
+    graph.addEdge(0, 1);
+    graph.addEdge(0, 2);
+    graph.addEdge(1, 3);
+    graph.addEdge(1, 4);
+    graph.addEdge(2, 5);
+    graph.addEdge(4, 6);
+
+    int source = 0;
+    int destination = 6;
+
+    if (graph.DFS(source, destination)) {
+        // Path exists
+    }
+
+    return 0;
+}
