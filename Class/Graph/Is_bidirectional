@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <set>
+
+using namespace std;
+
+class Graph {
+public:
+    int vertices;
+    unordered_map<int, set<int>> adjList;
+
+    Graph(int v) {
+        vertices = v;
+    }
+
+    void addEdge(int u, int v) {
+        adjList[u].insert(v);
+    }
+
+    bool isBiDirectional() {
+        for (const auto& pair : adjList) {
+            int u = pair.first;
+            for (int v : pair.second) {
+                if (adjList[v].find(u) == adjList[v].end()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+int main() {
+    int vertices, edges;
+    cout << "Enter the number of vertices: ";
+    cin >> vertices;
+    cout << "Enter the number of edges: ";
+    cin >> edges;
+
+    Graph graph(vertices);
+
+    for (int i = 0; i < edges; i++) {
+        int u, v;
+        cout << "Enter edge " << i + 1 << " (u v): ";
+        cin >> u >> v;
+        graph.addEdge(u, v);
+    }
+
+    if (graph.isBiDirectional()) {
+        cout << "The graph is bi-directional." << endl;
+    } else {
+        cout << "The graph is not bi-directional." << endl;
+    }
+
+    return 0;
+}
+
