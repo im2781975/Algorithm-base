@@ -1,12 +1,12 @@
-//Write c++ code to print path in a BFS traversal. Use adjacency matrix as your graph representation.
+//print path in a BFS traversal. Use adjacency matrix as your graph representation.
 #include <iostream>
 #include <queue>
 using namespace std;
-
-const int MAX_NODES = 100; // Maximum number of nodes in the graph
-int graph[MAX_NODES][MAX_NODES]; // Adjacency matrix
-bool visited[MAX_NODES]; // To track visited nodes
-
+const int MAX_NODES = 100;
+int graph[MAX_NODES][MAX_NODES];
+    // Adjacency matrix
+bool visited[MAX_NODES];
+    // To track visited nodes
 void printPath(int parent[], int start, int end) {
     if (start == end) {
         cout << start << " ";
@@ -15,7 +15,6 @@ void printPath(int parent[], int start, int end) {
     printPath(parent, start, parent[end]);
     cout << end << " ";
 }
-
 void BFS(int start, int end, int nodes) {
     queue<int> q;
     bool found = false;
@@ -34,6 +33,7 @@ void BFS(int start, int end, int nodes) {
         q.pop();
 
         for (int i = 0; i < nodes; i++) {
+            //Iterates through all nodes in the graph to check if they are adjacent to the current node and not yet visited
             if (graph[current][i] == 1 && !visited[i]) {
                 visited[i] = true;
                 parent[i] = current;
