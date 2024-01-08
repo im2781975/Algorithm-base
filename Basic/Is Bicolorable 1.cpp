@@ -50,7 +50,6 @@ int main() {
             cout << color[i] << " ";
         }
     }
-
     return 0;
 }
 
