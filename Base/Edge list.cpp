@@ -6,13 +6,11 @@ int main() {
 
     edge_list[0].push_back(0);
     edge_list[0].push_back(1);
-
     edge_list[1].push_back(1);
     edge_list[1].push_back(2);
 
     edge_list[2].push_back(1);
     edge_list[2].push_back(3);
-
     edge_list[3].push_back(2);
     edge_list[3].push_back(3);
 
@@ -20,7 +18,7 @@ int main() {
         for (int j = 0; j < edge_list[i].size(); j++) {
             cout << edge_list[i][j] << " ";
         }
-        cout << endl;
+        cout << "\n";
     }
 }
 
