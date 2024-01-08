@@ -2,7 +2,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define MAX 1000
- 
 // allocate space for tree
 int tree[4 * MAX];
 int arr[MAX];
@@ -14,7 +13,6 @@ int gcd(int a, int b)
 }
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
- 
 // Function to build the segment tree Node starts beginning index of current subtree.
 // start and end are indexes in arr[] which is global
 void build(int node, int start, int end)
@@ -66,7 +64,6 @@ int main()
     arr[10] = 44;
  
     build(1, 0, 10);
-
     cout << query(1, 0, 10, 2, 5) << endl;
     cout << query(1, 0, 10, 5, 10) << endl;
     cout << query(1, 0, 10, 0, 10) << endl;
