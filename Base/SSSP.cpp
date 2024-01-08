@@ -1,16 +1,14 @@
-//Write a c++  program to solve a single source shortest path(SSSP) problem using BFS.
+// single source shortest path(SSSP)
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <cstring>
 
 using namespace std;
-
-const int MAXN = 1005; // Maximum number of vertices
-
-vector<int> graph[MAXN]; // Adjacency list representation of the graph
-int dist[MAXN];         // Array to store the shortest distances
-
+const int MAXN = 1005;
+vector<int> graph[MAXN]; 
+int dist[MAXN];     
+// Array to store the shortest distances
 void bfs(int source) {
     queue<int> q;
     q.push(source);
@@ -28,7 +26,6 @@ void bfs(int source) {
         }
     }
 }
-
 int main() {
     int vertices, edges;
     cout << "Enter the number of vertices and edges: ";
@@ -41,11 +38,9 @@ int main() {
         graph[u].push_back(v);
         graph[v].push_back(u); // For undirected graph
     }
-
     int source;
     cout << "Enter the source vertex: ";
     cin >> source;
-
     // Initialize distance array to -1 (unreachable)
     memset(dist, -1, sizeof(dist));
 
@@ -55,7 +50,5 @@ int main() {
     for (int i = 1; i <= vertices; i++) {
         cout << "Distance to vertex " << i << " is " << dist[i] << endl;
     }
-
     return 0;
 }
-
