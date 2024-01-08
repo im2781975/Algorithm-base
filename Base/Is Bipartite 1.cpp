@@ -1,8 +1,6 @@
-//Write a c++  program to check if a graph is Bipartite or not.
 #include <iostream>
 #include <vector>
 #include <queue>
-
 using namespace std;
 
 bool isBipartite(vector<vector<int>>& graph) {
@@ -48,13 +46,11 @@ int main() {
         graph[u].push_back(v);
         graph[v].push_back(u); // Assuming an undirected graph
     }
-
     if (isBipartite(graph)) {
         cout << "The graph is Bipartite." << endl;
     } else {
         cout << "The graph is not Bipartite." << endl;
     }
-
     return 0;
 }
 
