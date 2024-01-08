@@ -54,13 +54,9 @@ int main()
         }
     }
     if (cycle_exists)
-    {
         cout << "Cycle exists";
-    }
     else
-    {
         cout << "No cycle";
-    }
     return 0;
 }
 
