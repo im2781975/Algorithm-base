@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int N = 1e5;
-vector<int> parent_list[N]; // Use a vector to store parent lists
+vector<int> parent_list[N];
 int dp[N];
 
 int max_distance(int node) {
@@ -18,7 +18,6 @@ int max_distance(int node) {
     dp[node] = ans;
     return dp[node];
 }
-
 int main() {
     int node, edge;
     cin >> node >> edge;
@@ -30,8 +29,9 @@ int main() {
     for (int i = 1; i <= node; i++) {
         dp[i] = -1;
     }
-    int root, target_node; // Define root and target_node
+    int root, target_node; 
     cin >> root >> target_node;
     cout << max_distance(target_node);
-    return 0; // Add a return statement to indicate successful execution
+    return 0;
 }
+
