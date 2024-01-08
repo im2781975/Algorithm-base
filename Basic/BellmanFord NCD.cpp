@@ -8,7 +8,6 @@ int d[n+1];
 int node, edge;
 vector<pair<int, int>> adj_list[n];
 
-
 int main()
 {
     cin >> node >> edge;
@@ -18,8 +17,8 @@ int main()
     }
     for(int i=0; i<edge; i++)
     {
-        int u, v, w; // Added missing variable 'w' for edge weight.
-        cin >> u >> v >> w; // Read the edge weight 'w'.
+        int u, v, w; 
+        cin >> u >> v >> w; 
         adj_list[u].push_back({v, w});
     }
     int src = 1;
