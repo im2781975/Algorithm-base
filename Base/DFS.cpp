@@ -26,13 +26,13 @@ int main() {
         adj_list[u].push_back(v);
     }
 
-    for (int i = 1; i <= node; i++) {  // Changed i<node to i<=node
-        if (visited[i] == 0) {  // Corrected "visisted" to "visited"
+    for (int i = 1; i <= node; i++) {  
+        if (visited[i] == 0) {
             dfs(i);
         }
     }
 
-    while (!node_stack.empty()) {  // Corrected "node_stack!=empty()" to "node_stack.empty()"
+    while (!node_stack.empty()) {
         cout << node_stack.top() << " ";
         node_stack.pop();
     }
