@@ -1,4 +1,3 @@
-//Grid traversal sortest path
 #include <bits/stdc++.h>
 using namespace std;
 const int N = 200;
@@ -66,18 +65,18 @@ int main()
 {
     cin >> m >> n;
     pair<int, int> src, dst;
-    for (int i = 0; i < m; i++) // Fixed the loop index from n to m
+    for (int i = 0; i < m; i++)
     {
-        for (int j = 0; j < n; j++) // Fixed the loop index from n to n
+        for (int j = 0; j < n; j++)
         {
             level[i][j] = -1;
         }
     }
-    for (int i = 0; i < m; i++) // Fixed the loop index from n to m
+    for (int i = 0; i < m; i++)
     {
         string str;
         cin >> str;
-        for (int j = 0; j < n; j++) // Fixed the loop index from n to n
+        for (int j = 0; j < n; j++)
         {
             if (str[j] == '#')
             {
@@ -100,6 +99,6 @@ int main()
     }
     else
     {
-        cout << "Yes " << level[dst.first][dst.second]; // Added a space after "Yes" for better formatting
+        cout << "Yes " << level[dst.first][dst.second];
     }
 }
