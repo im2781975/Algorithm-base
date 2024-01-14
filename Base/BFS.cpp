@@ -2,11 +2,9 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-const int MAX_NODES = 100;
-int graph[MAX_NODES][MAX_NODES];
-    // Adjacency matrix
-bool visited[MAX_NODES];
-    // To track visited nodes
+#define N 101
+int graph[N][N];
+bool visited[N];
 void printPath(int parent[], int start, int end) {
     if (start == end) {
         cout << start << " ";
@@ -18,7 +16,7 @@ void printPath(int parent[], int start, int end) {
 void BFS(int start, int end, int nodes) {
     queue<int> q;
     bool found = false;
-    int parent[MAX_NODES];
+    int parent[N];
 
     for (int i = 0; i < nodes; i++) {
         visited[i] = false;
@@ -33,7 +31,8 @@ void BFS(int start, int end, int nodes) {
         q.pop();
 
         for (int i = 0; i < nodes; i++) {
-            //Iterates through all nodes in the graph to check if they are adjacent to the current node and not yet visited
+            //Iterates through all nodes in the graph to check if they
+            //are adjacent to the current node and not yet visited
             if (graph[current][i] == 1 && !visited[i]) {
                 visited[i] = true;
                 parent[i] = current;
@@ -54,10 +53,8 @@ void BFS(int start, int end, int nodes) {
         cout << "No path from " << start << " to " << end << " exists.";
     }
 }
-
 int main() {
     int nodes, start, end;
-
     cout << "Enter the number of nodes: ";
     cin >> nodes;
 
@@ -67,14 +64,8 @@ int main() {
             cin >> graph[i][j];
         }
     }
-
-    cout << "Enter the starting node: ";
-    cin >> start;
-
-    cout << "Enter the ending node: ";
-    cin >> end;
-
+    cout << "Enter the starting & ending node: ";
+    cin >> start >> end;
     BFS(start, end, nodes);
-
     return 0;
 }
