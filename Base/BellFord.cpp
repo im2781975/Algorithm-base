@@ -34,7 +34,8 @@ int main() {
                 if (d[u] + w < d[v]) {
                     d[v] = d[u] + w;
                     parent[v] = u;
-
+                    // iterates over each node and relaxes the edges by updating the minimum 
+                    //distance (d[]) and parent information (parent[]) if a shorter path is found.
                     if (i == node) {
                         negetive_cycle = true;
                         last_updated_node = v;
