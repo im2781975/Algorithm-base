@@ -1,67 +1,56 @@
-//Write code to solve Dijkstra’s problem with O(n^2) time complexity 
 #include <iostream>
 #include <vector>
 #include <climits>
-
 using namespace std;
-
 const int INF = INT_MAX;
 
-int minDistance(vector<int>& dist, vector<bool>& sptSet, int V) {
+int minDistance(vector<int>& dist, vector<bool>& sp, int n) {
     int minDist = INF, minIndex;
 
-    for (int v = 0; v < V; v++) {
-        if (!sptSet[v] && dist[v] <= minDist) {
-            minDist = dist[v];
-            minIndex = v;
+    for (int i = 0; i < n; i++) {
+        if (!sp[i] && dist[i] <= minDist) {
+            minDist = dist[i];
+            minIndex = i;
         }
     }
-
     return minIndex;
 }
-
-void dijkstra(vector<vector<int>>& graph, int src, int V) {
-    vector<int> dist(V, INF);
-    vector<bool> sptSet(V, false);
+void dijkstra(vector<vector<int>>& graph, int src, int n) {
+    vector<int> dist(n, INF);
+    vector<bool> sp(n, false);
 
     dist[src] = 0;
+    for (int i = 0; i < n - 1; i++) {
+        int u = minDistance(dist, sp, n);
+        sp[u] = true;
 
-    for (int count = 0; count < V - 1; count++) {
-        int u = minDistance(dist, sptSet, V);
-        sptSet[u] = true;
-
-        for (int v = 0; v < V; v++) {
-            if (!sptSet[v] && graph[u][v] && dist[u] != INF && (dist[u] + graph[u][v] < dist[v])) {
+        for (int v = 0; v < n; v++) {
+            if (!sp[v] && graph[u][v] && dist[u] != INF && (dist[u] + graph[u][v] < dist[v])) {
                 dist[v] = dist[u] + graph[u][v];
             }
         }
     }
-
     cout << "Vertex \t Distance from Source" << endl;
-    for (int i = 0; i < V; i++) {
+    for (int i = 0; i < n; i++) {
         cout << i << " \t " << dist[i] << endl;
     }
 }
-
 int main() {
-    int V;
+    int n;
     cout << "Enter the number of vertices: ";
-    cin >> V;
+    cin >> n;
 
-    vector<vector<int>> graph(V, vector<int>(V));
+    vector<vector<int>> graph(n, vector<int>(n));
     cout << "Enter the adjacency matrix:" << endl;
-    for (int i = 0; i < V; i++) {
-        for (int j = 0; j < V; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             cin >> graph[i][j];
         }
     }
-
     int src;
     cout << "Enter the source vertex: ";
     cin >> src;
-
-    dijkstra(graph, src, V);
-
+    dijkstra(graph, src, n);
     return 0;
 }
 
