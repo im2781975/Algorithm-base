@@ -1,24 +1,18 @@
-
 #include <bits/stdc++.h>
 using namespace std;
-
-
 class node{
 public:
     int value;
     node* Left;
     node* Right;
 };
-
 class BST{
 public:
     node *root;
-
     BST()
     {
         root = NULL;
     }
-
     node* CreateNewNode(int value)
     {
         node *newnode = new node;
@@ -27,8 +21,6 @@ public:
         newnode->Right = NULL;
         return newnode;
     }
-
-
     void BFS()
     {
         if(root == NULL)
@@ -53,18 +45,14 @@ public:
             cout<<" Right Child = "<<r<<"\n";
         }
     }
-
-
     void Insert(int value)
     {
         node* newnode = CreateNewNode(value);
-
         if(root == NULL)
         {
             root = newnode;
             return;
         }
-
         node* cur= root;
         node* prv= NULL;
         while(cur != NULL)
@@ -80,35 +68,24 @@ public:
             }
         }
         if(newnode->value > prv->value)
-        {
             prv->Right = newnode;
-        }
-        else{
+        else
             prv->Left = newnode;
-        }
-
     }
-
     bool Search(int value)
     {
         node* cur = root;
         while(cur != NULL)
         {
             if(value > cur->value)
-            {
                 cur = cur->Right;
-            }
             else if(value < cur->value)
-            {
                 cur = cur->Left;
-            }
-            else{
+            else
                 return true;
-            }
         }
         return false;
     }
-
     void Delete(int value)
     {
         node* cur = root;
@@ -126,54 +103,44 @@ public:
                 prv = cur;
                 cur = cur->Left;
             }
-            else{
+            else
                 break;
-            }
         }
         if(cur== NULL)
         {
             cout<<"Value is not present in BST\n";
             return;
         }
-        //Case 1: both child is NULL
+        //both child is NULL
         if(cur->Left == NULL &&cur->Right==NULL)
         {
             if(prv->Left!=NULL && prv->Left->value== cur->value)
-            {
                 prv->Left = NULL;
-            }
-            else{
+            else
                 prv->Right = NULL;
-            }
             delete cur;
             return;
         }
-        //Case 2: node has only one child
+        //node has only one child
         if(cur->Left==NULL && cur->Right != NULL)
         {
             if(prv->Left!=NULL &&prv->Left->value== cur->value)
-            {
                 prv->Left = cur->Right;
-            }
-            else{
-                prv->Right = cur->Right;;
-            }
+            else
+                prv->Right = cur->Right;
             delete cur;
             return;
         }
         if(cur->Left!=NULL && cur->Right == NULL)
         {
             if(prv->Left!=NULL &&prv->Left->value== cur->value)
-            {
                 prv->Left = cur->Left;
-            }
-            else{
+            else
                 prv->Right = cur->Left;
-            }
             delete cur;
             return;
         }
-        //Case 3: node has two child
+        // node has two child
         node *tmp = cur->Right;
         while(tmp->Left!=NULL)
         {
@@ -182,11 +149,8 @@ public:
         int saved = tmp->value;
         Delete(saved);
         cur->value = saved;
-
     }
 };
-
-
 int main()
 {
     BST bst;
@@ -197,17 +161,12 @@ int main()
     bst.Insert(7);
     bst.Insert(8);
 
-    //Case 1
-//    bst.Delete(8);
-//    bst.BFS();
-
-    //Case 2
-//    bst.Delete(7);
-//    bst.BFS();
-
-    //Case 3
-    bst.Delete(6);
+    bst.Delete(8);
+    bst.BFS();
+    bst.Delete(7);
     bst.BFS();
 
+    bst.Delete(6);
+    bst.BFS();
     return 0;
 }
