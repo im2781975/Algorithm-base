@@ -1,27 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 class node{
-public:
+    public:
     int id;
     int value;
     node *Left;
     node *Right;
     node *parent;
 };
-
-
 class BinaryTree{
-public:
+    public:
     node* root;
-
-
     BinaryTree()
     {
         root = NULL;
     }
-
-    node* CreateNewNode(int id, int value)
+    node* Create(int id, int value)
     {
         node* newnode = new node;
         newnode->id = id;
@@ -31,10 +25,9 @@ public:
         newnode->parent = NULL;
         return newnode;
     }
-
     void Insertion(int id, int value)
     {
-        node* newnode = CreateNewNode(id, value);
+        node* newnode = Create(id, value);
         if(root==NULL)
         {
             root = newnode;
@@ -47,45 +40,42 @@ public:
         {
             node* a = q.front();
             q.pop();
-            if(a->Left != NULL){
+            if(a->Left != NULL)
                 q.push(a->Left);
-            }
-            else{
-                //Insert in left child of node a
+            else
+            {
                 a->Left = newnode;
                 newnode->parent = a;
                 return;
             }
-            if(a->Right != NULL){
+            if(a->Right != NULL)
                 q.push(a->Right);
-            }
-            else{
-                //Insert in right child of node a
+            else
+            {
                 a->Right = newnode;
                 newnode->parent = a;
                 return;
             }
-
         }
     }
-
     void BFS()
     {
         if(root == NULL)
             return;
         queue<node*>q;
         q.push(root);
-
         while(!q.empty())
         {
             node* a = q.front();
             q.pop();
             int p = -1, l = -1 , r= - 1;
-            if(a->Left != NULL){
+            if(a->Left != NULL)
+            {
                 l = a->Left->id;
                 q.push(a->Left);
             }
-            if(a->Right != NULL){
+            if(a->Right != NULL)
+            {
                 r = a->Right->id;
                 q.push(a->Right);
             }
@@ -96,66 +86,48 @@ public:
 
         }
     }
-
     void DFS(node *a)
     {
         if(a==NULL)
-        {
             return;
-        }
         cout<<a->id<<" ";
         DFS(a->Left);
         DFS(a->Right);
     }
-
     void Inorder(node *a)
     {
         if(a==NULL)
-        {
             return;
-        }
         Inorder(a->Left);
         cout<<a->id<<" ";
         Inorder(a->Right);
     }
-
     void Preorder(node *a)
     {
         if(a==NULL)
-        {
             return;
-        }
         cout<<a->id<<" ";
         Preorder(a->Left);
         Preorder(a->Right);
     }
-
     void Postorder(node *a)
     {
         if(a==NULL)
-        {
             return;
-        }
-
         Postorder(a->Left);
         Postorder(a->Right);
         cout<<a->id<<" ";
     }
-
     void Search(node* a, int value)
     {
         if(a==NULL)
             return;
         if(a->value == value)
-        {
             cout<<a->id<<" ";
-        }
         Search(a->Left , value);
         Search(a->Right , value);
     }
 };
-
-
 int main()
 {
     BinaryTree bt;
@@ -174,4 +146,3 @@ int main()
     bt.Search(bt.root , 10);
     return 0;
 }
-
