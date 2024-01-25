@@ -1,25 +1,22 @@
 #include <iostream>
-
-class TreeNode {
+using namespace std;
+class Tree {
 public:
     int data;
-    TreeNode* left;
-    TreeNode* right;
-
-    TreeNode(int value) {
+    Tree* left;
+    Tree* right;
+    Tree(int value) {
         data = value;
         left = nullptr;
         right = nullptr;
     }
 };
-
 class BinaryTree {
 private:
-    TreeNode* root;
-
-    TreeNode* insert(TreeNode* root, int value) {
+    Tree* root;
+    Tree* insert(Tree* root, int value) {
         if (root == nullptr) {
-            return new TreeNode(value);
+            return new Tree(value);
         }
         if (value < root->data) {
             root->left = insert(root->left, value);
@@ -28,8 +25,7 @@ private:
         }
         return root;
     }
-
-    bool search(TreeNode* root, int value) {
+    bool search(Tree* root, int value) {
         if (root == nullptr) {
             return false;
         }
@@ -41,21 +37,17 @@ private:
             return search(root->right, value);
         }
     }
-
-public:
+    public:
     BinaryTree() {
         root = nullptr;
     }
-
     void insert(int value) {
         root = insert(root, value);
     }
-
     bool search(int value) {
         return search(root, value);
     }
 };
-
 int main() {
     BinaryTree tree;
     tree.insert(5);
@@ -64,17 +56,9 @@ int main() {
     tree.insert(2);
     tree.insert(4);
 
-    if (tree.search(4)) {
-        std::cout << "Value 4 found in the tree." << std::endl;
-    } else {
-        std::cout << "Value 4 not found in the tree." << std::endl;
-    }
-
-    if (tree.search(6)) {
-        std::cout << "Value 6 found in the tree." << std::endl;
-    } else {
-        std::cout << "Value 6 not found in the tree." << std::endl;
-    }
-
+    if (tree.search(4))
+        cout << "Value 4 found in the tree." ;
+    else
+        cout << "Value 4 not found in the tree.";
     return 0;
 }
