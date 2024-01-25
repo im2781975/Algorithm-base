@@ -1,18 +1,17 @@
 #include <iostream>
 #include <queue>
-
+using namespace std;
 struct TreeNode {
     int data;
     TreeNode* left;
     TreeNode* right;
 };
-
 bool isPerfectBinaryTree(TreeNode* root) {
     if (root == nullptr) {
         return true;
     }
     
-    std::queue<TreeNode*> q;
+    queue<TreeNode*> q;
     q.push(root);
     
     bool levelChecked = false;
@@ -51,10 +50,32 @@ bool isPerfectBinaryTree(TreeNode* root) {
             }
         }
     }
-    
     return true;
 }
+bool isCompleteBinaryTree(TreeNode* root) {
+    if (root == nullptr)
+        return true;
 
+    queue<TreeNode*> q;
+    q.push(root);
+    bool nonFullNodeEncountered = false;
+
+    while (!q.empty()) {
+        TreeNode* current = q.front();
+        q.pop();
+
+        if (current == nullptr) {
+            nonFullNodeEncountered = true;
+        } else {
+            if (nonFullNodeEncountered)
+                return false;
+
+            q.push(current->left);
+            q.push(current->right);
+        }
+    }
+    return true;
+}
 int main() {
     TreeNode* root = new TreeNode{1};
     root->left = new TreeNode{2};
@@ -65,11 +86,13 @@ int main() {
     root->right->right = new TreeNode{7};
 
     if (isPerfectBinaryTree(root)) {
-        std::cout << "The binary tree is perfect." << std::endl;
+        cout << "The binary tree is perfect." << std::endl;
     } else {
-        std::cout << "The binary tree is not perfect." << std::endl;
+        cout << "The binary tree is not perfect." << endl;
     }
-
+    if (isCompleteBinaryTree(root))
+        cout << "It's a Complete Binary Tree." << endl;
+    else
+        cout << "It's not a Complete Binary Tree." << endl;
     return 0;
 }
-
