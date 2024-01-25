@@ -24,6 +24,7 @@ public:
         for (const auto& pair : adjList) {
             int u = pair.first;
             for (int v : pair.second) {
+// checks if there is an edge from v to u in the adjacency list. This is done using adjList[v].find(u) == adjList[v].end(), which checks if the vertex u is present in the list of neighbors of v.
                 if (adjList[v].find(u) == adjList[v].end()) {
                     return false;
                 }
