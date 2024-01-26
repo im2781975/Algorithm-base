@@ -16,7 +16,7 @@ void bellmanFordUnweighted(vector<Edge>& edges, int V, int source) {
         }
     }
     for (int i = 0; i < V; ++i) {
-        scout << "Shortest distance from " << source << " to " << i << " is " << distance[i] << "\n";
+        cout << "Shortest distance from " << source << " to " << i << " is " << distance[i] << "\n";
     }
 }
 int main() {
