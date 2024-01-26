@@ -44,6 +44,7 @@ int spanningTree(int V, int E, int edges[][3])
         }
     }
     return res;
+    //Return the sum of edge weights of the Minimum Spanning Tree
 }
 int main()
 {
