@@ -1,60 +1,47 @@
-// Write a c++  program to take an undirected graph as input and count the number of connected components in it.
+// count the number of connected components in undirected graph.
 #include <iostream>
 #include <vector>
 #include <set>
-
 using namespace std;
-
 class Graph {
 public:
-    int V; // Number of vertices
-    vector<set<int>> adj; // Adjacency list
-
+    int V;
+    vector<set<int>> adj;
     Graph(int vertices) {
         V = vertices;
         adj.resize(V);
     }
-
     // Function to add an edge to the graph
     void addEdge(int u, int v) {
         adj[u].insert(v);
         adj[v].insert(u);
     }
-
     // DFS traversal to count connected components
     void DFS(int v, vector<bool> &visited) {
         visited[v] = true;
-
         for (int neighbor : adj[v]) {
             if (!visited[neighbor]) {
-                DFS(neighbor, visited);
+                    DFS(neighbor,     visited);
             }
         }
     }
-
     // Count the number of connected components
-    int countConnectedComponents() {
+    int countConnectedComponents(){
         vector<bool> visited(V, false);
         int count = 0;
-
         for (int i = 0; i < V; i++) {
             if (!visited[i]) {
                 DFS(i, visited);
                 count++;
             }
         }
-
         return count;
     }
 };
-
 int main() {
-    int V, E; // Number of vertices and edges
-    cout << "Enter the number of vertices: ";
-    cin >> V;
-    cout << "Enter the number of edges: ";
-    cin >> E;
-
+    int V, E;
+    cout << "Enter the number of vertices & edges: ";
+    cin >> V >> E;
     Graph g(V);
 
     cout << "Enter the edges (u v):" << endl;
@@ -65,7 +52,5 @@ int main() {
     }
 
     int components = g.countConnectedComponents();
-    cout << "Number of connected components: " << components << endl;
-
-    return 0;
+    cout << "Number of connected components: " << components << "\n";
 }
