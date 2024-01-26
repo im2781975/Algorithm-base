@@ -1,15 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <climits>
-
+using namespace std;
 struct Edge {
     int source, destination;
 };
-
-void bellmanFordUnweighted(std::vector<Edge>& edges, int V, int source) {
-    std::vector<int> distance(V, INT_MAX);
+void bellmanFordUnweighted(vector<Edge>& edges, int V, int source) {
+    vector<int> distance(V, INT_MAX);
     distance[source] = 0;
-
     for (int i = 1; i < V; ++i) {
         for (const Edge& edge : edges) {
             if (distance[edge.source] != INT_MAX && distance[edge.source] + 1 < distance[edge.destination]) {
@@ -17,21 +15,15 @@ void bellmanFordUnweighted(std::vector<Edge>& edges, int V, int source) {
             }
         }
     }
-
     for (int i = 0; i < V; ++i) {
-        std::cout << "Shortest distance from " << source << " to " << i << " is " << distance[i] << std::endl;
+        scout << "Shortest distance from " << source << " to " << i << " is " << distance[i] << "\n";
     }
 }
-
 int main() {
-    int V = 5; // Number of vertices
-    std::vector<Edge> edges = {
-        {0, 1}, {0, 2}, {1, 3}, {2, 3}, {3, 4}
-    };
-
-    int source = 0; // Source vertex
-
-    bellmanFordUnweighted(edges, V, source);
-
+    int n = 5;
+    vector<Edge> edges {
+        {0, 1}, {0, 2}, {1, 3}, {2, 3}, {3, 4} };
+    int source = 0;
+    bellmanFordUnweighted(edges, n , source);
     return 0;
 }
