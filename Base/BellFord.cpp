@@ -36,6 +36,7 @@ int main() {
                     parent[v] = u;
                     // iterates over each node and relaxes the edges by updating the minimum 
                     //distance (d[]) and parent information (parent[]) if a shorter path is found.
+                    //i would be more than (node -1) times.so the iteration contain neg cycle
                     if (i == node) {
                         negetive_cycle = true;
                         last_updated_node = v;
