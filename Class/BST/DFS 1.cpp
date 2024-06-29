@@ -13,6 +13,7 @@ class Graph
 Graph::Graph(int V)
 {
     this->V = V;
+    //dynamically allocate an array of adjacency lists for a graph with N vertices.
     adj = new list<int>[V];
 }
 void Graph::addEdge(int v, int w)
