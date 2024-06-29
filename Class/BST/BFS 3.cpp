@@ -1,48 +1,38 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-class Graph {
-    int V;
-    vector<list<int> > adj;
+class Graph{
+    int N;
+    vector<list<int>>adj;
     public:
-    Graph(int V);
-    void addEdge(int v, int w);
-    void BFS(int s);
+    Graph(int N);
+    void addEdge(int u, int v);
+    void BFS(int src);
 };
-Graph::Graph(int V)
-{
-    this->V = V;
-    adj.resize(V);
+Graph::Graph(int N){
+    this->N = N;
+    adj.resize(N);
 }
-void Graph::addEdge(int v, int w)
-{
-    adj[v].push_back(w);
+void Graph::addEdge(int u, int v){
+    adj[u].push_back(v);
 }
-void Graph::BFS(int s)
-{
-    vector<bool> visited;
-    visited.resize(V, false);
-    list<int> queue;
-
-    visited[s] = true;
-    queue.push_back(s);
- 
-    while (!queue.empty()) {
- 
-        // Dequeue a vertex from queue and print it
-        s = queue.front();
-        cout << s << " ";
-        queue.pop_front();
- 
-        for (auto adjacent : adj[s]) {
-            if (!visited[adjacent]) {
-                visited[adjacent] = true;
-                queue.push_back(adjacent);
+void Graph::BFS(int src){
+    vector<bool>visited(N, false);
+    list <int> q;
+    visited[src] = true;
+    q.push_back(src);
+    while(!q.empty()){
+        int src = q.front();
+        cout << src << " ";
+        q.pop_front();
+        for(auto adjacent:adj[src]){
+            if(!visited[adjacent]){
+                visited[adjacent] = 1;
+                q.push_back(adjacent);
             }
         }
     }
 }
-int main()
-{
+int main(){
     Graph g(4);
     g.addEdge(0, 1);
     g.addEdge(0, 2);
@@ -50,9 +40,7 @@ int main()
     g.addEdge(2, 0);
     g.addEdge(2, 3);
     g.addEdge(3, 3);
- 
     cout << "Following is Breadth First Traversal "
          << "(starting from vertex 2) \n";
     g.BFS(2);
-    return 0;
 }
