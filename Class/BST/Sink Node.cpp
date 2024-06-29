@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 // Return the number of Sink NOdes.
+// sink node is a node with no outgoing edges.
 int countSink(int n, int m, int edgeFrom[], int edgeTo[])
 {
     // Array for marking the non-sink node.
