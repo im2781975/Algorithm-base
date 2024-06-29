@@ -1,15 +1,15 @@
-// count number if sink nodes
+// count number of sink nodes
 #include<bits/stdc++.h>
 using namespace std;
-// Return the number of Sink NOdes.
 // sink node is a node with no outgoing edges.
-int countSink(int n, int m, int edgeFrom[], int edgeTo[])
+int countSink(int n, int e, int edgeFrom[], int edgeTo[])
 {
     // Array for marking the non-sink node.
     int mark[n];
+    //initialize mark array as 0;
     memset(mark, 0, sizeof mark);
     // Marking the non-sink node.
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < e; i++)
         mark[edgeFrom[i]] = 1;
     // Counting the sink nodes.
     int count = 0;
@@ -20,10 +20,9 @@ int countSink(int n, int m, int edgeFrom[], int edgeTo[])
 }
 int main()
 {
-    int n = 4, m = 2;
+    int n = 4, e = 2;
     int edgeFrom[] = { 2, 4 };
     int edgeTo[] = { 3, 3 };
- 
-    cout << countSink(n, m, edgeFrom, edgeTo) << endl;
+    cout << countSink(n, e, edgeFrom, edgeTo) << endl;
     return 0;
 }
