@@ -3,6 +3,8 @@
 using namespace std;
 class Graph {
 public:
+//visited: A map to keep track of visited vertices.
+//adj: An adjacency list represented as a map, where each key is a vertex, and the corresponding value is a list of adjacent vertices.
     map<int, bool> visited;
     map<int, list<int> > adj;
  
