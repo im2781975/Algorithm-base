@@ -1,33 +1,28 @@
-//DFS traversal from a given vertex in a  given graph
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-class Graph {
-public:
+class Graph{
+    public:
 //visited: A map to keep track of visited vertices.
-//adj: An adjacency list represented as a map, where each key is a vertex, and the corresponding value is a list of adjacent vertices.
-    map<int, bool> visited;
-    map<int, list<int> > adj;
- 
-    void addEdge(int v, int w);
-    // DFS traversal of the vertices reachable from v
-    void DFS(int v);
+//adj: An adj list represented as a map, where each key is a vertex
+//& the corresponding value is a list of adjacent vertices.
+    map <int, bool> visited;
+    map <int, list<int>> adj;
+    void addEdge(int u, int v);
+    void DFS(int u);
 };
-void Graph::addEdge(int v, int w)
-{
-    adj[v].push_back(w);
+void Graph::addEdge(int u, int v){
+    adj[u].push_back(v);
 }
-void Graph::DFS(int v)
-{
-    visited[v] = true;
-    cout << v << " ";
-    // Recur for all the vertices adjacent to this vertex
-    list<int>::iterator i;
-    for (i = adj[v].begin(); i != adj[v].end(); ++i)
-        if (!visited[*i])
-            DFS(*i);
+void Graph::DFS(int u){
+    visited[u] = true;
+    cout << u << " ";
+    list <int> ::iterator it;
+    for(it = adj[u].begin(); it!=adj[u].end(); ++it){
+        if(!visited[*it])
+            DFS(*it);
+    }
 }
-int main()
-{
+int main(){
     Graph g;
     g.addEdge(0, 1);
     g.addEdge(0, 2);
@@ -39,5 +34,4 @@ int main()
     cout << "Following is Depth First Traversal"
             " (starting from vertex 2) \n";
     g.DFS(2);
-    return 0;
 }
