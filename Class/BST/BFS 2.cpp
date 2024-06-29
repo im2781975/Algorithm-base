@@ -1,29 +1,34 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-class node{
+class node {
     public:
     int id;
     node *left, *right, *parent;
+    node(int id) : id(id), left(NULL), right(NULL), parent(NULL) {}
 };
-class BinaryTree{
-    public:
-    node *root, *allnode[6];
-    BinaryTree(){
-        root =NULL;
+class BinaryTree {
+public:
+    node *root;
+    node *allnode[6];
+    BinaryTree() {
+        root = NULL;
+        for(int i = 0; i < 6; i++)
+            allnode[i] = NULL;
     }
-    node *create(int id){
+    node* create(int id){
+        return new node(id);
+        /*
         node *newnode = new node;
-        newnode-> id =id;
-        
+        newnode->id = id;
         newnode->left = NULL;
         newnode->right = NULL;
         newnode->parent = NULL;
-        return newnode;
+        return newnode; */
     }
-    void build(){
-        for(int i = 0; i < 6; i++){
+    void build() {
+        for(int i = 0; i < 6; i++)
             allnode[i] = create(i);
-        }
+        
         allnode[0]->left = allnode[1];
         allnode[0]->right = allnode[2];
         allnode[1]->left = allnode[5];
@@ -36,24 +41,25 @@ class BinaryTree{
         allnode[4]->parent = allnode[2];
         root = allnode[0];
     }
-    void print(){
-        for(int i = 0; i < 6; i++){
+    void print() {
+        for(int i = 0; i < 6; i++) {
             int p = -1, l = -1, r = -1;
-            if(allnode[i]->parent!=NULL)
+            if(allnode[i]->parent != NULL)
                 p = allnode[i]->parent->id;
-            if(allnode[i]->left!=NULL)
+            if(allnode[i]->left != NULL)
                 l = allnode[i]->left->id;
-            if(allnode[i]->right!=NULL)
+            if(allnode[i]->right != NULL)
                 r = allnode[i]->right->id;
-            cout << "Node: " << i;
+            cout << "Node: " << allnode[i]->id;
             cout << " parent: " << p;
             cout << " Left: " << l;
             cout << " Right: " << r << "\n";
         }
     }
 };
-int main(){
+int main() {
     BinaryTree bt;
     bt.build();
     bt.print();
+    return 0;
 }
