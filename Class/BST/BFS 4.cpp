@@ -51,7 +51,8 @@ int main()
             cout << i << " "; 
         } 
         return 0; 
-    } 
+    } It initializes a 2D array edges to represent the adjacency matrix, setting all entries to 0.
+  // 
     int** edges = new int*[V]; 
     for (int i = 0; i < V; i++) { 
         edges[i] = new int[V]; 
