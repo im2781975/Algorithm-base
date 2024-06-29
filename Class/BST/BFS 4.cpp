@@ -4,9 +4,9 @@
 using namespace std; 
 void printBFS(int** edges, int V, int start, int* visited); 
 void BFSHelper(int** edges, int V); 
-void addEdge(int** edges, int f, int s); 
+void addEdge(int** edges, int u, int v); 
   
-void addEdge(int** edges, int f, int s) { edges[f][s] = 1; } 
+void addEdge(int** edges, int u, int v) { edges[u][v] = 1; } 
 void printBFS(int** edges, int V, int start, int* visited) 
 { 
     if (V == 0) 
@@ -33,40 +33,35 @@ void BFSHelper(int** edges, int V)
     if (V == 0) 
         return; 
     int* visited = new int[V]; 
-    for (int i = 0; i < V; i++) { 
+    for (int i = 0; i < V; i++)
         visited[i] = 0; 
-    } 
     for (int i = 0; i < V; i++) { 
-        if (visited[i] == 0) { 
+        if (visited[i] == 0)
             printBFS(edges, V, i, visited); 
-        } 
     } 
 } 
 int main() 
 { 
-    int V = 5; 
-    int E = 6; 
-    if (E == 0) { 
-        for (int i = 0; i < V; i++) { 
+    int V = 5, E = 6; 
+    if (E == 0){ 
+        for (int i = 0; i < V; i++)
             cout << i << " "; 
+        return 0;
         } 
-        return 0; 
-    } It initializes a 2D array edges to represent the adjacency matrix, setting all entries to 0.
-  // 
+    //It initializes a 2D array edges to represent the 
+    //adjacency matrix, setting all entries to 0.
     int** edges = new int*[V]; 
-    for (int i = 0; i < V; i++) { 
+    for (int i = 0; i < V; i++){ 
         edges[i] = new int[V]; 
-        for (int j = 0; j < V; j++) { 
+        for (int j = 0; j < V; j++)
             edges[i][j] = 0; 
-        } 
     } 
     addEdge(edges, 0, 4); 
     addEdge(edges, 1, 2); 
     addEdge(edges, 1, 3); 
     addEdge(edges, 1, 4); 
     addEdge(edges, 2, 3); 
-    addEdge(edges, 3, 4); 
-  
+    addEdge(edges, 3, 4);
     BFSHelper(edges, V); 
     return 0; 
 }
