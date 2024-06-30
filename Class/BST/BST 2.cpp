@@ -1,64 +1,62 @@
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
-class Tree {
-public:
+class Tree{
+    public:
     int data;
-    Tree* left;
-    Tree* right;
-    Tree(int value) {
-        data = value;
-        left = nullptr;
-        right = nullptr;
-    }
+    Tree *left, *right;
+    Tree(int val):data(val), left(nullptr), right(nullptr){}
 };
-class BinaryTree {
-private:
-    Tree* root;
-    Tree* insert(Tree* root, int value) {
-        if (root == nullptr) {
-            return new Tree(value);
-        }
-        if (value < root->data) {
-            root->left = insert(root->left, value);
-        } else if (value > root->data) {
-            root->right = insert(root->right, value);
-        }
-        return root;
+class BT{
+    private:
+    Tree *root;
+    Tree *Insert(Tree *root, int val){
+        if(root == nullptr)
+            return new Tree(val);
+        //If the value is less, the function recursively calls insert on the left subtree
+        //result of this recursive call (which could be a new or
+        //existing left child) is assigned back to root->left.
+        if(val < root->data)
+            root->left = Insert(root->left, val);
+        else if(val > root->data)
+            root->right = Insert(root->right, val);
+        else
+        //After handling both conditions,function returns the root node.
+        //This ensures that as the recursion unwinds, the original root node 
+        //(or its updated structure) is propagated back up the call stack.
+            return root;
     }
-    bool search(Tree* root, int value) {
-        if (root == nullptr) {
+    bool search(Tree *root, int val){
+        if(root == nullptr)
             return false;
-        }
-        if (root->data == value) {
+        if(root->data == val)
             return true;
-        } else if (value < root->data) {
-            return search(root->left, value);
-        } else {
-            return search(root->right, value);
-        }
+        else if(val > root->data)
+            return search(root->right, val);
+        else
+            return search(root->left, val);
     }
     public:
-    BinaryTree() {
+    BT(){
         root = nullptr;
     }
-    void insert(int value) {
-        root = insert(root, value);
+    void Insert(int val){
+        root = Insert(root, val);
     }
-    bool search(int value) {
-        return search(root, value);
+    bool search(int val){
+        return search(root, val);
     }
 };
-int main() {
-    BinaryTree tree;
-    tree.insert(5);
-    tree.insert(3);
-    tree.insert(7);
-    tree.insert(2);
-    tree.insert(4);
-
+int main(){
+    BT tree;
+    tree.Insert(5);
+    tree.Insert(3);
+    tree.Insert(7);
+    tree.Insert(2);
+    tree.Insert(4);
     if (tree.search(4))
         cout << "Value 4 found in the tree." ;
     else
         cout << "Value 4 not found in the tree.";
     return 0;
 }
+
