@@ -1,96 +1,86 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-struct Node {
+struct tree {
     int data;
-    Node* left;
-    Node* right;
-    Node(int value) : data(value), left(nullptr), right(nullptr) {}
+    tree *left, *right;
+    tree(int value) : data(value), left(nullptr), right(nullptr) {}
 };
 class BST {
-    private:
-    Node* root;
-    Node* insertRec(Node* root, int value) {
-        if (root == nullptr) {
-            return new Node(value);
-        }
-
-        if (value < root->data) {
-            root->left = insertRec(root->left, value);
-        } else if (value > root->data) {
-            root->right = insertRec(root->right, value);
-        }
+private:
+    tree *root;
+    tree *Insert(tree *root, int val) {
+        if (root == nullptr)
+            return new tree(val);
+        if (val < root->data)
+            root->left = Insert(root->left, val);
+        else if (val > root->data)
+            root->right = Insert(root->right, val);
         return root;
     }
-    Node* findMin(Node* node) {
+    tree *Findmin(tree *node) {
         while (node->left != nullptr) {
             node = node->left;
         }
         return node;
     }
-    Node* deleteRec(Node* root, int value) {
-        if (root == nullptr) {
+    tree *Delete(tree *root, int val) {
+        if (root == nullptr)
             return root;
-        }
-        if (value < root->data) {
-            root->left = deleteRec(root->left, value);
-        } else if (value > root->data) {
-            root->right = deleteRec(root->right, value);
-        } else {
+        if (val < root->data)
+            root->left = Delete(root->left, val);
+        else if (val > root->data)
+            root->right = Delete(root->right, val);
+        else {
             if (root->left == nullptr) {
-                Node* temp = root->right;
+                tree *tmp = root->right;
                 delete root;
-                return temp;
+                return tmp;
             } else if (root->right == nullptr) {
-                Node* temp = root->left;
+                tree *tmp = root->left;
                 delete root;
-                return temp;
+                return tmp;
             }
-            Node* temp = findMin(root->right);
-            root->data = temp->data;
-            root->right = deleteRec(root->right, temp->data);
+            tree *tmp = Findmin(root->right);
+            root->data = tmp->data;
+            root->right = Delete(root->right, tmp->data);
         }
         return root;
     }
-    bool searchRec(Node* root, int value) {
-        if (root == nullptr) {
+    bool Search(tree *root, int val) {
+        if (root == nullptr)
             return false;
-        }
-
-        if (value == root->data) {
+        if (root->data == val)
             return true;
-        } else if (value < root->data) {
-            return searchRec(root->left, value);
-        } else {
-            return searchRec(root->right, value);
-        }
+        if (val > root->data)
+            return Search(root->right, val);
+        else
+            return Search(root->left, val);
     }
     public:
     BST() : root(nullptr) {}
-    void insert(int value) {
-        root = insertRec(root, value);
+    void InsertVal(int val) {
+        root = Insert(root, val);
     }
-    void deleteValue(int value) {
-        root = deleteRec(root, value);
+    void DeleteVal(int val) {
+        root = Delete(root, val);
     }
-    bool search(int value) {
-        return searchRec(root, value);
+    bool SearchVal(int val) {
+        return Search(root, val);
     }
 };
 int main() {
     BST bst;
+    bst.InsertVal(50);
+    bst.InsertVal(30);
+    bst.InsertVal(70);
+    bst.InsertVal(20);
+    bst.InsertVal(40);
+    bst.InsertVal(60);
+    bst.InsertVal(80);
+    cout << "\nSearch for 40: " << (bst.SearchVal(40) ? "Found" : "Not found");
+    cout << "\nSearch for 90: " << (bst.SearchVal(90) ? "Found" : "Not found");
 
-    bst.insert(50);
-    bst.insert(30);
-    bst.insert(70);
-    bst.insert(20);
-    bst.insert(40);
-    bst.insert(60);
-    bst.insert(80);
-
-    cout << "\nSearch for 40: " << (bst.search(40) ? "Found" : "Not found") ;
-    cout << "\nSearch for 90: " << (bst.search(90) ? "Found" : "Not found") ;
-
-    bst.deleteValue(30);
-    cout << "\nSearch for 30 after deletion: " << (bst.search(30) ? "Found" : "Not found") ;
+    bst.DeleteVal(30);
+    cout << "\nSearch for 30 after deletion: " << (bst.SearchVal(30) ? "Found" : "Not found");
     return 0;
 }
