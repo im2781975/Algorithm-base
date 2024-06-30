@@ -1,4 +1,8 @@
 // printing vertical order of a given binary tree
+The horizontal distance of the root is taken as 0.
+For the left child of any node, the horizontal distance is the horizontal distance of the node minus 1.
+For the right child, it is the horizontal distance of the node plus 1.
+    Vertical distance starts from the root at level 1 and increments by 1 for each level down the tree.
 #include <bits/stdc++.h>
 using namespace std;
 struct Node {
