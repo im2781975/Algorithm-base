@@ -3,20 +3,16 @@ using namespace std;
 class node {
     public:
     int value;
-    node* left;
-    node* right;
+    node* left, * right;
     node(int value) {
         this->value = value;
-        left = NULL;
-        right = NULL;
+        left = NULL; right = NULL;
     }
 };
 class BST {
     public:
     node* root;
-    BST() {
-        root = NULL;
-    }
+    BST():root(NULL){}
     void insert(int value) {
         node* newnode = new node(value);
         if (root == NULL) {
@@ -88,7 +84,6 @@ class BST {
             }
             if (cur->left == NULL && cur->right == NULL) {
                 node* delnode = cur;
-
                 if (prv->right != NULL && value > prv->right->value) {
                     prv->right = NULL;
                 } else {
@@ -129,10 +124,9 @@ int main() {
     t.insert(9);
     t.insert(8);
     t.display();
-    if (t.find(8) == true) {
+    if (t.find(8) == true)
         cout << "Exit";
-    } else {
+    else
         cout << "not found";
-    }
     return 0;
 }
