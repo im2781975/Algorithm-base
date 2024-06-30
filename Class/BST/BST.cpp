@@ -1,158 +1,167 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 class node{
-public:
+    public:
     int value;
-    node* Left;
-    node* Right;
+    node *left, *right;
 };
 class BST{
-public:
+    public:
     node *root;
-    BST()
-    {
-        root = NULL;
-    }
-    node* CreateNewNode(int value)
-    {
+    BST():root(NULL){}
+    node *create(int value){
         node *newnode = new node;
         newnode->value = value;
-        newnode->Left = NULL;
-        newnode->Right = NULL;
+        newnode->left = NULL;
+        newnode->right = NULL;
         return newnode;
     }
-    void BFS()
-    {
+    void BFS(){
         if(root == NULL)
             return;
-        queue<node*>q;
+        queue <node*> q;
         q.push(root);
-
-        while(!q.empty())
-        {
-            node* a = q.front();
+        while(!q.empty()){
+            node *a = q.front();
             q.pop();
-            int p = -1, l = -1 , r= - 1;
-            if(a->Left != NULL){
-                l = a->Left->value;
-                q.push(a->Left);
+            int l = -1, r = -1;
+            if(a->left!=NULL){
+                l = a->left->value;
+                q.push(a->left);
             }
-            if(a->Right != NULL){
-                r = a->Right->value;
-                q.push(a->Right);
+            if(a->right!=NULL){
+                r = a->right->value;
+                q.push(a->right);
             }
-            cout<<"Node value = "<<a->value<<" Left Child = "<<l;
-            cout<<" Right Child = "<<r<<"\n";
+            cout << "Node: " << a->value;
+            cout << " Left: " << l;
+            cout << " Right: " << r << "\n";
         }
     }
-    void Insert(int value)
-    {
-        node* newnode = CreateNewNode(value);
-        if(root == NULL)
-        {
+    void Insert(int value){
+        node *newnode = create(value);
+        if(root == NULL){
             root = newnode;
             return;
         }
-        node* cur= root;
-        node* prv= NULL;
-        while(cur != NULL)
-        {
-            if(newnode->value > cur->value)
-            {
+        node *cur = root;
+        node *prv = NULL;
+        while(cur!=NULL){
+            if(newnode ->value > cur-> value){
                 prv = cur;
-                cur = cur->Right;
+                cur = cur->right;
             }
             else{
                 prv = cur;
-                cur = cur->Left;
+                cur = cur -> left;
             }
         }
-        if(newnode->value > prv->value)
-            prv->Right = newnode;
+        if(newnode ->value > prv->value)
+            prv->right = newnode;
         else
-            prv->Left = newnode;
+            prv->left = newnode;
     }
-    bool Search(int value)
-    {
-        node* cur = root;
-        while(cur != NULL)
-        {
-            if(value > cur->value)
-                cur = cur->Right;
-            else if(value < cur->value)
-                cur = cur->Left;
+    bool search(int value){
+        node *cur = root;
+        while(cur!=NULL){
+            if(value > cur ->value)
+                cur = cur->right;
+            else if(value < cur ->value)
+                cur = cur->left;
             else
                 return true;
         }
         return false;
-    }
-    void Delete(int value)
-    {
-        node* cur = root;
-        node* prv = NULL;
-
-        while(cur != NULL)
-        {
-            if(value > cur->value)
-            {
+    }/*
+    void Delete(int value){
+        node *cur = root;
+        node *prv = NULL;
+        while(cur!=NULL){
+            if(value > cur->value){
                 prv = cur;
-                cur = cur->Right;
+                cur = cur->right;
             }
-            else if(value < cur->value)
-            {
+            else if(value < cur->value){
                 prv = cur;
-                cur = cur->Left;
+                cur = cur->left;
             }
             else
                 break;
         }
-        if(cur== NULL)
-        {
-            cout<<"Value is not present in BST\n";
+        if(cur == NULL){
+            cout << "\nValue didn't found";
             return;
         }
-        //both child is NULL
-        if(cur->Left == NULL &&cur->Right==NULL)
-        {
-            if(prv->Left!=NULL && prv->Left->value== cur->value)
-                prv->Left = NULL;
+        //If both child is NULL
+        if(cur->left == NULL && cur->right == NULL){
+            if(prv->left!=NULL && prv->left->value == cur->value)
+                prv->left = NULL;
             else
-                prv->Right = NULL;
+                prv->right = NULL;
             delete cur;
             return;
         }
-        //node has only one child
-        if(cur->Left==NULL && cur->Right != NULL)
-        {
-            if(prv->Left!=NULL &&prv->Left->value== cur->value)
-                prv->Left = cur->Right;
+        //If there Has one child
+        if(cur->left == NULL && cur->right!=NULL){
+            if(prv->left!=NULL && prv->left->value == cur ->value)
+                prv->left = cur->right;
             else
-                prv->Right = cur->Right;
+                prv->right = cur->right;
             delete cur;
             return;
         }
-        if(cur->Left!=NULL && cur->Right == NULL)
-        {
-            if(prv->Left!=NULL &&prv->Left->value== cur->value)
-                prv->Left = cur->Left;
+        if(cur->left!=NULL && cur->right ==NULL){
+            if(prv ->left!=NULL && prv->left->value == cur->value)
+                prv->left = cur->left;
             else
-                prv->Right = cur->Left;
+                prv->right = cur->left;
             delete cur;
             return;
         }
-        // node has two child
-        node *tmp = cur->Right;
-        while(tmp->Left!=NULL)
-        {
-            tmp = tmp->Left;
+        //If there has two child
+        node *tmp = cur->right;
+        while(tmp->left!=NULL){
+            tmp = tmp->left;
         }
-        int saved = tmp->value;
-        Delete(saved);
-        cur->value = saved;
+        int save = tmp->value;
+        Delete(save);
+        cur->value = save;
+    }*/
+    void Delete(int value){
+        root = deleteNode(root, value);
+    }
+    private:
+    node* deleteNode(node* root, int key) {
+        if (root == NULL) 
+            return root;
+        if (key < root->value)
+            root->left = deleteNode(root->left, key);
+        else if (key > root->value)
+            root->right = deleteNode(root->right, key);
+        else {
+            if (root->left == NULL) {
+                node *temp = root->right;
+                delete root;
+                return temp;
+            } else if (root->right == NULL) {
+                node *temp = root->left;
+                delete root;
+                return temp;
+            }
+            node* temp = minValueNode(root->right);
+            root->value = temp->value;
+            root->right = deleteNode(root->right, temp->value);
+        }
+        return root;
+    }
+    node* minValueNode(node* n) {
+        node* current = n;
+        while (current && current->left != NULL)
+            current = current->left;
+        return current;
     }
 };
-int main()
-{
+int main(){
     BST bst;
     bst.Insert(6);
     bst.Insert(4);
@@ -168,5 +177,4 @@ int main()
 
     bst.Delete(6);
     bst.BFS();
-    return 0;
 }
