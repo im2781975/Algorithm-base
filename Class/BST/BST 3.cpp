@@ -1,30 +1,28 @@
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
 struct Tree{
     int val;
-    Tree* left;
-    Tree* right;
-    Tree(int x) : val(x), left(NULL), right(NULL) {}
+    Tree *left, *right;
+    Tree(int data):val(data),left(nullptr),right(nullptr){}
 };
-int findHeight(Tree* root) {
-    if (root == NULL) {
+int findHeight(Tree *root){
+    if(root == nullptr)
         return 0;
-    } else {
-        int leftHeight = findHeight(root->left);
-        int rightHeight = findHeight(root->right);
-        return 1 + max(leftHeight, rightHeight);
+    else{
+        int LHeight = findHeight(root->left);
+        int RHeight = findHeight(root->right);
+    return 1 + max(LHeight, RHeight);
     }
 }
-int findMin(Tree* root) {
-    if (root == nullptr) {
+int findMin(Tree *root){
+    if(root == nullptr)
         return -1;
-    }
-    while (root->left != nullptr) {
+    while(root->left!=nullptr){
         root = root->left;
     }
     return root->val;
 }
-int main() {
+int main(){
     Tree* root = new Tree(5);
     root->left = new Tree(3);
     root->right = new Tree(8);
