@@ -24,7 +24,7 @@ void preOrderTraversal(Node* root, long long int hd, long long int vd,
         return;
     // key = horizontal, distance (30 bits) + vertical, distance (30 bits) map will store key in sorted order.
     //Thus nodes having same horizontal distance will sort according to vertical distance.
-    // hd = 3 in binary (32-bit representation): 00000000000000000000000000000011
+    // By left-shifting hd by 30 bits and performing a bitwise OR with vd, the code creates a unique key that combines both distances. This allows for easy sorting and retrieval of nodes based on their positions in the tree.
     long long val = hd << 30 | vd;
     // insert in map
     m[val].push_back(root->data);
