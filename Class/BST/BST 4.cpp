@@ -44,6 +44,7 @@ bool isPerfectBinaryTree(TreeNode* root) {
             
             if (!node->left && !node->right) {
                 if (!levelChecked) {
+                    // if (!levelChecked): If levelChecked is false, it means this is the first leaf node encountered.
                     levelChecked = true;
                 } else if (level != levelChecked) {
                     return false;
