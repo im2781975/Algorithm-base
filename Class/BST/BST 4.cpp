@@ -14,7 +14,7 @@ bool isPerfectBinaryTree(TreeNode* root) {
     
     queue<TreeNode*> q;
     q.push(root);
-    
+    levelChecked is a flag to indicate if the leaf level has been encountered and checked.
     bool levelChecked = false;
     int level = 0;
     
