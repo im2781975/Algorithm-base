@@ -59,10 +59,18 @@ bool IsCompleteTree(Tree *root){
     }
     return true;
 }
+int Findmax(Tree *root){
+    if(root == nullptr)
+        return INT_MIN;
+    if(root->right == nullptr)
+        return root->data;
+    return Findmax(root->right);
+}
 int main(){
     //For objects, brace-initialization can be used to initialize members via initializer lists.
     //This is especially useful for aggregate types like structs and classes without user-defined constructors.
     Tree* root = new Tree{1};
+    //Tree *root = new Tree{1, nullptr, nullptr};
     root->left = new Tree{2};
     root->right = new Tree{3};
     root->left->left = new Tree{4};
@@ -79,4 +87,6 @@ int main(){
         cout << "It's a Complete Binary Tree." << endl;
     else
         cout << "It's not a Complete Binary Tree." << endl;
+    int maxValue = Findmax(root);
+    cout << "Maximum value in the BST: " << maxValue ;
 }
