@@ -6,41 +6,35 @@ struct Tree{
 };
 //level-order (breadth-first) traversal, nodes are processed level by level,
 //from left to right within each level. during level-order traversal, 
-//node  (and its children) is processed before another node
-bool IsPerfectTree(Tree *root){
-    if(root == nullptr)
+bool IsPerfectTree(Tree *root) {
+    if (root == nullptr)
         return true;
-    queue<Tree*>q;
+    queue<Tree*> q;
     q.push(root);
-    
     bool LeafEncounted = false;
-    int level = 0;
-    while(!q.empty()){
+    while (!q.empty()) {
         int size = q.size();
-        level++;
-        while(size--){
+        while (size--) {
             Tree *node = q.front();
             q.pop();
-            if(node->left!=NULL){
+            if (node->left!=NULL) {
+                if (LeafEncounted)
+                    return false;
                 q.push(node->left);
-                if(LeafEncounted && (node->left || node->left->left || node->left->right))
-                    return false;
+            } else {
+                LeafEncounted = true;
             }
-            if(node->right!=NULL){
+            if (node->right) {
+                if (LeafEncounted)
+                    return false;
                 q.push(node->right);
-                if(LeafEncounted &&(node ->left || node->right->left || node->right->right))
-                    return false;
+            } else {
+                LeafEncounted = true;
             }
-            if(node->left == NULL && node->right == NULL){
-                // it means this is the first leaf node encountered.
-                if(!LeafEncounted)
-                    LeafEncounted = true;
-                    //If levelChecked is already true & the current level is not equal
-                //to the level where the first leaf node was encountered,
-                //it means the leaf nodes are not all at the same level.
-                else if(level!= LeafEncounted)
-                    return false;
-            }
+            // If a node has one child, it's not perfect
+            if ((node->left == nullptr && node->right != nullptr) || 
+                (node->left != nullptr && node->right == nullptr))
+                return false;
         }
     }
     return true;
