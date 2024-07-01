@@ -1,51 +1,45 @@
 // printing vertical order of a given binary tree
-The horizontal distance of the root is taken as 0.
-For the left child of any node, the horizontal distance is the horizontal distance of the node minus 1.
-For the right child, it is the horizontal distance of the node plus 1.
-    Vertical distance starts from the root at level 1 and increments by 1 for each level down the tree.
+//hd of the root is taken as 0.For left child of any node, the hd =hd[node] -1.For the right child, hd = hd[node] +1
+//Vertical distance starts from the root at level 1 and increments by 1 for each level down the tree.
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long int lli;
+typedef long long ll;
 struct Node {
     int data;
     Node *left, *right;
 };
-struct Node* newNode(int data)
-{
+struct Node* newNode(int data){
     struct Node* node = new Node;
     node->data = data;
     node->left = node->right = NULL;
     return node;
 }
-// Store vertical order in map "m", hd = horizontal distance, vd = vertical distance
-void preOrderTraversal(Node* root, long long int hd, long long int vd,
-    map<long long int, vector<int> >& m)
-{
+void preOrderTraversal(Node* root, lli hd, lli vd,
+    map<lli, vector<int> >& m){
     if (!root)
         return;
     // key = horizontal, distance (30 bits) + vertical, distance (30 bits) map will store key in sorted order.
     //Thus nodes having same horizontal distance will sort according to vertical distance.
-    // By left-shifting hd by 30 bits and performing a bitwise OR with vd, the code creates a unique key that combines both distances. This allows for easy sorting and retrieval of nodes based on their positions in the tree.
-    long long val = hd << 30 | vd;
-    // insert in map
+    // By left-shifting hd by 30 bits and performing a bitwise OR with vd, 
+    ll val = hd << 30 | vd;
     m[val].push_back(root->data);
- 
     preOrderTraversal(root->left, hd - 1, vd + 1, m);
     preOrderTraversal(root->right, hd + 1, vd + 1, m);
 }
 void verticalOrder(Node* root)
 {
     // map to store all nodes in vertical order. keys will be horizontal + vertical distance.
-    map<long long int, vector<int> > mp;
+    map<lli, vector<int> > mp;
     preOrderTraversal(root, 0, 1, mp);
-    // print map
-    int prekey = INT_MAX;
-    map<long long int, vector<int> >::iterator it;
+    int maxi= INT_MAX;
+    map<lli, vector<int> >::iterator it;
     for (it = mp.begin(); it != mp.end(); it++) {
-        if (prekey != INT_MAX
+        if (maxi != INT_MAX
             && (it->first >> 30) != prekey) {
             cout << endl;
         }
-        prekey = it->first >> 30;
+        maxi = it->first >> 30;
         for (int j = 0; j < it->second.size(); j++)
             cout << it->second[j] << " ";
     }
