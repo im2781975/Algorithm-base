@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//every Hd count based over root
 // structure of the tree node
 class Node {
 public:
