@@ -24,6 +24,7 @@ void preOrderTraversal(Node* root, long long int hd, long long int vd,
         return;
     // key = horizontal, distance (30 bits) + vertical, distance (30 bits) map will store key in sorted order.
     //Thus nodes having same horizontal distance will sort according to vertical distance.
+    // hd = 3 in binary (32-bit representation): 00000000000000000000000000000011
     long long val = hd << 30 | vd;
     // insert in map
     m[val].push_back(root->data);
