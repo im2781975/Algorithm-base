@@ -25,6 +25,7 @@ public:
     {
         Values val;
         // Create TreeMap
+        The key is the horizontal distance, and the value is a vector of node values at that distance.
         map<int, vector<int> > mp;
         // Function Call to findHorizontalDistance
         findHorizontalDistance(node, &val, &val, 0, mp);
