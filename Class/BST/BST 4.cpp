@@ -7,6 +7,7 @@ struct TreeNode {
     TreeNode* right;
 };
 //level-order (breadth-first) traversal, nodes are processed level by level, from left to right within each level.
+during level-order traversal, node  (and its children) is processed before another node
 bool isPerfectBinaryTree(TreeNode* root) {
     if (root == nullptr) {
         return true;
