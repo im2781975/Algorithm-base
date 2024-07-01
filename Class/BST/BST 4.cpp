@@ -1,102 +1,88 @@
-#include <iostream>
-#include <queue>
+#include<bits/stdc++.h>
 using namespace std;
-struct TreeNode {
+struct Tree{
     int data;
-    TreeNode* left;
-    TreeNode* right;
+    Tree *left, *right;
 };
-//level-order (breadth-first) traversal, nodes are processed level by level, from left to right within each level.
-during level-order traversal, node  (and its children) is processed before another node
-bool isPerfectBinaryTree(TreeNode* root) {
-    if (root == nullptr) {
+//level-order (breadth-first) traversal, nodes are processed level by level,
+//from left to right within each level. during level-order traversal, 
+//node  (and its children) is processed before another node
+bool IsPerfectTree(Tree *root){
+    if(root == nullptr)
         return true;
-    }
-    
-    queue<TreeNode*> q;
+    queue<Tree*>q;
     q.push(root);
-    levelChecked is a flag to indicate if the leaf level has been encountered and checked.
-    bool levelChecked = false;
-    int level = 0;
     
-    while (!q.empty()) {
+    bool LeafEncounted = false;
+    int level = 0;
+    while(!q.empty()){
         int size = q.size();
         level++;
-        
-        while (size--) {
-            TreeNode* node = q.front();
+        while(size--){
+            Tree *node = q.front();
             q.pop();
-            
-            if (node->left) {
+            if(node->left!=NULL){
                 q.push(node->left);
-                
-                if (levelChecked && (node->right || node->left->left || node->left->right)) {
+                if(LeafEncounted && (node->left || node->left->left || node->left->right))
                     return false;
-                }
             }
-            
-            if (node->right) {
+            if(node->right!=NULL){
                 q.push(node->right);
-                
-                if (levelChecked && (node->left || node->right->left || node->right->right)) {
+                if(LeafEncounted &&(node ->left || node->right->left || node->right->right))
                     return false;
-                }
             }
-            
-            if (!node->left && !node->right) {
-                if (!levelChecked) {
-                    // if (!levelChecked): If levelChecked is false, it means this is the first leaf node encountered.
-                    levelChecked = true;
-                    // If levelChecked is already true and the current level is not equal to the level where the first leaf node was encountered, it means the leaf nodes are not all at the same level.
-                } else if (level != levelChecked) {
+            if(node->left == NULL && node->right == NULL){
+                // it means this is the first leaf node encountered.
+                if(!LeafEncounted)
+                    LeafEncounted = true;
+                    //If levelChecked is already true & the current level is not equal
+                //to the level where the first leaf node was encountered,
+                //it means the leaf nodes are not all at the same level.
+                else if(level!= LeafEncounted)
                     return false;
-                }
             }
         }
     }
     return true;
 }
-bool isCompleteBinaryTree(TreeNode* root) {
-    if (root == nullptr)
+bool IsCompleteTree(Tree *root){
+    if(root == nullptr)
         return true;
-
-    queue<TreeNode*> q;
+    queue<Tree*>q;
     q.push(root);
-    bool nonFullNodeEncountered = false;
-
-    while (!q.empty()) {
-        TreeNode* current = q.front();
+    bool FullEncounted = false;
+    while(!q.empty()){
+        Tree *cur = q.front();
         q.pop();
-
-        if (current == nullptr) {
-            nonFullNodeEncountered = true;
-        } else {
-            if (nonFullNodeEncountered)
+        if(cur == nullptr)
+            FullEncounted = true;
+        else{
+            if(FullEncounted)
                 return false;
-
-            q.push(current->left);
-            q.push(current->right);
+            q.push(cur->left);
+            q.push(cur->right);
         }
     }
     return true;
 }
-int main() {
-    TreeNode* root = new TreeNode{1};
-    root->left = new TreeNode{2};
-    root->right = new TreeNode{3};
-    root->left->left = new TreeNode{4};
-    root->left->right = new TreeNode{5};
-    root->right->left = new TreeNode{6};
-    root->right->right = new TreeNode{7};
+int main(){
+    //For objects, brace-initialization can be used to initialize members via initializer lists.
+    //This is especially useful for aggregate types like structs and classes without user-defined constructors.
+    Tree* root = new Tree{1};
+    root->left = new Tree{2};
+    root->right = new Tree{3};
+    root->left->left = new Tree{4};
+    root->left->right = new Tree{5};
+    root->right->left = new Tree{6};
+    root->right->right = new Tree{7};
 
-    if (isPerfectBinaryTree(root)) {
+    if (IsPerfectTree(root)) {
         cout << "The binary tree is perfect." << std::endl;
     } else {
         cout << "The binary tree is not perfect." << endl;
     }
-    if (isCompleteBinaryTree(root))
+    if (IsCompleteTree(root))
         cout << "It's a Complete Binary Tree." << endl;
     else
         cout << "It's not a Complete Binary Tree." << endl;
-    return 0;
 }
