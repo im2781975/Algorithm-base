@@ -1,118 +1,94 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Array
-{
+class Array{
     public:
-    int *arr;
-    int cap;
-    int size;
-    void increase()
-    {
-        cap=cap*2;
-        int *tmp=new int[cap];
-        for(int i=0; i<size; i++)
-            tmp[i]=arr[i];
-        delete [] arr;
+    int *arr, cap, size;
+    void Increase(){
+        cap *= 2;
+        int *tmp = new int[cap];
+        for(int i = 0; i < size; i++)
+            tmp[i] = arr[i];
+        delete[] arr;
         arr = tmp;
     }
-    void decrease()
-    {
-        cap=cap/2;
-        int *tmp=new int[cap];
-        for(int i=0; i<size; i++)
-            tmp[i]=arr[i];
-        delete [] arr;
-        arr=tmp;
+    void Decrease(){
+        cap /= 2;
+        int *tmp = new int[cap];
+        for(int i = 0; i < size; i++)
+            tmp[i] = arr[i];
+        delete[] arr;
+        arr = tmp;
     }
-    Array()
-    {
-        arr=new int[1];
-        cap=1;
-        size=0;
+    Array(){
+        arr = new int[1];
+        cap = 1; size = 0;
     }
-    void Push_back(int x)
-    {
-        if(size==cap)
-            increase();
-        arr[size]=x;
+    void PushBack(int x){
+        if(size == cap)
+            Increase();
+        arr[size] = x;
         size++;
     }
-    void Insert(int pos, int x)
-    {
-        if(cap==size)
-            increase();
-        for(int i=size-1; i>=pos; i--)
-            arr[i+1]=arr[i];
+    void Insert(int pos, int x){
+        if(size == cap)
+            Increase();
+        for(int i = size - 1; i >= pos; i--)
+            arr[i+1] = arr[i];
         arr[pos] = x;
         size++;
     }
-    void Print()
-    {
+    void print(){
         cout << "\nElements are: ";
-        for(int i=0; i<size; i++)
+        for(int i = 0; i < size; i++)
             cout << arr[i] << " ";
     }
-    int getSize()
-    {
+    int getsize(){
         return size;
     }
-    int get(int idx)
-    {
-        if(idx>=size)
-        {
-            cout <<"Elements aren't exists";
+    int get(int idx){
+        if(idx >= size){
+            cout << "\nElement didn't Exits";
             return -1;
         }
         return arr[idx];
     }
-    void getElement(Array a)
-    {
-        cout <<"\nElements are: ";
-        for(int i=0; i<a.getSize(); i++)
+    void getElement(Array a){
+        cout << "\nElements are: ";
+        for(int i = 0; i < a.getsize(); i++)
             cout << a.get(i) << " ";
     }
-    void Pop_back()
-    {
-        if(size<=cap/2)
-            decrease();
-        if(size==0)
-            cout << "Null";
+    void PopBack(){
+        if(size <= cap/2)
+            Decrease();
+        if(size == 0)
+            cout << "\nNULL";
         size--;
     }
-    void Erase(int idx)
-    {
-        if(size<=cap/2)
-            decrease();
-        if(idx>=size)
-            cout <<"Does'nt exit";
-        for(int i=idx+1; i<size; i++)
-            arr[i-1]=arr[i];
+    void Erase(int idx){
+        if(size <= cap/2)
+            Decrease();
+        if(idx >= size)
+            cout << "\nElements didn't Exits";
+        for(int i = idx + 1; i < size; i++)
+            arr[i -1] = arr[i];
         size--;
     }
 };
-int main()
-{
+int main(){
     Array a;
-    a.Push_back(1);
-    a.Print();
-    a.Push_back(10);
-    a.Push_back(20);
-    a.Push_back(30);
-    a.Push_back(40);
-    a.Push_back(50);
-    a.Insert(1,5);
-    a.Print();
-
-    cout<<"\nSize is: "<<a.getSize()<<" ";
-
-    a.Pop_back();
-    a.Print();
-    a.Pop_back();
-    a.Print();
-    a.Erase(1);
-    a.Print();
+    for(int i = 10; i < 70; i+= 10)
+        a.PushBack(i);
+    a.print();
+    a.Insert(2, 3);
+    a.print();
+    a.Erase(4);
+    a.print();
+    for(int i = 0; i < 3; i++){
+        a.PopBack();
+        a.print();
+    }
     a.getElement(a);
-    cout << "\n";
-    for(int i=0; i<a.getSize(); i++)
-        cout <<a.get(i) << " ";
+    cout << "\nElements are: ";
+    for(int i = 0; i < a.getsize(); i++)
+        cout << a.get(i) << " ";
 }
