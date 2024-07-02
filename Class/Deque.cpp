@@ -8,6 +8,12 @@ class node{
 };
 class Deque{
     public:
+    //rev operator in the Deque class is a flag used to 
+    //reverse the direction of the deque operations. When the rev flag is set, 
+    //operations that typically affect the front of the deque will affect the back, and vice versa
+    //When rev is 0, the deque operates normally.
+    //When rev is 1, the deque operations are reversed
+
     int size, rev;
     node *head, *tail;
     Deque():size(0), rev(0), head(NULL), tail(NULL){}
