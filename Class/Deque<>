@@ -10,6 +10,13 @@ class node
 };
 class Deque
 {
+//rev operator in the Deque class is a flag used to reverse the direction of the deque operations. When the rev flag is set, operations that typically affect the front of the deque will affect the back, and vice versa.
+When rev is 0, the deque operates normally.
+When rev is 1, the deque operations are reversed.
+By toggling rev, insert_back becomes push_front, insert_front becomes push_back, erase_back becomes pop_front, and erase_front becomes pop_back.
+erase_back():
+If rev is 0, it calls pop_back().
+If rev is 1, it calls pop_front().
     public:
     int sz;
     int rev;
