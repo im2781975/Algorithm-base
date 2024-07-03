@@ -44,6 +44,7 @@ public:
             cout << "Queue is empty. Cannot dequeue." << endl;
             return;
         }
+// If there is only one element (when front equals rear), it sets both to -1 indicating the queue is now empty.
         if (front == rear) {
             //while queue is full
             front = rear = -1;
