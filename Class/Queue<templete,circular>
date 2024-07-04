@@ -23,7 +23,7 @@ public:
     bool isEmpty() {
         return front == -1;
     }
-
+// rear is one position behind front ((rear + 1) % capacity == front).
     bool isFull() {
         return (front == 0 && rear == capacity - 1) || (rear == (front - 1) % (capacity - 1));
     }
