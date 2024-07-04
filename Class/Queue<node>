@@ -1,98 +1,69 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-class node
-{
-public:
+class node{
+    public:
     int data;
-    node* nxt;
+    node *nxt;
 };
-
-class Queue
-{
-public:
-    int sz;
-    node *head;
-    node *tail;
-    
-    Queue() : sz(0), head(NULL), tail(NULL) {}
-
-    node* create(int val)
-    {
-        node* newnode = new node;
-        newnode->data = val;
+class Queue{
+    public:
+    int size;
+    node *head, *tail;
+    Queue(){
+        size = 0;
+        head = NULL; tail = NULL;
+    }
+    node *create(int val){
+        node *newnode = new node;
         newnode->nxt = NULL;
+        newnode->data = val;
         return newnode;
     }
-
-    void enque(int val)
-    {
-        sz++;
-        node* newnode = create(val);
-        if (sz == 1)
-        {
+    void enqueue(int val){
+        size++;
+        node *newnode = create(val);
+        if(size == 1)
             head = tail = newnode;
-            return;
-        }
-        else
-        {
+        else{
             tail->nxt = newnode;
             tail = newnode;
             return;
         }
     }
-
-    void deque()
-    {
-        if (sz == 0)
-        {
-            cout << "Queue is empty" << endl;
+    void dequeue(){
+        if(size == 0){
+            cout << "Queue is empty";
+            return;
         }
-        else if (sz == 1)
-        {
+        if(size == 1){
             delete head;
             head = tail = NULL;
-            sz--;
         }
-        else
-        {
-            node* a = head;
+        else{
+            node *a = head;
             head = head->nxt;
-            sz--;
             delete a;
         }
+        size--;
     }
-
-    int Front()
-    {
-        if (sz == 0)
-        {
+    int getfront(){
+        if(size == 0)
             return -1;
-        }
         return head->data;
     }
-
-    int size()
-    {
-        return sz;
+    int getsize(){
+        return size;
     }
 };
-
-int main() {
-    Queue myQueue;
-
-    myQueue.enque(10);  // Enqueue 10
-    myQueue.enque(20);  // Enqueue 20
-    myQueue.enque(30);  // Enqueue 30
-
-    cout << "Front element: " << myQueue.Front() << endl;  // Output: Front element: 10
-    cout << "Queue size: " << myQueue.size() << endl;       // Output: Queue size: 3
-
-    myQueue.deque();  // Dequeue the front element
-
-    cout << "Front element: " << myQueue.Front() << endl;  // Output: Front element: 20
-    cout << "Queue size: " << myQueue.size() << endl;       // Output: Queue size: 2
-
-    return 0;
+int main(){
+    Queue q;
+    q.enqueue(2);
+    q.enqueue(5);
+    q.enqueue(7);
+    cout << "Front element: " << q.getfront() << "\n";
+    cout << "Size is: " << q.getsize() << "\n";
+    q.dequeue();
+    cout << "Front element: " << q.getfront() << "\n";
+    cout << "Size is: " << q.getsize() << "\n";
+    
 }
-
