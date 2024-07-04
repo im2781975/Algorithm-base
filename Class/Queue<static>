@@ -1,70 +1,50 @@
-#include <iostream>
-
-class StaticArrayQueue {
-private:
-    int arr[100]; // Static array with a maximum size of 100
-    int frontIdx;
-    int rearIdx;
-
-public:
-    StaticArrayQueue() {
-        frontIdx = -1;
-        rearIdx = -1;
+#include<bits/stdc++.h>
+using namespace std;
+class StaticQ{
+    int arr[100], frontIdx, rareIdx;
+    public:
+    StaticQ(){
+        frontIdx = -1; 
+        rareIdx = -1;
     }
-
-    bool isEmpty() {
+    bool IsEmpty(){
         return frontIdx == -1;
     }
-
-    bool isFull() {
-        return rearIdx == 99;
+    bool IsFull(){
+        return rareIdx == 99;
     }
-
-    void enqueue(int item) {
-        if (isFull()) {
-            std::cout << "Queue is full. Cannot enqueue." << std::endl;
-        } else {
-            if (isEmpty()) {
+    void enqueue(int item){
+        if(IsFull())
+            cout << "\nQueue is full";
+        else{
+            if(IsEmpty())
                 frontIdx = 0;
-            }
-            arr[++rearIdx] = item;
+            arr[++rareIdx] = item;
         }
     }
-
-    void dequeue() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty. Cannot dequeue." << std::endl;
-        } else {
-            if (frontIdx == rearIdx) {
-                // Last element in the queue
-                frontIdx = rearIdx = -1;
-            } else {
+    void dequeue(){
+        if(IsEmpty())
+            cout << "queue is empty";
+        else{
+            if(frontIdx == rareIdx)
+                frontIdx = rareIdx = -1;
+            else
                 frontIdx++;
-            }
         }
     }
-
-    int front() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty. No front element." << std::endl;
-            return -1; // You can choose to return a specific value for an empty queue
-        } else {
-            return arr[frontIdx];
+    int getfront(){
+        if(IsEmpty()){
+            cout << "Queue is empty";
+            return -1;
         }
+        else
+            return arr[frontIdx];
     }
 };
-
-int main() {
-    StaticArrayQueue queue;
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-
-    std::cout << "Front element: " << queue.front() << std::endl;
-
-    queue.dequeue();
-    std::cout << "Front element after dequeue: " << queue.front() << std::endl;
-
-    return 0;
+int main(){
+    StaticQ q;
+    q.enqueue(2);
+    q.enqueue(5);
+    q.enqueue(8);
+    cout << "Front: " << q.getfront();
 }
-
