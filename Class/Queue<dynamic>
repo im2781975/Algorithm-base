@@ -1,86 +1,61 @@
-#include <iostream>
-
-template <typename T>
-class DynamicArrayQueue {
-private:
-    T* arr;
-    int capacity;
-    int front;
-    int rear;
-    int size;
-
-public:
-    DynamicArrayQueue(int capacity) {
-        this->capacity = capacity;
-        arr = new T[capacity];
+#include<bits/stdc++.h>
+using namespace std;
+template<typename T>
+class DynamicQ{
+    T *arr;
+    int cap, front, rear, size;
+    public:
+    DynamicQ(int cap){
+        this->cap = cap;
+        arr = new T[cap];
         front = rear = -1;
         size = 0;
     }
-
-    ~DynamicArrayQueue() {
-        delete[] arr;
+    ~DynamicQ(){
+        delete []arr;
     }
-
-    void enqueue(T data) {
-        if (size == capacity) {
-            // If the queue is full, double the capacity
-            int newCapacity = capacity * 2;
-            T* newArr = new T[newCapacity];
-
-            for (int i = 0; i < size; i++) {
-                newArr[i] = arr[(front + i) % capacity];
-            }
-
-            delete[] arr;
-            arr = newArr;
-            capacity = newCapacity;
-            front = 0;
-            rear = size - 1;
+    bool IsEmpty(){
+        return size = 0;
+    }
+    void enqueue(T data){
+        if(size == cap){
+            int newcap = cap*2;
+            T *newarr = new T[newcap];
+            for(int i = 0; i < size; i++)
+                newarr[i] = arr[(front + i)%cap];
+            delete []arr;
+            arr = newarr;
+            cap = newcap;
+            front = 0; rear = size -1;
         }
-
-        rear = (rear + 1) % capacity;
+        rear = (rear + 1)%cap;
         arr[rear] = data;
         size++;
     }
-
-    void dequeue() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty. Cannot dequeue." << std::endl;
+    void dequeue(){
+        if(IsEmpty()){
+            cout << "\nQueue is Empty";
             return;
         }
-
-        front = (front + 1) % capacity;
+        front = (front + 1)%cap;
         size--;
     }
-
-    T frontElement() {
-        if (isEmpty()) {
-            throw std::runtime_error("Queue is empty.");
+    T getFront(){
+        if(IsEmpty()){
+            cout << "Queue is Empty";
         }
         return arr[front];
     }
-
-    bool isEmpty() {
-        return size == 0;
-    }
-
-    int getSize() {
+    int getsize(){
         return size;
     }
 };
-
-int main() {
-    DynamicArrayQueue<int> queue(5);
-
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-
-    std::cout << "Front element: " << queue.frontElement() << std::endl;
-    queue.dequeue();
-
-    std::cout << "Front element after dequeue: " << queue.frontElement() << std::endl;
-
-    return 0;
+int main(){
+    DynamicQ<int>q(5);
+    cout << "Front Elements are: \n";
+    for(int i = 1; i <= 5; i++){
+        q.enqueue(i);
+        cout << q.getFront() << " ";
+        q.dequeue();
+    }
 }
-
