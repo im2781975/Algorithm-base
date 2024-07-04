@@ -1,73 +1,52 @@
-Implement Template based Queue using a singly linked-list in c++
-
-
-#include <iostream>
-
-template <typename T>
-class Node {
-public:
+#include<bits/stdc++.h>
+using namespace std;
+template<typename T>
+class node{
+    public:
     T data;
-    Node* next;
-    Node(T value) : data(value), next(nullptr) {}
+    node *nxt;
+    node(T val):data(val), nxt(nullptr){}
 };
-
-template <typename T>
-class Queue {
-private:
-    Node<T>* front;
-    Node<T>* rear;
-
-public:
-    Queue() : front(nullptr), rear(nullptr) {}
-
-    void enqueue(T value) {
-        Node<T>* newNode = new Node<T>(value);
-        if (rear == nullptr) {
-            front = rear = newNode;
+template<typename T>
+class Queue{
+    node <T> *front, *rear;
+    public:
+    Queue():front(nullptr), rear(nullptr){}
+    bool IsEmpty(){
+        return front == nullptr;
+    }
+    void enqueue(T val){
+        node <T> *newnode = new node<T>(val);
+        if(front == rear){
+            front = rear = newnode;
             return;
         }
-        rear->next = newNode;
-        rear = newNode;
+        rear->nxt = newnode;
+        rear = newnode;
     }
-
-    void dequeue() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty. Cannot dequeue." << std::endl;
+    void dequeue(){
+        if(IsEmpty()){
+            cout << "\nQueue is empty";
             return;
         }
-        Node<T>* temp = front;
-        front = front->next;
-        delete temp;
-        if (front == nullptr) {
-            rear = nullptr;  // The queue is now empty
-        }
+        node <T> *tmp = front;
+        front = front->nxt;
+        delete tmp;
+        if(front == nullptr)
+            rear = nullptr;
     }
-
-    T peek() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty. Cannot peek." << std::endl;
-            throw std::runtime_error("Queue is empty");
+    T peek(){
+        if(IsEmpty()){
+            cout << "Queue is Empty";
+            return T();
         }
         return front->data;
     }
-
-    bool isEmpty() {
-        return front == nullptr;
-    }
 };
-
-int main() {
-    Queue<int> queue;
-
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-
-    std::cout << "Front of the queue: " << queue.peek() << std::endl;
-
-    queue.dequeue();
-    std::cout << "Front of the queue after dequeue: " << queue.peek() << std::endl;
-
-    return 0;
+int main(){
+    Queue <int> q;
+    q.enqueue(2);
+    q.enqueue(4);
+    q.enqueue(7);
+    cout << "\nFront: " << q.peek();
 }
-
