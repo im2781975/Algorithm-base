@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<stdexcept>
 using namespace std;
 template<typename T>
 class DynamicQ{
@@ -50,6 +51,50 @@ class DynamicQ{
         return size;
     }
 };
+template<typename T>
+class CircularQ{
+    T arr[10];
+    int front, rear, Itemcount;
+    public:
+    CircularQ(){
+        front = rear = -1;
+        Itemcount = 0;
+    }
+    bool IsEmpty(){
+        return Itemcount == 0;
+    }
+    bool IsFull(){
+        return Itemcount == 10;
+    }
+    int size(){
+        return Itemcount;
+    }
+    void enqueue(int val){
+        if(IsEmpty())
+            front = rear = 0;
+        if(IsFull()){
+            cout << "Queue is full";
+            return;
+        }
+        arr[rear] = val;
+        rear = (rear + 1)%10;
+        Itemcount++;
+    }
+    T dequeue(){
+        if(IsEmpty()){
+            cout << "Queue is empty";
+            return T();
+        }
+        int item = arr[front];
+        if(front == rear){
+            front = rear = -1;
+        }
+        else
+            front = (front + 1)%10;
+        Itemcount--;
+        return item;
+    }
+};
 int main(){
     DynamicQ<int>q(5);
     cout << "Front Elements are: \n";
@@ -58,4 +103,11 @@ int main(){
         cout << q.getFront() << " ";
         q.dequeue();
     }
+    ////
+    CircularQ <int> q;
+    for(int i = 1; i <= 10; i++){
+        q.enqueue(i * 10);
+        cout << q.dequeue() << " ";
+    }
+    cout << "\nSizeof queue is: " << q.size();
 }
