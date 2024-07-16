@@ -9,7 +9,8 @@ class node{
 class Doubly{
     public:
     node *head, *tail;
-    Doubly():head(nullptr), tail(nullptr){}
+    int size;
+    Doubly():head(nullptr), tail(nullptr), size(0){}
     void InsertFront(int val){
     node *newnode = new node(val);
         if(head == nullptr)
@@ -19,10 +20,24 @@ class Doubly{
             head->prv = newnode;
             head = newnode;
         }
+        size++;
+    }
+    void Append(int val){
+        node *newnode = new node(val);
+        if(head == nullptr)
+            head = tail = newnode;
+        else{
+            tail->nxt = newnode;
+            newnode->prv = tail;
+            tail = newnode;
+        }
+        size++;
     }
     void RemoveBack(){
-        if(tail == nullptr)
+        if(tail == nullptr){
             cout << "underflow";
+            return;
+        }
         if(head == tail)
             head = tail = nullptr;
         else{
@@ -31,10 +46,13 @@ class Doubly{
             tail ->nxt = nullptr;
             delete tmp;
         }
+        size--;
     }
     void RemoveFront(){
-        if(head == nullptr)
+        if(head == nullptr){
             cout << "Underflow";
+            return;
+        }
         if(head == tail)
             head = tail = nullptr;
         else{
@@ -43,6 +61,26 @@ class Doubly{
             head->prv = nullptr;
             delete tmp;
         }
+        size--;
+    }
+    void RemoveMid(){
+        if(size == 0)
+            return;
+        int mid = size/2;
+        node *a = head;
+        int cur = 0;
+        while(a !=nullptr && cur < mid)
+            a = a ->nxt;
+        if(a->prv!=nullptr)
+            a->nxt->prv = a->prv;
+        if(a->nxt!=nullptr)
+            a->prv->nxt = a->nxt;
+        if(a == head)
+            head = a->nxt;
+        if(a == tail)
+            tail = a->prv;
+        delete a;
+        size--;
     }
     int SearchIdx(int idx){
         node *a = head;
@@ -79,8 +117,10 @@ class Doubly{
             head = tmp->prv;
     }
     void Insert(int idx, int val){
-        if(idx == 0)
+        if(idx == 0){
             InsertFront(val);
+            return;
+        }
         else{
             node *newnode = new node(val);
             node *a = head;
@@ -103,8 +143,10 @@ class Doubly{
             if(newnode->nxt == nullptr)
                 tail = newnode;
         }
+        size++;
     }
     void Erase(int val){
+        size--;
         node *a = head;
         while(a!=nullptr){
             if(a->data == val){
@@ -120,6 +162,7 @@ class Doubly{
                 return;
             }
             a = a->nxt;
+            
         }
         cout << "Value doesn't exits";
     }
@@ -142,6 +185,21 @@ class Doubly{
         }
         cout << "\n";
     }
+    int GetSize(){
+        return size;
+    }
+    int GetMax(){
+        int max = head-> data;
+        node *a = head->nxt;
+        if(size == 0)
+            return -1;
+        while(a!=nullptr){
+            if(a->data > max)
+                max = a->data;
+            a = a->nxt;
+        }
+        return max;
+    }
 };
 int main(){
     Doubly Dl;
@@ -151,5 +209,7 @@ int main(){
     Dl.Reverse();
     Dl.Display();
     (Dl.IsPalindrome())? cout << "Yes": cout << "No";
+    Dl.Erase(6);
+    cout << Dl.GetSize();
     return 0;
 }
