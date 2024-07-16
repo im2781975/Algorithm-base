@@ -33,6 +33,53 @@ class Doubly{
         }
         size++;
     }
+    void InsertMid(int val){
+        node *newnode = new node(val);
+        if(size == 0)
+            head = tail = newnode;
+        else if(size %2 == 0){
+            node *a = head;
+            for(int i = 0; i < size/2 -1; i++)
+                a = a->nxt;
+            newnode->prv = a;
+            newnode->nxt = a->nxt;
+            a->nxt->prv = newnode;
+            a->nxt = newnode;
+        }
+        else {
+        // Insert in the middle when the list has an odd number of elements
+            node *a = head;
+            for(int i = 0; i < size/2; i++)
+                a = a->nxt;
+            newnode->prv = a->prv;
+            newnode->nxt = a->nxt;
+            a->prv->nxt = newnode;
+            a->nxt = newnode;
+        }
+        size++;
+    }/*
+    void InsertMid(int val){
+        node *newnode = new node(val);
+        if(head == NULL)
+            head = tail = newnode;
+        else if(head == tail){
+            tail = newnode;
+            head->nxt = newnode;
+            newnode->prv = head;
+        }
+        else {
+            node *a = head;
+            int cnt = 0;
+            while(a !=tail && cnt < 2){
+                a = a->nxt;
+                cnt++;
+            }
+            newnode->nxt = a;
+            newnode->prv = a->prv;
+            a->prv->nxt = newnode;
+            a->prv = newnode;
+        }
+    }*/
     void RemoveBack(){
         if(tail == nullptr){
             cout << "underflow";
@@ -224,6 +271,14 @@ class Doubly{
                 cur = cur->nxt;
         }
     }
+    ~Doubly(){
+        node *cur = head;
+        while(cur!=NULL) {
+            node *tmp = cur;
+            cur = cur->nxt;
+            delete tmp;
+        }
+    }
 };
 int main(){
     Doubly Dl;
@@ -237,6 +292,8 @@ int main(){
     cout << Dl.GetSize();
     cout << Dl.GetMax();
     Dl.DeleteMax();
+    Dl.Display();
+    Dl.InsertMid(77);
     Dl.Display();
     return 0;
 }
