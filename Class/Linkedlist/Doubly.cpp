@@ -94,7 +94,21 @@ class Doubly{
             delete tmp;
         }
         size--;
-    }
+    }/*
+    void RemoveBack(){
+        if(tail !=nullptr){
+            if(tail->prv !=nullptr){
+                node *b = tail->prv;
+                b->nxt = nullptr;
+                delete tail;
+                tail = b;
+            }
+            else {
+                delete tail;
+                head = tail = nullptr;
+            }
+        }
+    }*/
     void RemoveFront(){
         if(head == nullptr){
             cout << "Underflow";
@@ -128,6 +142,26 @@ class Doubly{
             tail = a->prv;
         delete a;
         size--;
+    }
+    void RemoveZero(){
+        node *cur = head;
+        while(cur !=nullptr){
+            node *trv = cur->nxt;
+            if(cur->data == 0){
+                if(cur == head){
+                    head = trv;
+                    if(trv!=nullptr)
+                        trv->prv = nullptr;
+                    else {
+                        cur->prv-> nxt = trv;
+                        if(trv!=nullptr)
+                        trv->prv = cur->prv;
+                    }
+                    delete cur;
+                }
+                cur = trv;
+            }
+        }
     }
     int SearchIdx(int idx){
         node *a = head;
@@ -269,6 +303,24 @@ class Doubly{
             }
             else
                 cur = cur->nxt;
+        }
+    }
+    node *getNodeAt(int idx){
+        node *cur = head;
+        int curIdx = 0;
+        while(cur!=nullptr){
+            cur = cur->nxt;
+            curIdx++;
+        }
+        return cur;
+    }
+    void Swap(int i, int j){
+        node *x = getNodeAt(i);
+        node *y = getNodeAt(j);
+        if(x!=nullptr && y!=nullptr){
+            int trv = x->data;
+            x->data = y->data;
+            y->data = trv;
         }
     }
     ~Doubly(){
