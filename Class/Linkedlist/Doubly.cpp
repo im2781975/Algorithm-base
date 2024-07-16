@@ -200,6 +200,30 @@ class Doubly{
         }
         return max;
     }
+    void DeleteMax(){
+        if(size == 0)
+            return;
+        int max = GetMax();
+        node *cur = head;
+        while(cur != nullptr){
+            if(cur->data == max){
+                node *tmp = cur;
+                if(cur->prv !=NULL)
+                    cur->prv->nxt = cur->nxt;
+                if(cur->nxt!=NULL)
+                    cur->nxt->prv = cur->prv;
+                if(cur == head)
+                    head = cur->nxt;
+                if(cur == tail)
+                    tail = cur->prv;
+                cur = cur->nxt;
+                delete tmp;
+                size--;
+            }
+            else
+                cur = cur->nxt;
+        }
+    }
 };
 int main(){
     Doubly Dl;
@@ -211,5 +235,8 @@ int main(){
     (Dl.IsPalindrome())? cout << "Yes": cout << "No";
     Dl.Erase(6);
     cout << Dl.GetSize();
+    cout << Dl.GetMax();
+    Dl.DeleteMax();
+    Dl.Display();
     return 0;
 }
