@@ -4,21 +4,47 @@ class node{
     public:
     int data;
     node *nxt;
-    node(int val):data(val), nxt(nullptr){}
+    //node(int val):data(val), nxt(nullptr){}
 };
 class Singly{
     int size;
     node *head;
     public:
     Singly():size(0), head(nullptr){}
+    node *create(int val){
+        node *newnode = new node;
+        newnode->data = val;
+        newnode->nxt = NULL;
+        return newnode;
+    }
     void InsertFront(int val){
         size++;
-        node *newnode = new node(val);
+        node *newnode = create(val);
+       // node *newnode = new node(val);
         node *a = head;
         if(head == nullptr)
             head = newnode;
         newnode->nxt = head;
         head = newnode;
+    }
+    void InsertAnyIdx(int val, int idx){
+        if(idx < 0 || idx > size)
+            return;
+        if(idx == 0){
+            InsertFront(val);
+            return;
+        }
+        size++;
+        node *a = head;
+        int curIdx = 0;
+        while(curIdx != idx -1){
+            a = a->nxt;
+            curIdx++;
+        }
+        //node *newnode = new node(val);
+        node *newnode = create(val);
+        newnode->nxt = a->nxt;
+        a->nxt = newnode;
     }
     int GetVal(int idx){
         if(idx < 0 || idx > size)
@@ -32,6 +58,27 @@ class Singly{
         if(a !=nullptr)
             return a->data;
         return -1;
+    }
+    int SearchDistinct(int val){
+        node *a = head;
+        int idx = 0;
+        while(a !=NULL){
+            if(a->data == val)
+                return idx;
+            a = a->nxt;
+            idx++;
+        }
+        return -1;
+    }
+    void SearchAllValue(int val){
+        node *a = head;
+        int idx = 0;
+        while(a !=NULL){
+            if(a->data == val)
+                cout << val << " " << idx << "\n";
+            a = a->nxt;
+            idx++;
+        }
     }
     bool GetVal(int val){
         node *a = head;
@@ -55,6 +102,22 @@ class Singly{
             a->nxt = newnode;
         }
         size++;
+    }
+    void InsertAfter(int val, int x){
+        node *a = head;
+        while(a !=NULL){
+            if(a->data == val)
+                break;
+            a = a->nxt;
+        }
+        if(a == NULL){
+            cout << "Value doesn't exits";
+            size++;
+        }
+        //node *newnode = new node(x);
+        node *newnode = new node(x);
+        newnode->nxt = a->nxt;
+        a->nxt = newnode;
     }
     void RemoveZero(){
         node *a = head;
@@ -87,6 +150,23 @@ class Singly{
             delete a;
             size--;
         }
+    }
+    int RemoveAnyIdx(int idx){
+        if(idx < 0 || idx > size - 1)
+            return;
+        if(idx == 0){
+            RemoveFront();
+            return;
+        }
+        node *a = head;
+        int curIdx = 0;
+        while(curIdx < idx-1){
+            a = a->nxt;
+            curIdx++;
+        }
+        node *b = a->nxt;
+        a->nxt = b->nxt;
+        delete b;
     }
     int GetSum(){
         node *a = head;
@@ -140,6 +220,23 @@ class Singly{
             return a->data;
         return -1;
     }
+    int GetLast(){
+        if(head == NULL)
+            return -1;
+        node *a = head;
+        while(a !=NULL)
+            a = a->nxt;
+        return a->data;
+    }
+    void Getsize(){
+        int cnt = 0;
+        node *a = head;
+        while(a !=NULL){
+            cnt++;
+            a = a->nxt;
+        }
+        cout << cnt;
+    }
     bool HasDuplicate(){
         node *a = head;
         while(a!=nullptr){
@@ -171,4 +268,32 @@ class Singly{
             b = a;
         } while(swaped);
     }
+    void ReverseRecur(node *a){
+        if(a == NULL)
+            return;
+        ReverseRecur(a->nxt);
+        cout << a->data << " ";
+    }
+    void Reverse(){
+        ReverseRecur(head);
+        cout << "\n";
+    }
+    void SwapFirst(){
+        if(size >= 2){
+            node *a = head;
+            node *b = a->nxt;
+            swap(a->data, b->data);
+        }
+    }
+    double GetAvg(){
+        node *a = head;
+        int cnt = 0, sum = 0;
+        while(a !=NULL){
+            sum+= a->data;
+            cnt++;
+            a= a->nxt;
+        }
+        return sum/cnt;
+    }
 };
+
