@@ -90,6 +90,21 @@ class single{
         cout << "\n";
     }
 };
+void InsertHead(node *&head, int val){
+        node *newnode = new node(val);
+        if(head == nullptr){
+            head = newnode;
+            return;
+        }
+        newnode ->nxt = head;
+        head = newnode;
+    }
+    void display(node *head){
+        while(head !=NULL){
+            cout << head->data << " ";
+            head = head->nxt;
+        }
+    }
 int main(){
     single sl;
     for(int i = 0; i < 5; i++){
@@ -98,4 +113,17 @@ int main(){
     }
     sl.RemoveMid();
     sl.Display();
+    //****//
+    node* head = nullptr;
+    InsertHead(head, 10);
+    InsertHead(head, 20);
+    InsertHead(head, 30);
+    display(head);
+
+    while (head != nullptr)
+    {
+        node* temp = head;
+        head = head->nxt;
+        delete temp;
+    }
 }
