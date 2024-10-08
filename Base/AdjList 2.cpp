@@ -50,3 +50,19 @@ main(){
         cout << "\n";
     }
 }
+/***/
+main(){
+    int node, edge; cin >> node >> edge;
+    vector <pair<int, int> >adjList[node];
+    for(int i = 1; i <= edge; i++){
+        int u, v, w; cin >> u >> v >> w;
+        adjList[u].push_back({v, w});
+        adjList[v].push_back({u, w});
+    }
+    for(int i = 1; i <= node; i++){
+        for(int j = 1; j <= adjList[i].size(); j++)
+            cout << adjList[i][j].first << " " << adjList[i][j].second;
+        cout << "\n";
+    }
+}
+/***/
