@@ -27,3 +27,15 @@ main(){
     }
 }
 /***/
+main(){
+    int node = 4;
+    vector <int> adjList[node];
+    adjList[0] = {2, 3};
+    adjList[1] = {1, 1, 2, 2};
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < adjList[i].size(); j++)
+            cout << adjList[i][j] << " ";
+        cout << "\n";
+    }
+}
+/***/
