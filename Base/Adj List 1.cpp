@@ -1,11 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-    vector <int> vec[5];
-    vec[1].push_back(2);
-    vec[1].push_back(3);
-    vec[1].push_back(4);
-    for(int i = 0; i < vec[1].size(); i++)
-        cout << vec[1][i] << " ";
+main(){
+    int n; cin >> n;
+    vector <vector <int> >vec(n, vector <int> (n));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++)
+            vec[i][j] = i + j;
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < vec[i].size(); j++)
+            cout << vec[i][j] << " ";
+        cout << "\n";
+    }
+    vector <int> cev[n];
+    cev[1].push_back(12);
+    cev[1].push_back(14);
+    cev[1].push_back(16);
+    cev[2].push_back(18);
+    cev[2].push_back(20);
+    cev[3].push_back(22);
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < cev[i].size(); j++)
+            cout << cev[i][j] << " ";
+        cout << "\n";
+    }
 }
+/***/
