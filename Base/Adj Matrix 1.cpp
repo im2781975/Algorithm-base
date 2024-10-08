@@ -18,3 +18,15 @@ int main(){
         cout << "\n";
     }
 }
+main(){
+    int Matrix[n][n] = {};
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++)
+            Matrix[i][j] = i + j;
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++)
+            cout << Matrix[i][j] << " ";
+        cout << "\n";
+    }
+}
