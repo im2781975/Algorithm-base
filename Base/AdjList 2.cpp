@@ -39,3 +39,14 @@ main(){
     }
 }
 /***/
+main(){
+    int node = 4;
+    vector <vector <pair<int, int> > >adjList(node);
+    adjList[0] = {{1, 2}}; adjList[1] = {{3, 4}};
+    adjList[2] = {{1, 7}, {2, 3}}; adjList[3] = {{9, 6}};
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < adjList[i].size(); j++)
+            cout << adjList[i][j]. first << " " << adjList[i][j].second << " ";
+        cout << "\n";
+    }
+}
