@@ -1,62 +1,38 @@
-// find articulation points in an undirected graph
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-// A recursive function to traverse the graph without considering the ith vertex and its associated edges
-void dfs(vector<int> adj[], int V, vector<int>& vis, int i, int curr)
-{
-    vis[curr] = 1;
-    for (auto x : adj[curr]) {
-        if (x != i) {
-            if (!vis[x]) {
-                dfs(adj, V, vis, i, x);
-            }
-        }
+void DFS(vector <int>adjList[], vector<int>&visited, int cur){
+    visited[cur] = 1;
+    for(int x : adjList[cur]){
+        if(!visited[x])
+            DFS(adjList, visited, x);
     }
 }
-// Function to find Articulation Points in the graph
-void AP(vector<int> adj[], int V)
-{
-    // Iterating over all the vertices and for each vertex i
-    // remove the vertex and check whether the graph remains connected.
-    for (int i = 1; i <= V; i++) {
-        // To keep track of number of components of graph
+void aPoint(vector <int> adjList[], int node){
+    for(int i = 1; i <= node; i++){
         int components = 0;
-        // To keep track of visited vertices
-        vector<int> vis(V + 1, 0);
-        // Iterating over the graph after removing vertex & its associated edges
-        for (int j = 1; j <= V; j++) {
-            if (j != i) {
- 
-                // If the jth vertex is not visited it will form a new component.
-                if (!vis[j]) {
-                    // Increasing the number of components.
+        vector <int> visited(node + 1 , 0);
+        for(int j = 1; j <= node; j++){
+            if(j != i && !visited[j]){
                     components++;
-                    // dfs call for the jth vertex
-                    dfs(adj, V, vis, i, j);
-                }
+                    DFS(adjList, visited, j);
             }
         }
-        // If number of components is more than 1 after removing the ith vertex //then vertex i is an articulation point.
-        if (components > 1) {
-            cout << i << "\n";
-        }
+        if(components > 1)
+            cout << i << " ";
     }
 }
-void addEdge(vector<int> adj[], int u, int v)
-{
-    adj[u].push_back(v);
-    adj[v].push_back(u);
+void addEdge(vector <int> adjList[], int u, int v){
+    adjList[u].push_back(v);
+    adjList[v].push_back(u);
 }
-int main()
-{
-    cout << "Articulation points in the graph \n";
-    int V = 5;
-    vector<int> adj1[V + 1];
-    addEdge(adj1, 1, 2);
-    addEdge(adj1, 2, 3);
-    addEdge(adj1, 1, 3);
-    addEdge(adj1, 3, 4);
-    addEdge(adj1, 4, 5);
-    AP(adj1, V);
-    return 0;
+int main(){
+    int node = 5;
+    vector <int> adjList[node + 1];
+    cout << "Articulation Point\n";
+    addEdge(adjList, 1, 2);
+    addEdge(adjList, 2, 3);
+    addEdge(adjList, 1, 3);
+    addEdge(adjList, 1, 4);
+    addEdge(adjList, 3, 4);
+    aPoint(adjList, node);
 }
