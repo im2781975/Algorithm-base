@@ -59,3 +59,12 @@ int Fib(int n){
     return fib;
 }
 /***/
+int fattorial(int n){
+    int fatt;
+    if(n == 1)
+        fatt = 1;
+    else
+        fatt = n * fattorial(n - 1);
+    return fatt;
+}
+/***/
