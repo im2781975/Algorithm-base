@@ -90,3 +90,37 @@ int main(){
     BFS(adjList, visited, 0);
 }
 /***/
+const int maxn = 1000;
+vector <int> adjList[maxn];
+bool visited[maxn];
+void BFS(int src){
+    queue <int> q;
+    visited[src] = true;
+    q.push(src);
+    while(!q.empty()){
+        int cur = q.front(); q.pop();
+        cout << cur << " ";
+        for(int child : adjList[cur]){
+            if(!visited[child]){
+                visited[child] = true;
+                q.push(child);
+            }
+        }
+    }
+}
+int main(){
+    int node, edge; cin >> node >> edge;
+    if(node <= 0 || edge < 0){
+        cout << "Invalid input";
+        return 1;
+    }
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        if(u < 0 || u >= node || v < 0 || v >= node)
+            continue;
+        adjList[u].push_back(v);
+        adjList[v].push_back(u);
+    }
+    BFS(0);
+}
+/***/
