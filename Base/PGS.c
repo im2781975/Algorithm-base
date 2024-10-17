@@ -79,7 +79,7 @@ int fattorial(int n){
 /***/
 from array import *
 a = [0] * 10
-b = ['A', ' ', 'B']
+b = ['A', ' ', 'B', 30, 40]
 print(a, b)
 arr = array('i', [10, 20, 30])
 arr[2] = 80
