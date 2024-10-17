@@ -47,3 +47,15 @@ int main(){
     Hanoi(3, 1, 3 , 2);
 }
 /***/
+int Fib(int n){
+    if(n == 1 || n == 2)
+        return 1;
+    int first = 1, second = 1, fib;
+    for(int i = 3; i <= n; i++){
+        fib = first + second;
+        first = second;
+        second = fib;
+    }
+    return fib;
+}
+/***/
