@@ -56,3 +56,37 @@ int main(){
     int start, end; cin >> start >> end;
     BFS(start, end, node);
 }
+/***/
+void BFS(vector <int> adjList[], vector <int> &visited, int src){
+    queue <int> q;
+    visited[src] = 1;
+    q.push(src);
+    while(!q.empty()){
+        int cur = q.front(); q.pop();
+        cout << cur << " ";
+        for(int child : adjList[cur]){
+            if(visited[child] == 0){
+                visited[child] = 1;
+                q.push(child);
+            }
+        }
+    }
+}
+int main(){
+    int node, edge; cin >> node >> edge;
+    if(node <= 0 || edge < 0){
+        cout << "Invalid input";
+        return 1;
+    }
+    vector <int> visited(node, 0);
+    vector <int> adjList[node];
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        if(u < 0 || u >= node || v < 0 || v >= node)
+            continue;
+        adjList[u].push_back(v);
+        adjList[v].push_back(u);
+    }
+    BFS(adjList, visited, 0);
+}
+/***/
