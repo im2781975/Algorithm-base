@@ -34,3 +34,16 @@ int RecursiveMin(int arr[], int len, int l, int r){
     }
 }
 /***/
+void Hanoi(int n, int A, int C, int B){
+    if(n == 1)
+        cout << A << " " << C << "\n";
+    else{
+        Hanoi(n, A, B, C);
+        cout << A << " " << C << "\n";
+        Hanoi(n, B, C, A);
+    }
+}
+int main(){
+    Hanoi(3, 1, 3 , 2);
+}
+/***/
