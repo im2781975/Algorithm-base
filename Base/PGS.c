@@ -86,3 +86,13 @@ arr[2] = 80
 for x in arr:
     print(x)
 /***/
+int main(){
+    int *p = NULL;
+    p = new int[100];
+    for(int i = 0; i < 100; i++)
+        p[i] = rand();
+    delete []p;
+    for(int i = 0; i < 100; i++)
+        cout << p[i] << " ";
+}
+/***/
