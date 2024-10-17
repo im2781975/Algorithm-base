@@ -25,3 +25,12 @@ int RicercaBinarySplit(int *arr, int val, int l, int r){
     }
 }
 /***/
+int RecursiveMin(int arr[], int len, int l, int r){
+    if(l == r)
+        return arr[l];
+    else {
+        int mean = (l + r)/2;
+        return min(RecursiveMin(arr, len, l, mean), RecursiveMin(arr, len, mean + 1, r));
+    }
+}
+/***/
