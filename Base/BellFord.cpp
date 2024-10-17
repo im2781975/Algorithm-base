@@ -49,3 +49,30 @@ int main(){
     else
         cout << "No";
 } 
+/***/
+const int n = 1e5;
+int parent[n], dist[n];
+vector <pair<int, int> >adjList[n];
+int main(){
+    int node, edge; cin >> node >> edge;
+    for(int i = 0; i < node; i++)
+        dist[i] = INT_MAX;
+    for(int i = 0; i < edge; i++){
+        int u, v, w; cin >> u >> v >> w;
+        adjList[u].push_back({v, w});
+    }
+    int src = 1;
+    dist[src] = 0;
+    for(int i = 1; i < node; i++){
+        for(int u = 0; u < node; u++){
+            for(pair <int, int> child : adjList[u]){
+                int v = child.first, w = child.second;
+                if(dist[u] + w < dist[v])
+                    dist[v] = dist[u] + w;
+            }
+        }
+    }
+    for(int i = 1; i < node; i++)
+        cout << dist[i] << " ";
+}
+/***/ 
