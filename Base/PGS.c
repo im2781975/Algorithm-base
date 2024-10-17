@@ -77,3 +77,12 @@ int fattorial(int n){
     return fatt;
 }
 /***/
+from array import *
+a = [0] * 10
+b = ['A', ' ', 'B']
+print(a, b)
+arr = array('i', [10, 20, 30])
+arr[2] = 80
+for x in arr:
+    print(x)
+/***/
