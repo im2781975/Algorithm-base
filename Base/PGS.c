@@ -96,3 +96,18 @@ int main(){
         cout << p[i] << " ";
 }
 /***/
+void RicercaBinaryNonRecursive(int arr[], int n, int val){
+    int l = 0, r = n - 1;
+    int mid =(l + r)/2;
+    while(l != r){
+        if(arr[mid] == val)
+            return mid;
+        if(arr[mid] < val)
+            l = mid + 1;
+        else
+            r = mid - 1;
+        mid = (l + r)/2;
+    }
+    return (arr[mid] == val) ? mid : -1;
+}
+/***/
