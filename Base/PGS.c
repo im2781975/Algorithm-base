@@ -148,3 +148,16 @@ int main(){
     for(int i = 0; i < n; i++)
         cout << arr[i] << " ";
 }
+/***/
+arr = [41, 37, 10, 74, 98, 22, 83, 66]
+n = 8
+for i in range(n - 1, -1, -1):
+    maxi = i
+    for j in range(i - 1, -1, -1):
+        if arr[j] > arr[maxi]:
+            maxi = j
+    if maxi != i:
+        tmp = arr[i]
+        arr[i] = arr[maxi]
+        arr[maxi] = tmp
+print(arr)
