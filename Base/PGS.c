@@ -208,3 +208,15 @@ int main(){
         cout << arr[i] << " ";
 }
 /***/
+arr = [41, 37, 10, 74, 98, 22, 83, 66]
+n = 8
+swap = True
+while(swap):
+    swap = False
+    for i in range(n - 1):
+        if arr[i] > arr[i + 1]:
+            tmp = arr[i]
+            arr[i] = arr[i + 1]
+            arr[i + 1] = tmp
+            swap = True
+print(arr)
