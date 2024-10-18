@@ -130,3 +130,21 @@ def RicercaBinary(arr, key):
             r = mid - 1
         mid = (l + r)//2
 /***/
+int main(){
+    int arr[8] = {41, 37, 10, 74, 98, 22, 83, 66};
+    int n = 8;
+    for(int i = n - 1; i >= 0; i--){
+        int maxi = i;
+        for(int j = i - 1; j >= 0; j--){
+            if(arr[j] > arr[maxi])
+                maxi = j;
+        }
+        if(maxi != i){
+            int tmp = arr[i];
+            arr[i] = arr[maxi];
+            arr[maxi] = tmp;
+        }
+    }
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
