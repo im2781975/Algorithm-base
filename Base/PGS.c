@@ -188,3 +188,23 @@ int main(){
     for(int i = 0; i < n; i++)
         cout << arr[i] << " ";
 }
+/***/
+int main(){
+    int arr[8] = {41, 37, 10, 74, 98, 22, 83, 66};
+    int n = 8;
+    bool swap = true;
+    while(swap){
+        swap = false;
+        for(int i = 0; i < n - 1; i++){
+            if(arr[i] > arr[i + 1]){
+                int tmp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = tmp;
+                swap = true;
+            }
+        }
+    }
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+/***/
