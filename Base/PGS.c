@@ -1,4 +1,3 @@
-/***/
 int RicercaSequential(int *arr, int len, int val){
     int i = 0;
     while(i < len){
@@ -116,4 +115,18 @@ def RicercaLineare(arr, key):
         if arr[i] == key:
             return i
     return -1
+/***/
+def RicercaBinary(arr, key):
+   l = 0, r = len(arr)
+   mid = (l + r)//2
+   while True:
+       if mid < 0 || mid >= len(a):
+           return -1
+        if arr[mid] == val:
+            return mid
+        if arr[mid] < val:
+            l = mid + 1
+        else:
+            r = mid - 1
+        mid = (l + r)//2
 /***/
