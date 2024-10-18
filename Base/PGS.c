@@ -172,3 +172,19 @@ for i in range(1, n):
         j = j - 1
     arr[j + 1] = val
 print(arr)
+/***/
+int main(){
+    int arr[8] = {41, 37, 10, 74, 98, 22, 83, 66};
+    int n = 8;
+    for(int i = 1; i < n; i++){
+        int val = arr[i];
+        int j = i - 1;
+        while(j >= 0 && arr[j] > val){
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = val;
+    }
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
