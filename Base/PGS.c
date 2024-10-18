@@ -111,3 +111,9 @@ void RicercaBinaryNonRecursive(int arr[], int n, int val){
     return (arr[mid] == val) ? mid : -1;
 }
 /***/
+def RicercaLineare(arr, key):
+    for i in range(len(arr)):
+        if arr[i] == key:
+            return i
+    return -1
+/***/
