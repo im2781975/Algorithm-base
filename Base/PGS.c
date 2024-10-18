@@ -161,3 +161,14 @@ for i in range(n - 1, -1, -1):
         arr[i] = arr[maxi]
         arr[maxi] = tmp
 print(arr)
+/***/
+arr = [41, 37, 10, 74, 98, 22, 83, 66]
+n = 8
+for i in range(1, n):
+    val = arr[i]
+    j = i - 1
+    while(j >= 0 and arr[j] > val):
+        arr[j + 1] = arr[j];
+        j = j - 1
+    arr[j + 1] = val
+print(arr)
