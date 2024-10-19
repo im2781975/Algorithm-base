@@ -300,3 +300,27 @@ n = 8
 mergesort(arr, 0, n - 1);
 print(arr)
 /***/
+def quicksort(arr, l, r):
+    i = l
+    j = r
+    pivot = arr[(l + r) //2]
+    while i <= j:
+        while arr[i] < pivot:
+            i+= 1
+        while arr[j] > pivot:
+            j-= 1
+        if i <= j:
+            if i < j:
+                tmp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = tmp
+            i += 1
+            j -= 1
+    if l < j:
+        quicksort(arr, l, j)
+    if i < r:
+        quicksort(arr, i, r)
+arr = [41, 37, 10, 74, 98, 22, 83, 66]
+n = 8
+quicksort(arr, 0, n - 1);
+print(arr)
