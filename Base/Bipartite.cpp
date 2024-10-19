@@ -72,3 +72,37 @@ int main(){
     adj[2] = {1, 3}; adj[2] = {0, 2};
     (IsBipartite(node, adj))? cout << "Yes" : cout << "No";
 }
+/***/
+#define node 4
+bool colorGraph(int graph[][node], int color[], int u, int c){
+    if(color[u] != -1 && color[u] != c)
+        return false;
+    //color this pos as c and all its neighbours and 1-c
+    color[u] = c;
+    bool ans = true;
+    for(int v = 0; v < node; v++){
+        if(graph[u][v]){
+            if(color[v] == -1)
+                ans &= colorGraph(graph, color, v, 1 - c);
+            if(color[v] != -1 && color[v] != 1 - c)
+                return false;
+        }
+        if(!ans)
+            return false;
+    }
+    return true;
+}
+bool IsBipartite(int graph[][node]){
+    int color[node];
+    for(int i = 0; i < node; i++)
+        color[i] = -1;
+    int src = 0;
+    return colorGraph(graph, color, src, 1);
+}
+int main(){
+    int graph[][node] = 
+    {{0, 1, 0, 1}, {1, 0, 1, 0},
+    {0, 1, 0, 1}, {1, 0, 1, 0} };
+    IsBipartite(graph)? cout << "Yes" : cout << "No";
+}
+/***/
