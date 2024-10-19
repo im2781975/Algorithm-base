@@ -263,3 +263,40 @@ int main(){
     for(int i = 0; i < n; i++)
         cout << arr[i] << " ";
 }
+/***/
+def merge(arr, l, mid, r):
+    i = l
+    j = mid + 1
+    k = 0
+    tmp = [0] * (r - l + 1)
+    
+    while i <= mid and j <= r:
+        if arr[i] <= arr[j]:
+            tmp[k] = arr[i]
+            i+= 1
+        else:
+            tmp[k] = arr[j]
+            j+= 1
+        k+= 1
+    while i <= mid:
+        tmp[k] = arr[i]
+        i += 1
+        k += 1
+    while j <= r:
+        tmp[k] = arr[j]
+        j+= 1
+        k+= 1
+    for k in range(l, r + 1):
+        arr[k] = tmp[k - l]
+def mergesort(arr, l, r):
+    if(l < r):
+        mid = (l + r)//2;
+        mergesort(arr, l, mid);
+        mergesort(arr, mid + 1, r);
+        merge(arr, l, mid, r);
+
+arr = [41, 37, 10, 74, 98, 22, 83, 66]
+n = 8
+mergesort(arr, 0, n - 1);
+print(arr)
+/***/
