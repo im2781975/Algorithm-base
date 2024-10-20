@@ -1,3 +1,46 @@
+/***/
+#include <iostream> 
+#include <cstdlib> 
+using namespace std; 
+void inserisce_dietro(){ 
+    list root=NULL, aux; 
+    char n;  
+    while ((n=getchar()) != '\n'){ 
+        if (root==NULL){  
+            root=(list)malloc(sizeof(struct list_element));  
+            aux=root;  
+        } 
+        else{  
+            aux->next=(list)malloc(sizeof(struct list_element)); 
+            aux=aux->next;  
+        } 
+        aux->value=n;  
+        aux->next=NULL;  
+    }  
+} 
+void showlist(list l){  
+    printf("[");  
+    while (l!=NULL){ 
+        putchar(l->value);  
+        l=l->next;  
+        if (l!=NULL)        
+            printf(",");    
+    }   
+    printf("]\n");  
+} 
+void showr_list(list l){   
+    if (l!=NULL){     
+        putchar(l->value);      
+        if (l->next!=NULL){       printf(",");  showr_list(l->next);
+        }    
+    }  
+} 
+void showr_l(list l){   
+    printf("[");    
+    showr_list(l);    
+    printf("]\n");  
+} 
+/***/
 int RicercaSequential(int *arr, int len, int val){
     int i = 0;
     while(i < len){
