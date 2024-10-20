@@ -1,40 +1,29 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
 const int n = 1e5;
-int visited[n + 1];
-vector<int> adj_list[n + 1];
-stack<int> node_stack;
-
-void dfs(int node) {
-    visited[node] = 1;
-    for (int adj_node : adj_list[node]) {
-        if (visited[adj_node] == 0) {
-            dfs(adj_node);
-        }
+bool visited[n + 1];
+vector <int> adj[n];
+stack <int> st;
+void DFS(int node){
+    visited[node] = true;
+    for(int child : adj[node]){
+        if(!visited[child])
+            DFS(child);
     }
-    node_stack.push(node);
+    st.push(node);
 }
-
-int main() {
-    int node, edge;
-    cin >> node >> edge;
-    
-    for (int i = 0; i < edge; i++) {
-        int u, v;
-        cin >> u >> v;
-        adj_list[u].push_back(v);
+int main(){
+    int node, edge; cin >> node >> edge;
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
     }
-
-    for (int i = 1; i <= node; i++) {  
-        if (visited[i] == 0) {
-            dfs(i);
-        }
+    for(int i = 1; i <= node; i++){
+        if(!visited[i])
+            DFS(i);
     }
-
-    while (!node_stack.empty()) {
-        cout << node_stack.top() << " ";
-        node_stack.pop();
+    while(!st.empty()){
+        cout << st.top() << " ";
+        st.pop();
     }
-    return 0;
 }
