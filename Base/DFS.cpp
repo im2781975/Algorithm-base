@@ -48,5 +48,10 @@ int main(){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
+    /*for(int i = 1; i <= node; i++){
+        for(auto child: adj[i])
+            cout << child << " ";
+    }
+    cout << "\n";*/
     DFS(0);
 }
