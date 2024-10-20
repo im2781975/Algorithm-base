@@ -1,4 +1,71 @@
 /***/
+
+/***/
+#include <memory> 
+using namespace std; 
+class LinkedListUP{ 
+    private: 
+    struct Node{ 
+        int data; 
+        shared_ptr<Node> next; 
+        Node(int data) : data(data), next(nullptr) {} 
+        Node(int data, shared_ptr<Node> next) : data(data), next(std::move(next)) {} 
+    }; 
+    shared_ptr<Node> head; 
+    public:
+        LinkedListUP(); 
+        void insertAtStart(int value); 
+        void insertAtEnd(int value); 
+        void deleteNode(int value);
+        void printList(); 
+}; 
+#include <iostream> 
+#include "LinkedListUP.h"
+LinkedListUP::LinkedListUP(){ 
+    head=NULL; 
+} 
+void LinkedListUP::insertAtStart(int value){ 
+    auto new_node = make_shared<Node>(value); 
+    new_node->next = move(head); head = move(new_node); 
+} 
+void LinkedListUP::insertAtEnd(int value){ 
+    if (!head){ 
+        head = make_shared<Node>(value); 
+    }
+    else{ 
+        auto current = head.get();
+        while (current->next){ current = current->next.get(); 
+        } 
+        current->next = make_shared<Node>(value); 
+    } 
+} 
+void LinkedListUP::deleteNode(int value){ 
+    if (!head){ 
+        return; 
+    }
+    if (head->data == value){ 
+        head = move(head->next); return; 
+    } 
+    auto current = head.get();
+    while (current->next && current->next->data != value){ 
+        current = current->next.get(); 
+    }
+    if (current->next){ 
+        current->next = move(current->next->next); 
+    } 
+}
+void LinkedListUP::printList(){
+    if (!head){ 
+        cout << "List is empty" << endl; 
+        return; 
+    } 
+    auto curr = head;
+    while (curr){ 
+        cout << curr->data << " "; curr = curr->next; 
+    } 
+    cout<<endl; 
+}
+/***/
 #include <iostream> 
 #include <cstdlib> 
 using namespace std; 
