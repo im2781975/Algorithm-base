@@ -414,3 +414,15 @@ n=8
 heapsort(a,n)
 print(a) 
 /***/
+int main() {
+    int* int_ptr_malloc = (int*) malloc(sizeof(int));
+    *int_ptr_malloc = 5; 
+    cout<<"Valore puntato: "<<*int_ptr_malloc<<endl; 
+    free(int_ptr_malloc);
+    int* int_ptr_new = new int; 
+    *int_ptr_new = 10;
+    cout <<"Valore puntato: "<<*int_ptr_new<<endl; 
+    delete int_ptr_new; 
+    return 0;
+}
+/***/
