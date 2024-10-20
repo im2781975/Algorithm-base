@@ -39,6 +39,7 @@ int main(){
     (CycleExits)?cout << "Cycle Exits" : cout << "Doesn't exits";
 }
 /***/
+// detect cycle in an undirected graph using BFS.
 using namespace std;
 bool IsCyclicConnected(vector <int> adj[], int v, vector <bool> &visited){
     vector <int> parent(visited.size(), -1);
