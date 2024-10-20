@@ -27,3 +27,26 @@ int main(){
         st.pop();
     }
 }
+/***/
+using namespace std;
+const int n = 1e5;
+vector <int> adj[n];
+bool visited[n];
+void DFS(int node){
+    cout << node << " ";
+    visited[node] = true;
+    for(int child : adj[node]){
+        if(!visited[child])
+            DFS(child);
+    }
+}
+int main(){
+    int node, edge; cin >> node >> edge;
+    fill(visited, visited + node, false);
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    DFS(0);
+}
