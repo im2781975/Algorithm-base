@@ -324,3 +324,35 @@ arr = [41, 37, 10, 74, 98, 22, 83, 66]
 n = 8
 quicksort(arr, 0, n - 1);
 print(arr)
+/***/
+void quicksort(int arr[], int l, int r){
+    int i = l, j = r;
+    int pivot = arr[(l + r)/2];
+
+    while(i <= j){
+        while(arr[i] < pivot)
+            i++;
+        while(arr[j] > pivot)
+            j--;
+        if(i <= j){
+            if(i < j){
+                int tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+            i++; j--;
+        }
+    }
+    if(l < j)
+        quicksort(arr, l, j);
+    if(i < r)
+        quicksort(arr, i, r);
+}
+int main(){
+    int arr[8] = {41, 37, 10, 74, 98, 22, 83, 66}; 
+    int n = 8;
+    quicksort(arr, 0, n - 1);
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+/***/
