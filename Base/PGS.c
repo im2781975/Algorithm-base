@@ -426,3 +426,12 @@ int main() {
     return 0;
 }
 /***/
+int main(){ 
+    list root=NULL, aux;  
+    char n;  
+    while ((n=getchar()) != '\n'){ aux=(list)malloc(sizeof(struct list_element));  
+        aux->value=n;  
+        aux->next=root;  
+        root=aux; 
+    }   
+} 
