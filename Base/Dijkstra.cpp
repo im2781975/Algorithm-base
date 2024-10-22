@@ -132,3 +132,46 @@ int main(){
     for(auto node : path)
         cout << node << " ";
 }
+/***/
+using namespace std;
+#define node 9
+int minDist(int dist[], bool visited[]){
+    int mini = INT_MAX, minIdx;
+    for(int i = 0; i < node; i++){
+        if(!visited[i] && dist[i] <= mini){
+            mini = dist[i];
+            minIdx = i;
+        }
+    }
+    return minIdx;
+}
+void print(int dist[node]){
+    for(int i = 0; i < node; i++)
+        cout << i << "\t" << dist[i] << "\n";
+}
+void Dijkstra(int graph[node][node], int src){
+    int dist[node]; bool visited[node];
+    for(int i = 0; i < node; i++){
+        dist[i] =INT_MAX;
+        visited[i] = false;
+    }
+    dist[src] = 0;
+    for(int i = 0; i < node - 1; ++i){
+        int u = minDist(dist, visited);
+        visited[u] = true;
+        for(int v = 0; v < node; v++){
+            if(!visited[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] <= dist[v])
+                dist[v] = dist[u] + graph[u][v];
+        }
+    }
+    print(dist);
+}
+int main(){
+    int graph[node][node] ={
+    { 0, 4, 0, 0, 0, 0, 0, 8, 0 }, { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+    { 0, 8, 0, 7, 0, 4, 0, 0, 2 }, { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+    { 0, 0, 0, 9, 0, 10, 0, 0, 0 }, { 0, 0, 4, 14, 10, 0, 2, 0, 0},
+    { 0, 0, 0, 0, 0, 2, 0, 1, 6 }, { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+    { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+    Dijkstra(graph, 0);
+}
