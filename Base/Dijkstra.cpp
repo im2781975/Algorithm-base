@@ -74,3 +74,61 @@ int main(){
     int src; cin >> src;
     Dijkstra(graph, src, node);
 }
+/***/
+using namespace std;
+const int n = 1e5;
+int node, edge;
+bool visited[n]; int dist[n], parent[n];
+vector <pair<int, int> >adj[n];
+void Dijkstra(int src){
+    for(int i = 1; i <= node; i++)
+        dist[i] = INT_MAX;
+    dist[src] = 0;
+    priority_queue<pair <int, int> >pq;
+    pq.push({0, src});
+    while(!pq.empty()){
+        pair<int, int> head = pq.top();
+        pq.pop();
+        int u = head.second;
+        if(visited[u])
+            continue;
+        visited[u] = 1;
+        for(pair <int, int> q: adj[u]){
+            int v = q.first;
+            int w = q.second;
+            if(dist[u] + w < dist[v]){
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+                //priority_queue by default is a max-heap, meaning it orders elements such that the largest element is at the top (highest priority).
+                //Dijkstra's algorithm requires the smallest distance (or the minimum element) to be processed first. To achieve this, the distances need to be treated in reverse order.
+                //By pushing -dist[v] into the priority queue, the smallest distance (in the positive sense) will have the largest negative value, effectively putting the smallest distance at the top of the queue.
+                pq.push({-dist[v], v});
+            }
+        }
+    }
+}
+int main(){
+    cin >> node >> edge;
+    for(int i = 0; i < edge; i++){
+        int u, v, w; cin >> u >> v >> w;
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
+    }
+    int src = 1;
+    Dijkstra(src);
+    if(!visited[node]){
+        cout << "-1";
+        return 0;
+    }
+    int cur = node;
+    vector <int> path;
+    while(true){
+        path.push_back(cur);
+        if(cur == src)
+            break;
+        cur = parent[cur];
+    }
+    reverse(path.begin(), path.end());
+    for(auto node : path)
+        cout << node << " ";
+}
