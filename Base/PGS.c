@@ -1,4 +1,18 @@
 /***/
+#include <iostream> 
+#include <queue>  
+using namespace std;
+int main() { 
+    queue<int> queue; 
+    queue.push(10); 
+    queue.push(20);
+    queue.push(30); 
+    while (!queue.empty()){ 
+        int front = queue.front(); cout << front << endl; queue.pop(); 
+    } 
+    return 0; 
+} 
+/***/
 #include <iostream>  
 using namespace std;
 const int MAX_SIZE = 10;  
