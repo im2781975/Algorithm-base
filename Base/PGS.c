@@ -1,4 +1,36 @@
 /***/
+#include <iostream> 
+using namespace std;  
+class Stack{ 
+    private: 
+    struct Node{         
+        int data;         
+        Node* next;     
+    };     
+    Node* top;  
+    public:     
+    Stack(){ 
+        top = nullptr; 
+    }      
+    void push(int value){        
+        Node* new_node = new Node;
+        new_node->data = value;
+        new_node->next = top;  
+        top = new_node;     
+    }      
+    int pop(){        
+        if (top == nullptr){        
+            cout << "Pila vuota!\n";            
+            return -1;         
+        }          
+        int value = top->data;
+        Node* temp = top;         
+        top = top->next;         
+        delete temp;         
+        return value;     
+    } 
+}; 
+/***/
 #include <stdio.h>
 #include <stdlib.h>  
 struct StackNode{     
