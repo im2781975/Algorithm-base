@@ -1,5 +1,41 @@
 /***/
+#include <stdio.h>
+#include <stdlib.h>  
+struct StackNode{     
+    int data;    
+    struct StackNode* next; 
+};
+struct Stack{     
+    struct StackNode* top;
+};  
+struct StackNode* newNode(int data){     
+    struct StackNode* node = (struct StackNode*)  malloc( sizeof( struct StackNode));     
+    node->data = data;    
+    node->next = NULL;     
+    return node; 
+}
+struct Stack* createStack(){     struct Stack* stack = (struct Stack*) malloc( sizeof(struct Stack));     
+    stack->top = NULL;     
+    return stack; }
 
+int isEmpty(struct Stack* stack){     return !stack->top; 
+} 
+void push(struct Stack* stack, int data){     
+    struct StackNode* node = newNode(data);     
+    node->next = stack->top;
+    stack->top = node;     
+    printf("%d inserito nella pila\n", data);
+}
+int pop(struct Stack* stack){     if (isEmpty(stack))                 return -1;     
+    struct StackNode* temp = stack->top;     
+    int popped = temp->data;    
+    stack->top = stack->top->next;
+    free(temp);     
+    return popped; 
+} 
+int peek(struct Stack* stack) {     if (isEmpty(stack))                 return -1;     
+    return stack->top->data; 
+} 
 /***/
 #include <stdio.h>
 #include <stdbool.h>   
