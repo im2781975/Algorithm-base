@@ -1,4 +1,40 @@
 /***/
+#include <iostream>  
+using namespace std;
+const int MAX_SIZE = 10;  
+class CircularQueue {   
+    public:     
+    CircularQueue(){       
+        head = tail = -1;       
+        buffer = new int[MAX_SIZE];
+    }      
+        ~CircularQueue(){       
+            delete [] buffer;     
+        }
+        void enqueue(int value){       if ((tail + 1) % MAX_SIZE == head) {              cout << "Coda piena, non è possibile inserire elementi." << endl;         
+                    return;       
+            } 
+            tail = (tail + 1) % MAX_SIZE;       
+            buffer[tail] = value;  
+            if (head == -1)   
+                head = tail;       
+        }
+        int dequeue(){       
+            if (head == -1){         cout << "Coda vuota, non è possibile rimuovere elementi." << endl;         
+                return -1;       
+            }        
+            int value = buffer[head];   
+            if (head == tail){         head = tail = -1;       
+            }else {         
+                head = (head + 1) % MAX_SIZE;       
+            }        
+            return value;     
+        }    
+        private:     
+        int head, tail;     
+        int *buffer;
+}; 
+/***/
 #include <stdio.h> 
 #include <stdlib.h>  
 #define MAX_SIZE 100  
