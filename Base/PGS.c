@@ -1,4 +1,18 @@
 /***/
+class Queue: 
+    def __init__(self): 
+        self.queue = [] 
+        def enqueue(self, item): self.queue.append(item)
+        def dequeue(self): 
+            if len(self.queue) == 0:
+                return None         
+            else:             
+                return self.queue.pop(0)          
+        def is_empty(self):         return len(self.queue) == 0  
+queue = Queue() 
+queue.enqueue(1)
+print(queue.dequeue()) 
+/***/
 #include <iostream> 
 #include <queue>  
 using namespace std;
