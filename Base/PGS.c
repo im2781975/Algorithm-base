@@ -1,6 +1,35 @@
 /***/
 
 /***/
+#include <stdio.h>
+#include <stdbool.h>   
+#define MAX_SIZE 100  
+int stack[MAX_SIZE]; 
+int top = -1;  
+bool isEmpty(){   
+    return top == -1; 
+}  
+bool isFull(){  
+    return top == MAX_SIZE-1; 
+}  
+void push(int value){     
+    if (isFull()){         
+        printf("Pila Full\n");
+        return;    
+    }      
+    top++;     
+    stack[top] = value; 
+} 
+int pop(){     
+    if (isEmpty()){        
+        printf("Pila vuota!\n");
+        return -1;     
+    } 
+int value = stack[top];    
+    top--;     
+    return value; 
+} 
+/***/
 #include <memory> 
 using namespace std; 
 class LinkedListUP{ 
