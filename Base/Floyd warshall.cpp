@@ -22,7 +22,7 @@ int main(){
                 dist[u][v] = min(dist[u][v], dist[u][k] + dist[k][v]);
         }
     }
-    for(int i = 1; i < node; i++){
+    for(int i = 1; i <= node; i++){
         for(int j = 1; j <= node; j++)
         if(dist[i][j] == INF)
             cout << "__";
