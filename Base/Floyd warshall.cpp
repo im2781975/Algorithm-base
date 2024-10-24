@@ -31,3 +31,33 @@ int main(){
         cout << "\n";
     }
 }
+/***/
+using namespace std;
+#define node 4
+#define INF 99999
+void print(int dist[][node]){
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < node; j++){
+            (dist[i][j] == INF) ? cout << "INF " : cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+}
+void Floydwar(int dist[][node]){
+    for(int k = 0; k < node; k++){
+        for(int u = 0; u < node; u++){
+            for(int v = 0; v < node; v++){
+                if(dist[u][k] !=  INF && dist[k][v] != INF)
+                    dist[u][v] = dist[u][k] +  dist[k][v];
+            }
+        }
+    }
+    print(dist);
+}
+int main(){
+    int graph[node][node] = 
+    { { 0, 5, INF, 10 }, { INF, 0, 3, INF },
+    { INF, INF, 0, 1 }, { INF, INF, INF, 0 } };
+    Floydwar(graph);
+}
+/***/
