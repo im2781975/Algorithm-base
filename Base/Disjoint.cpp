@@ -1,44 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int maxn=1e5;
-int parent[maxn], rank_[maxn];
-int findParent(int node)
-{
-    if(node==parent[node])
+const int n = 1e5;
+int parent[n], Rank[n];
+int findparent(int node){
+    if(node == parent[node])
         return node;
-    int x=findParent(parent[node]);
-    parent[node]=x;
+    int x = findparent(parent[node]);
+    parent[node] = x;
     return parent[node];
 }
-void union_(int a, int b)
-{
-    a=findParent(a);
-    b=findParent(b);
-    if(rank_[a] < rank_[b])
+void Union(int a, int b){
+    a = findparent(a); b = findparent(b);
+    if(Rank[a] < Rank[b])
         parent[a] = b;
-    else if(rank_[b] < rank_[a])
+    if(Rank[b] < Rank[a])
         parent[b] = a;
-    else
-    {
-        parent[b]=a;
-        rank_[a]++;
+    else{
+        parent[b] = a;
+        Rank[a]++;
     }
+        
 }
-int main()
-{
-    for(int i=0; i<maxn; i++)
-        parent[i]=i;
-    int n, e;
-    cin >> n >> e;
-    for(int i=1; i<=e; i++)
-    {
-        int u, v;
-        cin >> u >> v;
-        union_(u, v);
+int main(){
+    for(int i = 0; i < n; i++)
+        parent[i] = i;
+    int node, edge; cin >> node >> edge;
+    for(int i = 1; i <= edge; i++){
+        int u, v; cin >> u >> v;
+        Union(u, v);
     }
-    for(int i=1; i<=n; i++)
-        cout << rank[i] << " ";
+    for(int i = 1; i <= n; i++)
+        cout << Rank[i] << " ";
     cout << "\n";
-    for(int i=1; i<=n; i++)
+    for(int i = 1; i <= n; i++)
         cout << parent[i] << " ";
 }
+
+
