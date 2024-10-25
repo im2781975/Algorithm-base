@@ -61,3 +61,33 @@ int main(){
     Floydwar(graph);
 }
 /***/
+//check if there is a negative weight cycle using Floyd Warshall Algorithm
+using namespace std;
+#define node 4
+#define INF 99999
+bool NegCycle(int graph[][node]){
+    int dist[node][node];
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < node; j++)
+            dist[i][j] = graph[i][j];
+    }
+    for(int k = 0; k < node; k++){
+        for(int u = 0; u < node; u++){
+            for(int v = 0; v < node; v++){
+                if(dist[u][k] + dist[k][v] < dist[u][v])
+                    dist[u][v] = dist[u][k] + dist[k][v];
+            }
+        }
+    }
+    for(int i = 0; i < node; i++){
+        if(dist[i][i] < 0)
+            return true;
+    }
+    return false;
+}
+int main(){
+    int graph[node][node] = 
+    { {0 , 1 , INF, INF}, {INF , 0   , -1  , INF},
+    {INF , INF , 0 ,-1},{-1  , INF , INF ,   0}};
+    (NegCycle(graph)) ? cout << "Yes" : cout << "No";
+}
