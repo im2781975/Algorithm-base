@@ -124,3 +124,42 @@ int main(){
     BFS(0);
 }
 /***/
+using namespace std;
+//Best First Search using priority queue
+typedef pair<int, int> pr;
+vector< vector< pr > > graph;
+void addedge(int u, int v, int w){
+    graph[u].push_back(make_pair(v, w));
+    graph[v].push_back(make_pair(u, w));
+}
+void BFS(int src, int trg, int node){
+    vector <bool> visited(node, false);
+    priority_queue <pr, vector <pr>, greater <pr> >pq;
+    pq.push(make_pair(0, src));
+    int u = src;
+    visited[u] = true;
+    while(!pq.empty()){
+        int v = pq.top().second;
+        cout << v << " ";
+        pq.pop();
+        if(v == trg)
+            break;
+        for(int i = 0; i < graph[v].size(); i++){
+            if(!visited[graph[v][i].second]){
+                visited[graph[v][i].second] = true;
+                pq.push(make_pair(graph[v][i].first, graph[v][i].second));
+            }
+        }
+    }
+}
+int main(){
+    int node = 14;
+    graph.resize(node);
+    addedge(0, 1, 3);
+    addedge(0, 2, 6);
+    addedge(0, 3, 5);
+    addedge(1, 4, 9);
+    addedge(1, 5, 8);
+    int src = 0, trg = 9;
+    BFS(src, trg, node);
+}
