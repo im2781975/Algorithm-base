@@ -91,3 +91,36 @@ int main(){
     {INF , INF , 0 ,-1},{-1  , INF , INF ,   0}};
     (NegCycle(graph)) ? cout << "Yes" : cout << "No";
 }
+/***/
+using namespace std;
+const int N 1e3;
+const long long INF 1e18;
+int dist[N][N];
+int main(){
+    int node, edge; cin >> node >> edge;
+    for(int i = 1; i <= node; i++){
+        for(int j = 1; j <= node; j++)
+            dist[i][j] = INF;
+    }
+    for(int i = 0; i < edge; i++){
+        int u, v, w; cin >> u >> v >> w;
+        dist[u][v] = min(dist[u][v], w);
+        dist[v][u] = min(dist[v][u], w);
+    }
+    for(int i = 1; i <= node; i++)
+        dist[i][i] = 0;
+    for(int k = 1; k <= node; k++){
+        for(int u = 1; u <= node; u++){
+            for(int v = 1; v <= node; v++)
+                dist[u][v] = min(dist[u][v], dist[u][k] + dist[k][v]);
+        }
+    }
+    int query; cin >> query;
+    for(int i = 0; i < query; i++){
+        int u, v; cin >> u >> v;
+        if(dist[u][v] == INF)
+            cout << "-1";
+        else
+            cout << dist[u][v];
+    }
+}
