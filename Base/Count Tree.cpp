@@ -1,41 +1,31 @@
-//count number of trees in a forest
 #include<bits/stdc++.h>
 using namespace std;
-void addEdge(vector<int> adj[], int u, int v)
-{
+//count the number of connected components in an undirected graph.
+void addEdge(vector <int> adj[], int u, int v){
     adj[u].push_back(v);
     adj[v].push_back(u);
 }
-//function to do DFS of graph recursively from a given vertex u.
-void DFSUtil(int u, vector<int> adj[], vector<bool> &visited)
-{
+void DFS(vector <int> adj[], int u, vector <bool> &visited){
     visited[u] = true;
-    for (int i=0; i<adj[u].size(); i++)
-        if (visited[adj[u][i]] == false)
-            DFSUtil(adj[u][i], adj, visited);
-}
-// Returns count of tree is the forest given as adjacency list.
-int countTrees(vector<int> adj[], int V)
-{
-    vector<bool> visited(V, false);
-    int res = 0;
-    for (int u=0; u<V; u++)
-    {
-        if (visited[u] == false)
-        {
-            DFSUtil(u, adj, visited);
-            res++;
-        }
+    for(int v = 0; v < adj[u].size(); v++){
+        if(!visited[adj[u][v]])
+            DFS(adj, adj[u][v], visited);
     }
-    return res;
 }
-int main()
-{
-    int V = 5;
-    vector<int> adj[V];
+int main(){
+    int node = 5; 
+    vector <int> adj[node];
     addEdge(adj, 0, 1);
     addEdge(adj, 0, 2);
+    addEdge(adj, 0, 3);
     addEdge(adj, 3, 4);
-    cout << countTrees(adj, V);
-    return 0;
+    vector <bool> visited(node, false);
+    int cnt = 0;
+    for(int u = 0; u < node; u++){
+        if(!visited[u]){
+            DFS(adj, u, visited);
+            cnt++;
+        }
+    }
+    cout << cnt;
 }
