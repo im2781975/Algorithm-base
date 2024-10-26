@@ -16,16 +16,16 @@ void FindWords(char Boggle[M][N], bool visited[M][N], int i, int j, string str){
     visited[i][j] = true;
     str += Boggle[i][j];
     if(IsWord(str))
-        cout << str;
+        cout << str << " ";
     // Traverse 8 adjacent cells of boggle[i][j]
     for(int row = i - 1; row <= i + 1 && row < M; ++row){
-        for(int col = j - 1; col <= j + 1 && j < N; ++j){
+        for(int col = j - 1; col <= j + 1 && col < N; ++col){
             if(row >= 0 && col >= 0 &&! visited[row][col])
-                FindWords(Boggle, visited, i, j, str);
+                FindWords(Boggle, visited, row, col, str);
         }
     }
     // Erase current character from string and mark visited of current cell as false
-    str.erase(str.length() - 1);
+    //str.erase(str.length() - 1);
     visited[i][j] = false;
 }
 int main(){
@@ -34,10 +34,9 @@ int main(){
     bool visited[M][N] = { {false} };
     //Consider every character and look for all words starting with this character
     for(int i = 0; i < M; i++){
-        for(int j = 0; j < n; j++){
-            string str = " ";
+        for(int j = 0; j < N; j++){
+            string str = "";
             FindWords(Boggle, visited, i, j, str);
         }
     }
 }
-
