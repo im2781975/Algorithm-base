@@ -26,4 +26,35 @@ void DFS(int src){
      }
      for(int i = 0; i < ans.size(); i++)
          cout << ans[i] << " ";
- }
+}
+//Find the sortest route between cities
+using namespace std;
+int main(){
+    int node, edge; cin >> node >> edge;
+    vector <vector <int> >dist(node, vector <int> (node, INT_MAX));
+    for(int i = 0; i < node ; i++)
+        dist[i][i] = 0;
+    for(int i = 0; i < edge; i++){
+        int u, v, w; cin >> u >> v >> w;
+        //Assuming cities are 1-base idx
+        dist[u - 1][v - 1] = w;
+        dist[v - 1][u - 1] = w;
+    }
+    for(int k = 0; k < node; k++){
+        for(int u = 0; u < node; u++){
+            for(int v = 0; v < node; v++){
+                if(dist[u][k] != INT_MAX && dist[k][v] != INT_MAX)
+                    dist[u][v] = min(dist[u][v], dist[u][k] + dist[k][v]);
+            }
+        }
+    }
+    int q; cin >> q;
+    while(q--){
+        int src, dst; cin >> src >> dst;
+        cout << "Sortest distance between " << src << " to " << dst << " is: ";
+        if(dist[src - 1][dst - 1] != INT_MAX)
+            cout << dist[src - 1][dst - 1];
+        else
+            cout << "Not connected";
+    }
+}
