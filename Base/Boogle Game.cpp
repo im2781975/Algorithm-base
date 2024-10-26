@@ -25,7 +25,7 @@ void FindWords(char Boggle[M][N], bool visited[M][N], int i, int j, string str){
         }
     }
     // Erase current character from string and mark visited of current cell as false
-    //str.erase(str.length() - 1);
+    str.erase(str.length() - 1);
     visited[i][j] = false;
 }
 int main(){
