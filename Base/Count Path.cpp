@@ -25,3 +25,21 @@ int main(){
     else
         cout << "No";
 }
+//Count Sink node
+using namespace std;
+int countSink(int node, int edge, int src[], int dst[]){
+    int arr[node] = {0};
+    for(int i = 0; i < node; i++)
+        arr[src[i]] = 1;
+    int cnt = 0;
+    for(int i = 1; i <= node; i++){
+        if(arr[i] == 0)
+            cnt++;
+    }
+    return cnt;
+}
+int main(){
+    int node = 4, edge = 2;
+    int src[]{2, 4}, dst[]{3, 3};
+    cout << countSink(node, edge, src, dst);
+}
