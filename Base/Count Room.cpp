@@ -31,3 +31,39 @@ int main(){
     }
     cout << roomCnt;
 }
+//count the number of rooms and the length of the longest room.
+//length of the longest room means that room which contain maximum floor
+using namespace std;
+int dx[]{0, 0, 1, -1};
+int dy[]{1, -1, 0, 0};
+int DFS(vector <vector <char > > &Building, int x, int y){
+    if(x < 0 || x >= Building.size() || y < 0 || y >= Building[0].size() || Building[x][y] == '#')
+        return 0;
+    int size = 1;
+    Building[x][y] = '#';
+    for(int i = 0; i < 4; i++){
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        size += DFS(Building, nx, ny);
+    }
+    return size;
+}
+int main(){
+    int n, m; cin >> n >> m;
+    vector <vector <char > >Building(n, vector <char>(m));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++)
+            cin >> Building[i][j];
+    }
+    int roomCnt = 0, LongestRoom = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(Building[i][j] == '.'){
+                int roomSize = DFS(Building, i, j);
+                roomCnt++;
+                LongestRoom = max(LongestRoom, roomSize);
+            }
+        }
+    }
+    cout << roomCnt << " " << LongestRoom << '\n';
+}
