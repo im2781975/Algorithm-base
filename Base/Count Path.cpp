@@ -64,3 +64,36 @@ int main(){
     int u = 0, v = 3, k = 2;
     cout << CountWalks(graph, u, v, k);
 }
+//count walks from u to v with exactly k edges
+using namespace std;
+#define node 4
+int CountWalks(int graph[][node], int u, int v, int k){
+    // value count[i][j][e] will store count of possible walks from i to j with exactly k edges
+    int cnt[node][node][k + 1];
+    for(int e = 0; e <= k; e++){
+        for(int i = 0; i < node; i++){
+            for(int j = 0; j < node; j++){
+                cnt[i][j][e] = 0;
+                if(e == 0 && i == j)
+                    cnt[i][j][e] = 1;
+                if(e == 1 && graph[i][j])
+                    cnt[i][j][e] = 1;
+                if(e > 1){
+                    // adjacent of source i
+                    for(int a = 0; a < node; a++){
+                        if(graph[i][a] == 1)
+                        cnt[i][j][e] += cnt[a][j][e - 1];
+                    }
+                }
+            }
+        }
+    }
+    return cnt[u][v][k];
+}
+int main(){
+    int graph[node][node] =
+    { { 0, 1, 1, 1 },{ 0, 0, 0, 1 }
+    ,{ 0, 0, 0, 1 }, { 0, 0, 0, 0 } };
+    int u = 0, v = 3, k = 2;
+    cout << CountWalks(graph, u, v , k);
+}
