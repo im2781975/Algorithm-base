@@ -78,3 +78,39 @@ int main(){
     }
     (IsCyclicDisconnected(adj, node)) ? cout << "Yes" : cout << "No";
 }
+
+using namespace std;
+vector <pair <int, int> >List;
+vector <int> parent;
+int FindParent(int x){
+    if(parent[x] == -1)
+        return x;
+    return FindParent(parent[x]);
+}
+void unionOperation(int a, int b){
+    int parentA = FindParent(a);
+    int parentB = FindParent(b);
+    parent[parentA] = parentB;
+}
+int main(){
+    int node, edge; cin >> node >> edge;
+    parent.resize(node, -1);
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        List.push_back({u, v});
+    }
+    bool cycle = false;
+    for(int i = 0; i < (int)List.size(); i++){
+        pair <int, int> pr = List[i];
+        int a = pr.first, b = pr.second;
+        int parentA = FindParent(a);
+        int parentB = FindParent(b);
+        if(parentA == parentB){
+            cycle = true;
+            break;
+        }
+        else
+            unionOperation(a, b);
+    }
+    (cycle == true) ? cout << "Yes": cout << "No";
+}
