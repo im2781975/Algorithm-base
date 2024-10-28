@@ -98,3 +98,42 @@ int main(){
     }
     cout << cnt;
 }
+//count the number of distinct clusters (connected components) of 1s in a 2D grid (forest)
+using namespace std;
+typedef pair<int, int> node;
+void BFS(vector <vector <int> >&forest, node st, vector <vector <bool> >&visited){
+    queue <node> q; q.push(st);
+    visited[st.first][st.second] = true;
+    while(!q.empty()){
+        node cur = q.front(); q.pop();
+        int dx[]{0, 0, -1, 1};
+        int dy[]{-1, 1, 0, 0};
+        for(int i = 0; i < 4; i++){
+            int nx = cur.first + dx[i];
+            int ny = cur.second + dy[i];
+            if(nx >= 0 && nx < forest.size() && ny >= 0 && ny < forest[0].size() && forest[nx][ny] == 1 && !visited[nx][ny]){
+                q.push(make_pair(nx, ny));
+                visited[nx][ny] = 1;
+            }
+        }
+    }
+}
+int main(){
+    vector <vector <int> > forest = {
+    {0, 1, 1, 0, 0}, {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}, {0, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0}
+    };
+    int cnt = 0;
+    int n = forest.size(), m = forest[0].size();
+    vector <vector <bool> >visited(n, vector <bool> (m));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(forest[i][j] == 1 && !visited[i][j]){
+                BFS(forest, make_pair(i, j), visited);
+                cnt++;
+            }
+        }
+    }
+    cout << cnt;
+}
