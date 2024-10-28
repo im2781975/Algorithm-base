@@ -43,3 +43,24 @@ int main(){
     int src[]{2, 4}, dst[]{3, 3};
     cout << countSink(node, edge, src, dst);
 }
+//count walks from u to v with exactly k edges
+int CountWalks(int graph[][node], int u, int v, int k){
+    if(k == 0 && u == v)
+        return 1;
+    if(k == 1 && graph[u][v])
+        return 1;
+    if(k <= 0)
+        return 0;
+    int cnt = 0;
+    for(int i = 0; i < node; i++){
+        if(graph[u][i] == 1)
+            cnt += CountWalks(graph,i, v, k - 1);
+    }
+    return cnt;
+}
+int main(){
+    int graph[node][node] ={ { 0, 1, 1, 1 },{ 0, 0, 0, 1 },
+    { 0, 0, 0, 1 },{ 0, 0, 0, 0 } };
+    int u = 0, v = 3, k = 2;
+    cout << CountWalks(graph, u, v, k);
+}
