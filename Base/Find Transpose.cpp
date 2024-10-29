@@ -1,35 +1,26 @@
-// find transpose of a graph.
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+//find transpose of a graph.
 using namespace std;
-// function to add an edge from vertex source to vertex dest
-void addEdge(vector<int> adj[], int src, int dest)
-{
-    adj[src].push_back(dest); 
+void addEdge(vector <int> adj[], int u, int v){
+    adj[u].push_back(v);
 }
-// function to print adjacency list of a graph
-void displayGraph(vector<int> adj[], int v)
-{
-    for (int i = 0; i < v; i++) {
-        cout << i << "--> ";
-        for (int j = 0; j < adj[i].size(); j++)
-            cout << adj[i][j] << "  ";
+void Display(vector <int> adj[], int node){
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < adj[i].size(); j++)
+            cout << adj[i][j] << " ";
         cout << "\n";
     }
+    cout << "\n";
 }
-// function to get Transpose of a graph taking adjacency
-// list of given graph and that of Transpose graph
-void transposeGraph(vector<int> adj[], vector<int> transpose[], int v)
-{
-    // traverse the adjacency list of given graph and for each edge (u, v) add an edge (v, u) in the
-    // transpose graph's adjacency list
-    for (int i = 0; i < v; i++)
-        for (int j = 0; j < adj[i].size(); j++)
+void TransposeGraph(vector <int> transpose[], vector <int> adj[], int node){
+    for(int i = 0; i < node; i++){
+        for(int j = 0; j < adj[i].size(); j++)
             addEdge(transpose, adj[i][j], i);
+    }
 }
-int main()
-{
-    int v = 5;
-    vector<int> adj[v];
+int main(){
+    int node = 5;
+    vector <int> adj[node];
     addEdge(adj, 0, 1);
     addEdge(adj, 0, 4);
     addEdge(adj, 0, 3);
@@ -37,11 +28,9 @@ int main()
     addEdge(adj, 3, 2);
     addEdge(adj, 4, 1);
     addEdge(adj, 4, 3);
- 
-    // Finding transpose of graph represented by adjacency list adj[]
-    vector<int> transpose[v];
-    transposeGraph(adj, transpose, v);
-    // displaying adjacency list of transpose 
-    displayGraph(transpose, v);
-    return 0;
+    vector <int> transpose[node];
+    
+    TransposeGraph(transpose, adj, node);
+    //Display(adj, node);
+    Display(transpose, node);
 }
