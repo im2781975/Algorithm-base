@@ -27,3 +27,8 @@ int main(){
         cout << "\n";
     }
 }
+using namespace std;
+int main(){
+    int node, edge; cin >> node >> edge;
+    cout << "Maximum number of edges that can be added to maintain DAG is: " << (node * (node - 1) /2) - edge;
+}
