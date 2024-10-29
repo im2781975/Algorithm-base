@@ -1,28 +1,18 @@
+#include<bits/stdc++.h>
 //generate a graph for a given fixed degrees
-#include <bits/stdc++.h>
 using namespace std;
-//  print the adjacency matrix.
-void printMat(int degseq[], int n)
-{
-    // n is number of vertices
-    int mat[n][n];
-    memset(mat, 0, sizeof(mat));
- 
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
- 
-            // For each pair of vertex decrement the degree of both vertex.
-            if (degseq[i] > 0 && degseq[j] > 0) {
-                degseq[i]--;
-                degseq[j]--;
-                mat[i][j] = 1;
-                mat[j][i] = 1;
+void print(int DegSeq[], int n){
+    int mat[n][n] = {0};
+    for(int i = 0; i < n; i++){
+        for(int j = i + 1; j < n; j++){
+            if(DegSeq[i] > 0 && DegSeq[j]){
+                DegSeq[i]--; DegSeq[j];
+                mat[i][j] = 1; mat[j][i] = 1;
             }
         }
     }
-    // Print the result in specified format
-    cout << "\n"
-         << setw(3) << "     ";
+    //setw controls the width for alignment, making the output more structured.
+    cout << "\n" << setw(3) << "     ";
     for (int i = 0; i < n; i++)
         cout << setw(3) << "(" << i << ")";
     cout << "\n\n";
@@ -30,13 +20,11 @@ void printMat(int degseq[], int n)
         cout << setw(4) << "(" << i << ")";
         for (int j = 0; j < n; j++)
             cout << setw(5) << mat[i][j];
-        cout << "\n";
     }
+    cout << "\n";
 }
-int main()
-{
-    int degseq[] = { 2, 2, 1, 1, 1 };
-    int n = sizeof(degseq) / sizeof(degseq[0]);
-    printMat(degseq, n);
-    return 0;
+int main(){
+    int DegSeq[]{2, 2, 1, 1, 1};
+    int n = sizeof(DegSeq)/sizeof(DefSeq[0]);
+    print(DegSeq, n);
 }
