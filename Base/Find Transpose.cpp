@@ -34,3 +34,23 @@ int main(){
     //Display(adj, node);
     Display(transpose, node);
 }
+//Finds the representative of the set that i is an element of
+using namespace std;
+const int maxn = 1005;
+int parent[maxn];
+int Find(int i){
+    if(parent[i] == i)
+        return i;
+    return Find(parent[i]);
+}
+int main(){
+    for(int i = 0; i < maxn; i++)
+        parent[i] = i;
+    int rep1 = Find(1);
+    int rep2 = Find(2);
+    if(rep1 != rep2)
+        parent[rep1] = rep2;
+    int val = 1;
+    int rep = Find(val);
+    cout << "The representative of element " << val << " is: " << rep;
+}
