@@ -4,7 +4,7 @@ using namespace std;
 bool Isvalid(const int Deg[], int n){
     int DegreeSum = 0;
     for(int i = 0; i < n; i++){
-        if(Def[i] < 0 || Deg[i] >= n)
+        if(Deg[i] < 0 || Deg[i] >= n)
             return false;
         DegreeSum += Deg[i]
     }
