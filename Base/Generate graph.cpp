@@ -20,11 +20,12 @@ void print(int DegSeq[], int n){
         cout << setw(4) << "(" << i << ")";
         for (int j = 0; j < n; j++)
             cout << setw(5) << mat[i][j];
+        cout << "\n\n";
     }
     cout << "\n";
 }
 int main(){
     int DegSeq[]{2, 2, 1, 1, 1};
-    int n = sizeof(DegSeq)/sizeof(DefSeq[0]);
+    int n = sizeof(DegSeq)/sizeof(DegSeq[0]);
     print(DegSeq, n);
 }
