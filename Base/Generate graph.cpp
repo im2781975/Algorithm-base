@@ -6,7 +6,7 @@ bool Isvalid(const int Deg[], int n){
     for(int i = 0; i < n; i++){
         if(Deg[i] < 0 || Deg[i] >= n)
             return false;
-        DegreeSum += Deg[i]
+        DegreeSum += Deg[i];
     }
     return DegreeSum % 2 == 0;
 }
@@ -39,5 +39,7 @@ int main(){
     if(Isvalid(DegSeq, n))
         print(DegSeq, n);
     else
-        cout << "The degree sequence is invalid for generating a simple undirected graph.\n".
+        cout << "The degree sequence is invalid for generating a simple undirected graph.\n";
 }
+
+
