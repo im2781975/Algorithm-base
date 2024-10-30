@@ -208,3 +208,56 @@ int main(){
         cout << "The degree sequence is invalid for generating a simple undirected graph.\n";
 }
 
+// incremental connectivity
+using namespace std;
+int root(int arr[], int i){
+    while(arr[i] != i){
+        arr[i] = arr[arr[i]];
+        i = arr[i];
+    }
+    return i;
+}
+void weightUnion(int arr[], int Rank[], int a, int b){
+    int rootA = root(arr, a);
+    int rootB = root(arr, b);
+    if(Rank[rootA] < Rank[rootB]){
+        arr[rootA]  = arr[rootB];
+        Rank[rootB] += Rank[rootA];
+    }
+    else{
+        arr[rootB] = arr[rootA];
+        Rank[rootA] += Rank[rootB];
+    }
+}
+bool Equal(int arr[], int a, int b){
+    return (root(arr, a) == root(arr, b));
+}
+void query(int type, int x, int y, int arr[], int Rank[]){
+    if(type == 1){
+        (Equal(arr, x, y)) ? cout << "Yes\n" : cout << "No\n";
+    }
+    else if(type == 2){
+        if(!Equal(arr, x, y))
+            weightUnion(arr, Rank, x, y);
+    }
+}
+int main(){
+    int n = 7;
+    int arr[n], Rank[n];
+    for(int i = 0; i < n; i++){
+        arr[i] = i;
+        Rank[i] = 1;
+    }
+    int q = 11;
+    query(1, 0, 1, arr, Rank);
+    query(2, 0, 1, arr, Rank);
+    query(2, 1, 2, arr, Rank);
+    query(1, 0, 2, arr, Rank);
+    query(2, 0, 2, arr, Rank);
+    query(2, 2, 3, arr, Rank);
+    query(2, 3, 4, arr, Rank);
+    query(1, 0, 5, arr, Rank);
+    query(2, 4, 5, arr, Rank);
+    query(2, 5, 6, arr, Rank);
+    query(1, 2, 6, arr, Rank);
+}
