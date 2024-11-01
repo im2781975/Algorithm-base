@@ -137,3 +137,65 @@ int main(){
     }
     cout << cnt;
 }
+using namespace std;
+#define N 100
+int arr[N][N], visited[N][N];
+int row, col;
+int dx[]{-1, 1, 0, 0};
+int dy[]{0, 0, -1, 1};
+bool IsInside(int x, int y){
+    return (x >= 0 && x < row && y >= 0 && y < col);
+}
+bool IsForbidden(int x, int y){
+    return (arr[x][y] == -1);
+}
+void BFS(pair <int, int> src){
+    queue <pair <int, int> >q;
+    visited[src.first][src.second] = 1;
+    q.push(src);
+    while(!q.empty()){
+        pair <int, int> head = q.front();
+        q.pop();
+        int x = head.first, y = head.second;
+        for(int i = 0; i < 4; i++){
+            int newx = x + dx[i];
+            int newy = y + dy[i];
+            
+            if(IsInside(newx, newy) && !IsForbidden(newx, newy) && !visited[newx][newy]){
+                visited[newx][newy] = 1;
+                q.push({newx, newy});
+            }
+        }
+    }
+}
+pair <int, int> FindUnvisited(){
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            if(arr[i][j] == 0 && visited[i][j] == 0)
+                return {i, j};
+        }
+    }
+    return {-1, -1};
+}
+int main(){
+    cin >> row >> col;
+    for(int i = 0; i < row; i++){
+        string str; cin >> str;
+        for(int j = 0; j < col; j++){
+            if(str[j] == '#')
+                arr[i][j] = -1;
+            else
+                arr[i][j] = 0;
+                
+        }
+    }
+    int roomCnt = 0;
+    while(true){
+        pair <int, int> unvisited = FindUnvisited();
+        if(unvisited == pair <int, int> (-1, -1))
+            break;
+        BFS(unvisited);
+        roomCnt++;
+    }
+    cout << roomCnt;
+}
