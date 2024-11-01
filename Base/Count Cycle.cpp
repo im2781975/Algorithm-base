@@ -53,3 +53,51 @@ int main()
          << countCycles(graph, n);
     return 0;
 }
+// a round trip begins in a city, goes through more other cities, and finally returns to the starting city. 
+//Every intermediate city on the route has to be distinct. print the number of cities on the route. 
+//Then print cities in the order they will be visited.If there are no solutions, print "IMPOSSIBLE".
+using namespace std;
+#define maxn 1006
+vector <int> adj[maxn];
+bool visited[maxn];
+vector <int> route;
+bool foundCycle = false;
+void DFS(int src, int parent){
+    visited[src] = true;
+    route.push_back(src);
+    for(int child : adj[src]){
+        if(!visited[child]){
+            DFS(child, src);
+            if(foundCycle)
+                return;
+        }
+        else if(child != parent && route.size() > 2 && child == route[0]){
+            route.push_back(child);
+            foundCycle = true;
+            return;
+        }
+    }
+    route.pop_back();
+}
+int main(){
+    int node, edge;cin >> node >> edge;
+    for(int i = 0; i < edge; i++){
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    for(int i = 1; i <= node; i++){
+        route.clear();
+        fill(visited, visited + node + 1, false);
+        foundCycle = false;
+        DFS(i, -1);
+        if(foundCycle && route.size() >= 4){
+            //Cycle includes start and end, so size is 4
+            cout << route.size() -1<< "\n";
+            for(int j = 0; j < route.size() - 1; j++)
+                cout << route[j] << " ";
+            return 0;
+        }
+    }
+    cout << "Impossible";
+}
