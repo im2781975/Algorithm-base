@@ -61,3 +61,30 @@ int main(){
     int src, dst; cin >> src >> dst;
     sortestDist(adj, src, dst, node);
 }
+using namespace std;
+#define node 4
+int Travelling(int graph[node][node], int src){
+    vector <int> vertix;
+    for(int i = 0; i < node; i++){
+        if(i != src)
+            vertix.push_back(i);
+    }
+    int minPath = INT_MAX;
+    do{
+        int curPathWeight = 0;
+        int k = src;
+        for(int i = 0; i < vertix.size(); i++){
+            curPathWeight += graph[k][vertix[i]];
+            k = vertix[i];
+        }
+        curPathweight += graph[k][src];
+        minPath = min(minpath, curPathWeight);
+    }while(next_permutation(vertix.begin(), vertix.end()));
+    return minPath;
+}
+int main(){
+    int graph[][node] { 
+        { 0, 10, 15, 20 }, { 10, 0, 35, 25 },
+    { 15, 35, 0, 30 }, { 20, 25, 30, 0 } };
+    cout << Travelling(graph, 0);
+}
